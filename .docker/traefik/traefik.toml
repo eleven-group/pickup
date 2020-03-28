@@ -1,0 +1,29 @@
+################################################################
+# Global configuration
+################################################################
+[global]
+  checkNewVersion = true
+  sendAnonymousUsage = false
+
+[entrypoints]
+  [entrypoints.http]
+  address = ":80"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[log]
+
+[api]
+
+[ping]
+
+[providers.docker]
+
+
+[pikcup]
+email = "louis@narah.io"
+
+[[pikcup.domains]]
+  main = "pickup.localhost"
+  sans = ["api.pickup.localhost", "php.pickup.localhost", "srv.pickup.localhost", "admin.pickup.localhost"]

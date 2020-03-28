@@ -1,0 +1,592 @@
+swagger: '2.0'
+basePath: /
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/absences:
+    get:
+      tags:
+        - Absence
+      operationId: getAbsenceCollection
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves the collection of Absence resources.'
+      responses:
+        200:
+          description: 'Absence collection response'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Absence-read'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          type: integer
+        -
+          name: page
+          in: query
+          required: false
+          description: 'Enable or disable pagination'
+          type: boolean
+    post:
+      tags:
+        - Absence
+      operationId: postAbsenceCollection
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Creates a Absence resource.'
+      responses:
+        201:
+          description: 'Absence resource created'
+          schema:
+            $ref: '#/definitions/Absence-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: absence
+          in: body
+          description: 'The new Absence resource'
+          schema:
+            $ref: '#/definitions/Absence-write'
+  '/api/absences/{id}':
+    get:
+      tags:
+        - Absence
+      operationId: getAbsenceItem
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves a Absence resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'Absence resource response'
+          schema:
+            $ref: '#/definitions/Absence-read'
+        404:
+          description: 'Resource not found'
+    put:
+      tags:
+        - Absence
+      operationId: putAbsenceItem
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Replaces the Absence resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+        -
+          name: absence
+          in: body
+          description: 'The updated Absence resource'
+          schema:
+            $ref: '#/definitions/Absence-write'
+      responses:
+        200:
+          description: 'Absence resource updated'
+          schema:
+            $ref: '#/definitions/Absence-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+    delete:
+      tags:
+        - Absence
+      operationId: deleteAbsenceItem
+      summary: 'Removes the Absence resource.'
+      responses:
+        204:
+          description: 'Absence resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+  /api/files:
+    get:
+      tags:
+        - File
+      operationId: getFileCollection
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves the collection of File resources.'
+      responses:
+        200:
+          description: 'File collection response'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/File'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          type: integer
+        -
+          name: page
+          in: query
+          required: false
+          description: 'Enable or disable pagination'
+          type: boolean
+    post:
+      tags:
+        - File
+      operationId: postFileCollection
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Creates a File resource.'
+      responses:
+        201:
+          description: 'File resource created'
+          schema:
+            $ref: '#/definitions/File'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: file
+          in: body
+          description: 'The new File resource'
+          schema:
+            $ref: '#/definitions/File'
+  '/api/files/{id}':
+    get:
+      tags:
+        - File
+      operationId: getFileItem
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves a File resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'File resource response'
+          schema:
+            $ref: '#/definitions/File'
+        404:
+          description: 'Resource not found'
+    delete:
+      tags:
+        - File
+      operationId: deleteFileItem
+      summary: 'Removes the File resource.'
+      responses:
+        204:
+          description: 'File resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+    put:
+      tags:
+        - File
+      operationId: putFileItem
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Replaces the File resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+        -
+          name: file
+          in: body
+          description: 'The updated File resource'
+          schema:
+            $ref: '#/definitions/File'
+      responses:
+        200:
+          description: 'File resource updated'
+          schema:
+            $ref: '#/definitions/File'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+  /api/invoices:
+    get:
+      tags:
+        - Invoice
+      operationId: getInvoiceCollection
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves the collection of Invoice resources.'
+      responses:
+        200:
+          description: 'Invoice collection response'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Invoice-read'
+      parameters:
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          type: integer
+        -
+          name: page
+          in: query
+          required: false
+          description: 'Enable or disable pagination'
+          type: boolean
+    post:
+      tags:
+        - Invoice
+      operationId: postInvoiceCollection
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Creates a Invoice resource.'
+      responses:
+        201:
+          description: 'Invoice resource created'
+          schema:
+            $ref: '#/definitions/Invoice-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: invoice
+          in: body
+          description: 'The new Invoice resource'
+          schema:
+            $ref: '#/definitions/Invoice-write'
+  '/api/invoices/{id}':
+    get:
+      tags:
+        - Invoice
+      operationId: getInvoiceItem
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves a Invoice resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'Invoice resource response'
+          schema:
+            $ref: '#/definitions/Invoice-read'
+        404:
+          description: 'Resource not found'
+    put:
+      tags:
+        - Invoice
+      operationId: putInvoiceItem
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Replaces the Invoice resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+        -
+          name: invoice
+          in: body
+          description: 'The updated Invoice resource'
+          schema:
+            $ref: '#/definitions/Invoice-write'
+      responses:
+        200:
+          description: 'Invoice resource updated'
+          schema:
+            $ref: '#/definitions/Invoice-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+    delete:
+      tags:
+        - Invoice
+      operationId: deleteInvoiceItem
+      summary: 'Removes the Invoice resource.'
+      responses:
+        204:
+          description: 'Invoice resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+  /api/users:
+    get:
+      tags:
+        - User
+      operationId: getUserCollection
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves the collection of User resources.'
+      responses:
+        200:
+          description: 'User collection response'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          type: string
+        -
+          name: 'order[username]'
+          in: query
+          required: false
+          type: string
+        -
+          name: 'order[email]'
+          in: query
+          required: false
+          type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          type: integer
+        -
+          name: page
+          in: query
+          required: false
+          description: 'Enable or disable pagination'
+          type: boolean
+    post:
+      tags:
+        - User
+      operationId: postUserCollection
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Creates a User resource.'
+      responses:
+        201:
+          description: 'User resource created'
+          schema:
+            $ref: '#/definitions/User-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: user
+          in: body
+          description: 'The new User resource'
+          schema:
+            $ref: '#/definitions/User-write'
+  '/api/users/{id}':
+    get:
+      tags:
+        - User
+      operationId: getUserItem
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Retrieves a User resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: 'User resource response'
+          schema:
+            $ref: '#/definitions/User-read'
+        404:
+          description: 'Resource not found'
+    put:
+      tags:
+        - User
+      operationId: putUserItem
+      consumes:
+        - application/json
+        - application/ld+json
+      produces:
+        - application/json
+        - application/ld+json
+      summary: 'Replaces the User resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+        -
+          name: user
+          in: body
+          description: 'The updated User resource'
+          schema:
+            $ref: '#/definitions/User-write'
+      responses:
+        200:
+          description: 'User resource updated'
+          schema:
+            $ref: '#/definitions/User-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+    delete:
+      tags:
+        - User
+      operationId: deleteUserItem
+      summary: 'Removes the User resource.'
+      responses:
+        204:
+          description: 'User resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          type: string
+securityDefinitions:
+  apiKey:
+    type: apiKey
+    in: header
+    description: 'Value for the Authorization header'
+    name: Authorization
+security:
+  -
+    apiKey: []
+definitions:
+  Absence-read:
+    type: object
+    description: ''
+  Absence-write:
+    type: object
+    description: ''
+  File:
+    type: object
+    description: ''
+    required:
+      - file
+    properties:
+      file: {  }
+      id:
+        readOnly: true
+        type: integer
+      contentUrl:
+        type: string
+  Invoice-read:
+    type: object
+    description: ''
+  Invoice-write:
+    type: object
+    description: ''
+  User-read:
+    type: object
+    description: ''
+    properties:
+      id:
+        readOnly: true
+        type: integer
+      username:
+        type: string
+      email:
+        type: string
+      isActive:
+        type: boolean
+      bio:
+        type: string
+      avatar:
+        type: string
+  User-write:
+    type: object
+    description: ''
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      isActive:
+        type: boolean
+      bio:
+        type: string
+      avatar:
+        type: string
