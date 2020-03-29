@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Absence;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Absence|null find($id, $lockMode = null, $lockVersion = null)
- * @method Absence|null findOneBy(array $criteria, array $orderBy = null)
- * @method Absence[]    findAll()
- * @method Absence[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Product|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Product|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Product[]    findAll()
+ * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AbsenceRepository extends ServiceEntityRepository
+class ProductRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Absence::class);
+        parent::__construct($registry, Product::class);
     }
 
     // /**
-    //  * @return Absence[] Returns an array of Absence objects
+    //  * @return Product[] Returns an array of Product objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class AbsenceRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Absence
+    public function findOneBySomeField($value): ?Product
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

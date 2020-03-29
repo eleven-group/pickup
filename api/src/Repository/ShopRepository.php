@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Invoice;
+use App\Entity\Shop;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Invoice|null find($id, $lockMode = null, $lockVersion = null)
- * @method Invoice|null findOneBy(array $criteria, array $orderBy = null)
- * @method Invoice[]    findAll()
- * @method Invoice[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Shop|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Shop|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Shop[]    findAll()
+ * @method Shop[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InvoiceRepository extends ServiceEntityRepository
+class ShopRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Invoice::class);
+        parent::__construct($registry, Shop::class);
     }
 
     // /**
-    //  * @return Invoice[] Returns an array of Invoice objects
+    //  * @return Shop[] Returns an array of Shop objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class InvoiceRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Invoice
+    public function findOneBySomeField($value): ?Shop
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')

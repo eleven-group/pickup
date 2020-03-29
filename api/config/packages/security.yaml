@@ -32,8 +32,8 @@ security:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
     role_hierarchy:
-        ROLE_HR_MANAGER: ROLE_USER
-        ROLE_ADMIN: [ROLE_HR_MANAGER, ROLE_USER]
+        ROLE_MANAGER: ROLE_USER
+        ROLE_ADMIN: [ROLE_MANAGER, ROLE_USER]
 
 
     access_control:

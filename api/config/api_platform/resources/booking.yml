@@ -1,0 +1,14 @@
+App\Entity\Booking:
+  attributes:
+    pagination_items_per_page: 10
+    normalization_context:
+      groups: ['read']
+    denormalization_context:
+      groups: ['write']
+  collectionOperations:
+    get: ~
+    post: ~
+  itemOperations:
+    get: ~
+    put: ~
+    delete: ~

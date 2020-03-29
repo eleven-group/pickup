@@ -1,4 +1,4 @@
-App\Entity\Invoice:
+App\Entity\Product:
   attributes:
     pagination_items_per_page: 10
     normalization_context:

@@ -10,7 +10,8 @@ RUN set -ex \
         g++ \
         make \
         icu-dev \
-        postgresql-dev
+        postgresql-dev \
+        bash
 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 
@@ -29,4 +30,4 @@ RUN docker-php-ext-enable \
     apcu \
     xdebug
 
-WORKDIR /home/forge-hr/api
+WORKDIR /home/pickup/api

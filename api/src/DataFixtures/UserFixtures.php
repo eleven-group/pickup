@@ -10,8 +10,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserFixtures extends Fixture
 {
     private const ADMIN_ROLE = ['ROLE_ADMIN'];
-    private const HR_MANAGER_ROLE = ['ROLE_HR_MANAGER'];
-    private const EMPLOYEE_ROLE = ['ROLE_USER'];
+    private const MANAGER_ROLE = ['ROLE_MANAGER'];
+    private const USER_ROLE = ['ROLE_USER'];
 
     private $encoder;
 
@@ -26,40 +26,40 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Create an admin user
-        $adminUser = new User('admin');
-        $adminUser->setBio("I'm an admin");
-        $adminUser->setEmail('admin@wedigital.garden');
-        $adminUser->setIsActive(true);
-        $adminUser->setRoles(self::ADMIN_ROLE);
+        $user = new User('admin');
+        $user->setBio("I'm an admin");
+        $user->setEmail('admin@narah.io');
+        $user->setIsActive(true);
+        $user->setRoles(self::ADMIN_ROLE);
 
-        $password = $this->encoder->encodePassword($adminUser, 'admin');
-        $adminUser->setPassword($password);
+        $password = $this->encoder->encodePassword($user, 'admin');
+        $user->setPassword($password);
 
-        $manager->persist($adminUser);
+        $manager->persist($user);
 
         // Create a HR manager user
-        $adminUser = new User('hr');
-        $adminUser->setBio("I'm an HR manager");
-        $adminUser->setEmail('hr@wedigital.garden');
-        $adminUser->setIsActive(true);
-        $adminUser->setRoles(self::HR_MANAGER_ROLE);
+        $user = new User('owner');
+        $user->setBio("I'm a shop owner");
+        $user->setEmail('owner@narah.io');
+        $user->setIsActive(true);
+        $user->setRoles(self::MANAGER_ROLE);
 
-        $password = $this->encoder->encodePassword($adminUser, 'hr');
-        $adminUser->setPassword($password);
+        $password = $this->encoder->encodePassword($user, 'owner');
+        $user->setPassword($password);
 
-        $manager->persist($adminUser);
+        $manager->persist($user);
 
         // Create an employee user
-        $adminUser = new User('employee');
-        $adminUser->setBio("I'm an employee");
-        $adminUser->setEmail('employee@wedigital.garden');
-        $adminUser->setIsActive(true);
-        $adminUser->setRoles(self::EMPLOYEE_ROLE);
+        $user = new User('client');
+        $user->setBio("I'm a client");
+        $user->setEmail('client@narah.io');
+        $user->setIsActive(true);
+        $user->setRoles(self::USER_ROLE);
 
-        $password = $this->encoder->encodePassword($adminUser, 'employee');
-        $adminUser->setPassword($password);
+        $password = $this->encoder->encodePassword($user, 'client');
+        $user->setPassword($password);
 
-        $manager->persist($adminUser);
+        $manager->persist($user);
 
         $manager->flush();
     }

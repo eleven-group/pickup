@@ -3,7 +3,7 @@
       <el-col :span="6">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
-            <h2>Wizards Technologies</h2>
+            <h2>Pickup</h2>
             <h4>Welcome back!</h4>
           </div>
           <div>

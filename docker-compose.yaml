@@ -71,7 +71,7 @@ services:
     ports:
       - "55432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - database:/var/lib/postgresql/data:rw
     environment:
       - POSTGRES_DB=pickup
       - POSTGRES_USER=pickup
@@ -80,5 +80,5 @@ services:
       - "traefik.frontend.rule=Host:db.pickup.localhost"
 
 volumes:
-  db-data: {}
+  database: {}
 

@@ -3,7 +3,7 @@ import { AUTH_LOGIN } from 'react-admin';
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username, password } = params;
-        const request = new Request('http://api.forge.test/api/login_check', {
+        const request = new Request('http://api.pickup.localhost/api/login_check', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),

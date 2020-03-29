@@ -9,7 +9,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AbsenceRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
@@ -19,8 +19,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 class Product
 {
 
-    const STATUS = ['pending', 'validated', 'refused', 'canceled'];
-    const TYPES = ['normal', 'illness', 'free'];
+    const STATUS = ['available', 'unavailable'];
 
     use DateTrait;
     /**
@@ -32,10 +31,10 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="integer")
      * @Groups({"read","write"})
      */
-    private $type;
+    private $quantity;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -56,24 +55,24 @@ class Product
     private $endAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="absences")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Shop", inversedBy="products")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
-    private $owner;
+    private $shop;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getQuantity(): ?int
     {
-        return $this->type;
+        return $this->quantity;
     }
 
-    public function setType(string $type): self
+    public function setQuantity(int $quantity): self
     {
-        $this->type = $type;
+        $this->quantity = $quantity;
 
         return $this;
     }
@@ -122,6 +121,18 @@ class Product
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getShop(): ?Shop
+    {
+        return $this->shop;
+    }
+
+    public function setShop(?Shop $shop): self
+    {
+        $this->shop = $shop;
 
         return $this;
     }

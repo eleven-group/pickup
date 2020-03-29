@@ -2,27 +2,28 @@
     "swagger": "2.0",
     "basePath": "\/",
     "info": {
-        "title": "",
-        "version": "0.0.0"
+        "title": "Pickup backend",
+        "version": "0.1"
     },
     "paths": {
-        "\/api\/absences": {
+        "\/api\/bookings": {
             "get": {
                 "tags": [
-                    "Absence"
+                    "Booking"
                 ],
-                "operationId": "getAbsenceCollection",
+                "operationId": "getBookingCollection",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Retrieves the collection of Absence resources.",
+                "summary": "Retrieves the collection of Booking resources.",
                 "responses": {
                     "200": {
-                        "description": "Absence collection response",
+                        "description": "Booking collection response",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Absence-read"
+                                "$ref": "#\/definitions\/Booking-read"
                             }
                         }
                     }
@@ -36,6 +37,13 @@
                         "type": "integer"
                     },
                     {
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": false,
+                        "description": "The number of items per page",
+                        "type": "integer"
+                    },
+                    {
                         "name": "page",
                         "in": "query",
                         "required": false,
@@ -46,21 +54,23 @@
             },
             "post": {
                 "tags": [
-                    "Absence"
+                    "Booking"
                 ],
-                "operationId": "postAbsenceCollection",
+                "operationId": "postBookingCollection",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Creates a Absence resource.",
+                "summary": "Creates a Booking resource.",
                 "responses": {
                     "201": {
-                        "description": "Absence resource created",
+                        "description": "Booking resource created",
                         "schema": {
-                            "$ref": "#\/definitions\/Absence-read"
+                            "$ref": "#\/definitions\/Booking-read"
                         }
                     },
                     "400": {
@@ -72,26 +82,27 @@
                 },
                 "parameters": [
                     {
-                        "name": "absence",
+                        "name": "booking",
                         "in": "body",
-                        "description": "The new Absence resource",
+                        "description": "The new Booking resource",
                         "schema": {
-                            "$ref": "#\/definitions\/Absence-write"
+                            "$ref": "#\/definitions\/Booking-write"
                         }
                     }
                 ]
             }
         },
-        "\/api\/absences\/{id}": {
+        "\/api\/bookings\/{id}": {
             "get": {
                 "tags": [
-                    "Absence"
+                    "Booking"
                 ],
-                "operationId": "getAbsenceItem",
+                "operationId": "getBookingItem",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Retrieves a Absence resource.",
+                "summary": "Retrieves a Booking resource.",
                 "parameters": [
                     {
                         "name": "id",
@@ -102,9 +113,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Absence resource response",
+                        "description": "Booking resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Absence-read"
+                            "$ref": "#\/definitions\/Booking-read"
                         }
                     },
                     "404": {
@@ -114,16 +125,18 @@
             },
             "put": {
                 "tags": [
-                    "Absence"
+                    "Booking"
                 ],
-                "operationId": "putAbsenceItem",
+                "operationId": "putBookingItem",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Replaces the Absence resource.",
+                "summary": "Replaces the Booking resource.",
                 "parameters": [
                     {
                         "name": "id",
@@ -132,19 +145,19 @@
                         "type": "string"
                     },
                     {
-                        "name": "absence",
+                        "name": "booking",
                         "in": "body",
-                        "description": "The updated Absence resource",
+                        "description": "The updated Booking resource",
                         "schema": {
-                            "$ref": "#\/definitions\/Absence-write"
+                            "$ref": "#\/definitions\/Booking-write"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Absence resource updated",
+                        "description": "Booking resource updated",
                         "schema": {
-                            "$ref": "#\/definitions\/Absence-read"
+                            "$ref": "#\/definitions\/Booking-read"
                         }
                     },
                     "400": {
@@ -157,13 +170,13 @@
             },
             "delete": {
                 "tags": [
-                    "Absence"
+                    "Booking"
                 ],
-                "operationId": "deleteAbsenceItem",
-                "summary": "Removes the Absence resource.",
+                "operationId": "deleteBookingItem",
+                "summary": "Removes the Booking resource.",
                 "responses": {
                     "204": {
-                        "description": "Absence resource deleted"
+                        "description": "Booking resource deleted"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -186,7 +199,8 @@
                 ],
                 "operationId": "getFileCollection",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Retrieves the collection of File resources.",
                 "responses": {
@@ -209,6 +223,13 @@
                         "type": "integer"
                     },
                     {
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": false,
+                        "description": "The number of items per page",
+                        "type": "integer"
+                    },
+                    {
                         "name": "page",
                         "in": "query",
                         "required": false,
@@ -223,10 +244,12 @@
                 ],
                 "operationId": "postFileCollection",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Creates a File resource.",
                 "responses": {
@@ -262,7 +285,8 @@
                 ],
                 "operationId": "getFileItem",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Retrieves a File resource.",
                 "parameters": [
@@ -314,10 +338,12 @@
                 ],
                 "operationId": "putFileItem",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Replaces the File resource.",
                 "parameters": [
@@ -350,25 +376,71 @@
                         "description": "Resource not found"
                     }
                 }
-            }
-        },
-        "\/api\/invoices": {
-            "get": {
+            },
+            "patch": {
                 "tags": [
-                    "Invoice"
+                    "File"
                 ],
-                "operationId": "getInvoiceCollection",
+                "operationId": "patchFileItem",
+                "summary": "Updates the File resource.",
+                "consumes": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Retrieves the collection of Invoice resources.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "body",
+                        "description": "The updated File resource",
+                        "schema": {
+                            "$ref": "#\/definitions\/File"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Invoice collection response",
+                        "description": "File resource updated",
+                        "schema": {
+                            "$ref": "#\/definitions\/File"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
+        "\/api\/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "operationId": "getProductCollection",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves the collection of Product resources.",
+                "responses": {
+                    "200": {
+                        "description": "Product collection response",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Invoice-read"
+                                "$ref": "#\/definitions\/Product-read"
                             }
                         }
                     }
@@ -382,6 +454,13 @@
                         "type": "integer"
                     },
                     {
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": false,
+                        "description": "The number of items per page",
+                        "type": "integer"
+                    },
+                    {
                         "name": "page",
                         "in": "query",
                         "required": false,
@@ -392,21 +471,23 @@
             },
             "post": {
                 "tags": [
-                    "Invoice"
+                    "Product"
                 ],
-                "operationId": "postInvoiceCollection",
+                "operationId": "postProductCollection",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Creates a Invoice resource.",
+                "summary": "Creates a Product resource.",
                 "responses": {
                     "201": {
-                        "description": "Invoice resource created",
+                        "description": "Product resource created",
                         "schema": {
-                            "$ref": "#\/definitions\/Invoice-read"
+                            "$ref": "#\/definitions\/Product-read"
                         }
                     },
                     "400": {
@@ -418,26 +499,27 @@
                 },
                 "parameters": [
                     {
-                        "name": "invoice",
+                        "name": "product",
                         "in": "body",
-                        "description": "The new Invoice resource",
+                        "description": "The new Product resource",
                         "schema": {
-                            "$ref": "#\/definitions\/Invoice-write"
+                            "$ref": "#\/definitions\/Product-write"
                         }
                     }
                 ]
             }
         },
-        "\/api\/invoices\/{id}": {
+        "\/api\/products\/{id}": {
             "get": {
                 "tags": [
-                    "Invoice"
+                    "Product"
                 ],
-                "operationId": "getInvoiceItem",
+                "operationId": "getProductItem",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Retrieves a Invoice resource.",
+                "summary": "Retrieves a Product resource.",
                 "parameters": [
                     {
                         "name": "id",
@@ -448,9 +530,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Invoice resource response",
+                        "description": "Product resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/Invoice-read"
+                            "$ref": "#\/definitions\/Product-read"
                         }
                     },
                     "404": {
@@ -460,16 +542,18 @@
             },
             "put": {
                 "tags": [
-                    "Invoice"
+                    "Product"
                 ],
-                "operationId": "putInvoiceItem",
+                "operationId": "putProductItem",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
-                "summary": "Replaces the Invoice resource.",
+                "summary": "Replaces the Product resource.",
                 "parameters": [
                     {
                         "name": "id",
@@ -478,19 +562,19 @@
                         "type": "string"
                     },
                     {
-                        "name": "invoice",
+                        "name": "product",
                         "in": "body",
-                        "description": "The updated Invoice resource",
+                        "description": "The updated Product resource",
                         "schema": {
-                            "$ref": "#\/definitions\/Invoice-write"
+                            "$ref": "#\/definitions\/Product-write"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Invoice resource updated",
+                        "description": "Product resource updated",
                         "schema": {
-                            "$ref": "#\/definitions\/Invoice-read"
+                            "$ref": "#\/definitions\/Product-read"
                         }
                     },
                     "400": {
@@ -503,13 +587,215 @@
             },
             "delete": {
                 "tags": [
-                    "Invoice"
+                    "Product"
                 ],
-                "operationId": "deleteInvoiceItem",
-                "summary": "Removes the Invoice resource.",
+                "operationId": "deleteProductItem",
+                "summary": "Removes the Product resource.",
                 "responses": {
                     "204": {
-                        "description": "Invoice resource deleted"
+                        "description": "Product resource deleted"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "\/api\/shops": {
+            "get": {
+                "tags": [
+                    "Shop"
+                ],
+                "operationId": "getShopCollection",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves the collection of Shop resources.",
+                "responses": {
+                    "200": {
+                        "description": "Shop collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Shop-read"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "owner.id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "owner.id[]",
+                        "in": "query",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "description": "The collection page number",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": false,
+                        "description": "The number of items per page",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "description": "Enable or disable pagination",
+                        "type": "boolean"
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Shop"
+                ],
+                "operationId": "postShopCollection",
+                "consumes": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Creates a Shop resource.",
+                "responses": {
+                    "201": {
+                        "description": "Shop resource created",
+                        "schema": {
+                            "$ref": "#\/definitions\/Shop-read"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "shop",
+                        "in": "body",
+                        "description": "The new Shop resource",
+                        "schema": {
+                            "$ref": "#\/definitions\/Shop-write"
+                        }
+                    }
+                ]
+            }
+        },
+        "\/api\/shops\/{id}": {
+            "get": {
+                "tags": [
+                    "Shop"
+                ],
+                "operationId": "getShopItem",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves a Shop resource.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shop resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Shop-read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Shop"
+                ],
+                "operationId": "putShopItem",
+                "consumes": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Replaces the Shop resource.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "shop",
+                        "in": "body",
+                        "description": "The updated Shop resource",
+                        "schema": {
+                            "$ref": "#\/definitions\/Shop-write"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shop resource updated",
+                        "schema": {
+                            "$ref": "#\/definitions\/Shop-read"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Shop"
+                ],
+                "operationId": "deleteShopItem",
+                "summary": "Removes the Shop resource.",
+                "responses": {
+                    "204": {
+                        "description": "Shop resource deleted"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -532,7 +818,8 @@
                 ],
                 "operationId": "getUserCollection",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Retrieves the collection of User resources.",
                 "responses": {
@@ -573,6 +860,13 @@
                         "type": "integer"
                     },
                     {
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": false,
+                        "description": "The number of items per page",
+                        "type": "integer"
+                    },
+                    {
                         "name": "page",
                         "in": "query",
                         "required": false,
@@ -587,10 +881,12 @@
                 ],
                 "operationId": "postUserCollection",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Creates a User resource.",
                 "responses": {
@@ -626,7 +922,8 @@
                 ],
                 "operationId": "getUserItem",
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Retrieves a User resource.",
                 "parameters": [
@@ -655,10 +952,12 @@
                 ],
                 "operationId": "putUserItem",
                 "consumes": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "produces": [
-                    "application\/vnd.api+json"
+                    "application\/vnd.api+json",
+                    "application\/json"
                 ],
                 "summary": "Replaces the User resource.",
                 "parameters": [
@@ -731,11 +1030,11 @@
         }
     ],
     "definitions": {
-        "Absence-read": {
+        "Booking-read": {
             "type": "object",
             "description": ""
         },
-        "Absence-write": {
+        "Booking-write": {
             "type": "object",
             "description": ""
         },
@@ -756,13 +1055,127 @@
                 }
             }
         },
-        "Invoice-read": {
+        "Product-read": {
             "type": "object",
-            "description": ""
+            "description": "",
+            "properties": {
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "startAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "endAt": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
         },
-        "Invoice-write": {
+        "Product-write": {
             "type": "object",
-            "description": ""
+            "description": "",
+            "properties": {
+                "quantity": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "startAt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "endAt": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Shop-read": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "streetAdress": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "geocode": {
+                    "type": "string"
+                },
+                "openingHours": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/Product-read"
+                    }
+                }
+            }
+        },
+        "Shop-write": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "streetAdress": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                },
+                "geocode": {
+                    "type": "string"
+                },
+                "openingHours": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/Product-write"
+                    }
+                }
+            }
         },
         "User-read": {
             "type": "object",
@@ -780,12 +1193,6 @@
                 },
                 "isActive": {
                     "type": "boolean"
-                },
-                "bio": {
-                    "type": "string"
-                },
-                "avatar": {
-                    "type": "string"
                 }
             }
         },
@@ -804,12 +1211,6 @@
                 },
                 "isActive": {
                     "type": "boolean"
-                },
-                "bio": {
-                    "type": "string"
-                },
-                "avatar": {
-                    "type": "string"
                 }
             }
         }

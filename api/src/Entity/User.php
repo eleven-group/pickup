@@ -46,41 +46,19 @@ class User implements UserInterface
     private $isActive;
 
     /**
-     * @Groups({"read", "write"})
-     * @ORM\Column(type="string")
-     */
-    private $bio;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
-     * @Groups({"read", "write"})
-     * @ORM\ManyToOne(targetEntity="App\Entity\File")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity="Shop")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
-    public $avatar;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Absence", mappedBy="owner")
-     * @Groups({"read","write"})
-     */
-    public $absences;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Invoice", mappedBy="owner")
-     * @Groups({"read","write"})
-     */
-    public $invoices;
+    public $shop;
 
     public function __construct($username)
     {
         $this->isActive = true;
-        $this->username = $username;
-        $this->absences = new ArrayCollection();
-        $this->invoices = new ArrayCollection();
     }
 
     public function getUsername(): ?string
@@ -182,64 +160,46 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Absence[]
+     * @return Collection|Product[]
      */
-    public function getAbsences(): Collection
+    public function getProducts(): Collection
     {
-        return $this->absences;
+        return $this->products;
     }
 
-    public function addAbsence(Absence $absence): self
+    public function addProduct(Product $product): self
     {
-        if (!$this->absences->contains($absence)) {
-            $this->absences[] = $absence;
-            $absence->setOwner($this);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setOwner($this);
         }
 
         return $this;
     }
 
-    public function removeAbsence(Absence $absence): self
+    public function removeProduct(Product $product): self
     {
-        if ($this->absences->contains($absence)) {
-            $this->absences->removeElement($absence);
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
             // set the owning side to null (unless already changed)
-            if ($absence->getOwner() === $this) {
-                $absence->setOwner(null);
+            if ($product->getOwner() === $this) {
+                $product->setOwner(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Invoice[]
-     */
-    public function getInvoices(): Collection
+    public function getShop(): ?Shop
     {
-        return $this->invoices;
+        return $this->shop;
     }
 
-    public function addInvoice(Invoice $invoice): self
+    public function setShop(?Shop $shop): self
     {
-        if (!$this->invoices->contains($invoice)) {
-            $this->invoices[] = $invoice;
-            $invoice->setOwner($this);
-        }
+        $this->shop = $shop;
 
         return $this;
     }
 
-    public function removeInvoice(Invoice $invoice): self
-    {
-        if ($this->invoices->contains($invoice)) {
-            $this->invoices->removeElement($invoice);
-            // set the owning side to null (unless already changed)
-            if ($invoice->getOwner() === $this) {
-                $invoice->setOwner(null);
-            }
-        }
-
-        return $this;
-    }
 }

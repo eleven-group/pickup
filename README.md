@@ -43,7 +43,6 @@ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_
 openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 ```
 
-
 ## Architecture :
 
 We split the architecture of the project in 3 parts :
@@ -52,3 +51,13 @@ We split the architecture of the project in 3 parts :
 - The front, this is the frontoffice of the project, the user will pick products on it (vuejs)
 - The admin, this is the backoffice for the adminstrator and the manager, they have access to everything (react, react-admin)
 
+## Links of the app in dev :
+
+Backend : http://api.pickup.localhost/
+Frontend : http://pickup.localhost/
+Admin : http://admin.pickup.localhost/
+
+## Troubleshooting :
+
+If you any issue regarding an unreadle pem key , try to run
+```chmod -R 777 config/jwt/``` inside the api container
