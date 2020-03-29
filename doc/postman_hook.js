@@ -1,14 +1,14 @@
 const baseURL = pm.variables.get("baseURL");
 
 const echoPostRequest = {
-  url: `${baseURL}/login`,
+  url: `${baseURL}/api/login_check`,
   method: 'POST',
   header: 'Content-Type:application/json',
   body: {
     mode: 'application/json',
     raw: JSON.stringify(
         {
-          email:'admin@admin.com',
+          username:'admin',
           password:'admin',
         })
   }
