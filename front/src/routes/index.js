@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import authApi from '@/api/auth';
 
 import Home from '@/views/Home.vue';
 import NotFound from '@/views/errors/NotFound.vue';
@@ -12,8 +11,6 @@ import usersRoutes from '@/routes/users';
 import invoicesRoutes from '@/routes/invoices';
 import filesRoutes from '@/routes/files';
 import productsRoutes from '@/routes/products';
-
-import store from '@/store';
 
 Vue.use(Router);
 
@@ -47,7 +44,7 @@ export const router = new Router({
   ]
 });
 
-router.beforeEach(async (to, from, next) => {
+/* router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
     try {
       const response = await authApi.getUserInfo();
@@ -67,6 +64,6 @@ router.beforeEach(async (to, from, next) => {
   } else {
     return next();
   }
-});
+}); */
 
 export default router;
