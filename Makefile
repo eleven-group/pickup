@@ -7,6 +7,10 @@ down:
 run:
 	docker-compose up --build
 
+restart:
+	make down && \
+	make up
+
 sh-php:
 	docker exec -ti pickup-php sh
 

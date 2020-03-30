@@ -3,7 +3,7 @@ version: '3'
 services:
   traefik:
     container_name: pickup-traefik
-    image: traefik:latest
+    image: traefik:1.7-alpine
     command: --api --docker
     ports:
       - "80:80"
