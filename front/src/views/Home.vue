@@ -46,34 +46,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import Map from '@/components/Map/';
 
 export default {
   name: 'Home',
   components: {
     Map
-  },
-  computed: mapState({
-    longitude: state => state.location.longitude,
-    latitude: state => state.location.latitude
-  }),
-  created: function () {
-    if (navigator.geolocation) {
-      const success = ({coords}) => {
-        const {latitude, longitude} = coords;
-        this.$store.commit('location/setLatitude', latitude);
-        this.$store.commit('location/setLongitude', longitude);
-      };
-
-      const error = err => {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      };
-
-      navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-      console.log('Geolocation is not supported for this Browser/OS.');
-    }
   }
 };
 </script>

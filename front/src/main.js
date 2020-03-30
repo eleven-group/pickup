@@ -8,10 +8,10 @@ import App from '@/App.vue';
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-Vue.use(ElementUI);
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
+Vue.use(ElementUI);
 Vue.config.productionTip = process.env.NODE_ENV !== 'production';
 
 new Vue({
