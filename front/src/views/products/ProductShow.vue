@@ -10,7 +10,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
   name: 'ProductShow',
   computed: mapState({
-    product: state => state.products.product,
+    product: state => state.products.product
   }),
   methods: {
     ...mapActions('products', [

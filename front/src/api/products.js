@@ -12,5 +12,5 @@ export default {
   },
   postProduct (resource) {
     return axios.put(`/products`, { resource });
-  },
+  }
 };

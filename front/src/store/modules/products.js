@@ -33,9 +33,9 @@ const actions = {
     commit('setProduct', res);
   },
   async postProduct ({ commit }, resource) {
-    const { data: res } = await resourceApi.putProduct(id, resource);
+    const { data: res } = await resourceApi.postProduct(resource);
     commit('setProduct', res);
-  },
+  }
 };
 
 export default {

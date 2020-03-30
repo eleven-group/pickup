@@ -41,13 +41,9 @@
 </template>
 
 <script>
-import BellIcon from 'vue-material-design-icons/Bell.vue';
 import { mapState } from 'vuex';
 export default {
   name: 'LayoutDefault',
-  components: {
-    BellIcon
-  },
   computed: mapState({
     user: state => state.auth.user
   })
