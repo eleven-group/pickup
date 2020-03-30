@@ -58,6 +58,7 @@ class User implements UserInterface
 
     public function __construct($username)
     {
+        $this->setUsername($username);
         $this->isActive = true;
     }
 
