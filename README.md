@@ -18,6 +18,7 @@ All these commands preceded by ```make``` will excute the following actions :
 - *up* : start all the services
 - *down* : stop all the services
 - *run* : run all the services
+- *restart* : restart and re-up the stack
 - *php-dev* : create dev env with fixture
 - *sh-php* : get inside the php container
 - *sh-front* : get inside the front container
@@ -42,6 +43,8 @@ cd /home/pickup/api
 openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
 openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 ```
+
+**You need to write your passphrase in api/.env.local**
 
 ## Architecture :
 
