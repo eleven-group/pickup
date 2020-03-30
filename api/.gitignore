@@ -13,3 +13,6 @@
 ###< lexik/jwt-authentication-bundle ###
 
 .idea/
+
+/public/media/
+ 
