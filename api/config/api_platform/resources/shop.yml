@@ -12,3 +12,8 @@ App\Entity\Shop:
     get: ~
     put: ~
     delete: ~
+  properties:
+    product:
+      subresource:
+        resourceClass: 'App\Entity\Products'
+        collection: true

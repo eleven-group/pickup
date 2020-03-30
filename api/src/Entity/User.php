@@ -9,10 +9,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Table(name="account")
  * @ORM\Entity
+ *
+ * @ApiResource(
+ *   attributes={
+ *     "normalization_context"={
+ *       "groups"={"read"},
+ *       "enable_max_depth"=true
+ *     },
+ *     "denormalization_context"={"groups"={"write"}},
+ *   },
+ * )
+ *
  * @ApiFilter(OrderFilter::class, properties={"id", "username", "email"}, arguments={"orderParameterName"="order"})
  */
 class User implements UserInterface
@@ -51,10 +64,14 @@ class User implements UserInterface
     private $roles = [];
 
     /**
-     * @ORM\OneToOne(targetEntity="Shop")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @Groups({"read", "write"})
+     *
+     * @MaxDepth(2)
+     * @ORM\OneToOne(targetEntity="Shop", mappedBy="owner")
      */
     public $shop;
+
+
 
     public function __construct($username)
     {
@@ -132,30 +149,6 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getAvatar(): ?File
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?File $avatar): self
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    public function getBio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setBio(string $bio): self
-    {
-        $this->bio = $bio;
 
         return $this;
     }

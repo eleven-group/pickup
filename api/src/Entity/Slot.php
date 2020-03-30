@@ -41,7 +41,7 @@ class Slot
 
     /**
      * @Groups({"read", "write"})
-     * @ORM\OneToOne(targetEntity="Booking")
+     * @ORM\OneToOne(targetEntity="Booking", inversedBy="slot")
      * @ORM\JoinColumn(name="slot_id", referencedColumnName="id")
      */
     private $booking;

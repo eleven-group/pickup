@@ -27,7 +27,6 @@ class UserFixtures extends Fixture
     {
         // Create an admin user
         $user = new User('admin');
-        $user->setBio("I'm an admin");
         $user->setEmail('admin@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::ADMIN_ROLE);
@@ -39,7 +38,6 @@ class UserFixtures extends Fixture
 
         // Create a HR manager user
         $user = new User('owner');
-        $user->setBio("I'm a shop owner");
         $user->setEmail('owner@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::MANAGER_ROLE);
@@ -51,7 +49,6 @@ class UserFixtures extends Fixture
 
         // Create an employee user
         $user = new User('client');
-        $user->setBio("I'm a client");
         $user->setEmail('client@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::USER_ROLE);

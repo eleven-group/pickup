@@ -8,9 +8,21 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
+ *
+ * @ApiResource(
+ *   attributes={
+ *     "normalization_context"={
+ *       "groups"={"read"},
+ *       "enable_max_depth"=true
+ *     },
+ *     "denormalization_context"={"groups"={"write"}},
+ *   },
+ * )
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
@@ -69,19 +81,25 @@ class Shop
     private $openingHours;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", mappedBy="shop")
+     * @Groups({"read", "write"})
+     *
+     * @ORM\OneToOne(targetEntity="User", inversedBy="shop")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     *
+     * @MaxDepth(1)
      */
     private $owner;
 
     /**
-     * @Groups({"read", "write"})
-     * @ORM\Column(type="boolean")
+     *  @Groups({"read", "write"})
+     *
+     *  @ORM\Column(type="boolean")
      */
     private $isActive;
 
     /**
+     *
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
-     * @Groups({"read","write"})
      */
     public $products;
 

@@ -10,7 +10,7 @@ import {
 
 } from 'react-admin';
 
-export const InvoiceList = (props) => (
+export const ProductList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="id" />

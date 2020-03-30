@@ -1,13 +1,15 @@
-import { AUTH_LOGIN } from 'react-admin';
+import {
+    AUTH_LOGIN,
+    AUTH_LOGOUT,
+    AUTH_ERROR,
+    AUTH_CHECK,
+    AUTH_GET_PERMISSIONS
+} from 'react-admin';
 
-const BASE_URL = process.env.API_ENDPOINT;
-const LOGIN_ROUTE = process.env.LOGIN_ROUTE;
 
-
-export default (type, params) => {
-    if (type === AUTH_LOGIN) {
-        const { username, password } = params;
-        const request = new Request(`${BASE_URL}/${LOGIN_ROUTE}`, {
+const authProvider = {
+    login: ({ username, password }) => {
+        const request = new Request('http://api.pickup.localhost/api/login_check', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -20,9 +22,30 @@ export default (type, params) => {
                 }
                 return response.json();
             })
-            .then(({ token }) => {
+            .then(({ token, data }) => {
                 localStorage.setItem('token', token);
+                localStorage.setItem('role', data.role);
+                localStorage.setItem('userId', data.id);
             });
-    }
-    return Promise.resolve();
+    },
+    logout: params => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        localStorage.removeItem('userId');
+        return Promise.resolve();
+    },
+    checkError: error => {
+        // ...
+    },
+    checkAuth: () => {
+        return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
+    },
+    getPermissions: params =>  {
+        const role = localStorage.getItem('role');
+        return role ? Promise.resolve(role) : Promise.reject();
+    },
 }
+
+
+export default authProvider;
+
