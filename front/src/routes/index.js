@@ -12,7 +12,6 @@ import usersRoutes from '@/routes/users';
 import invoicesRoutes from '@/routes/invoices';
 import filesRoutes from '@/routes/files';
 import productsRoutes from '@/routes/products';
-import authRoutes from '@/routes/auth';
 
 import store from '@/store';
 
@@ -29,10 +28,7 @@ export const router = new Router({
         {
           path: '/',
           name: 'home',
-          component: Home,
-          meta: {
-            auth: true
-          }
+          component: Home
         },
         ...usersRoutes,
         ...invoicesRoutes,
@@ -42,10 +38,7 @@ export const router = new Router({
     },
     {
       component: LayoutModal,
-      path: '',
-      children: [
-        ...authRoutes
-      ]
+      path: ''
     },
     {
       path: '*',
