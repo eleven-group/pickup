@@ -38,33 +38,30 @@
 
     <el-row>
       <el-col :span="24" class="map">
-        <iframe
-          height="600"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-          :src="`https://www.openstreetmap.org/export/embed.html?bbox=${longitude}%2C${latitude}%2C${longitude}%2C${latitude}&amp;layer=mapnik&amp;marker=${latitude}%2C${longitude}`"
-        ></iframe>
+        <Map />
       </el-col>
     </el-row>
-
     <!-- To be changed. Placed here as placeholder for demo purposes. -->
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import Map from '@/components/Map/';
 
 export default {
   name: 'Home',
+  components: {
+    Map
+  },
   computed: mapState({
     longitude: state => state.location.longitude,
     latitude: state => state.location.latitude
   }),
   created: function () {
     if (navigator.geolocation) {
-      const success = ({ coords }) => {
-        const { latitude, longitude } = coords;
+      const success = ({coords}) => {
+        const {latitude, longitude} = coords;
         this.$store.commit('location/setLatitude', latitude);
         this.$store.commit('location/setLongitude', longitude);
       };

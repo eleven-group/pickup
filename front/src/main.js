@@ -5,8 +5,13 @@ import '@/assets/scss/global.scss';
 import router from '@/routes';
 import store from '@/store';
 import App from '@/App.vue';
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 Vue.use(ElementUI);
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
 Vue.config.productionTip = process.env.NODE_ENV !== 'production';
 
 new Vue({

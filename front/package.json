@@ -11,8 +11,10 @@
     "axios": "^0.18.0",
     "dotenv": "^7.0.0",
     "element-ui": "^2.13.0",
+    "leaflet": "^1.6.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
+    "vue2-leaflet": "^2.5.2",
     "vuex": "^3.0.1",
     "vuex-persist": "^2.0.0",
     "vuex-rest-api": "^2.10.0"
