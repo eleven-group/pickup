@@ -12,7 +12,7 @@
         "symfony/flex": "^1.2",
         "symfony/framework-bundle": "4.4.*",
         "symfony/yaml": "4.4.*",
-        "vich/uploader-bundle": "^1.9"
+        "vich/uploader-bundle": "^1.13"
     },
     "config": {
         "preferred-install": {

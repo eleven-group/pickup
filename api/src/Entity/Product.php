@@ -7,6 +7,10 @@ use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -60,6 +64,15 @@ class Product
      * @Groups({"read","write"})
      */
     private $endAt;
+
+    /**
+     * @var MediaObject|null
+     *
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     * @ApiProperty(iri="http://schema.org/image")
+     */
+    public $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="Shop", inversedBy="products")
@@ -118,6 +131,16 @@ class Product
         $this->endAt = $endAt;
 
         return $this;
+    }
+
+    public function getImage(): ?EmbeddedFile
+    {
+        return $this->image;
+    }
+
+    public function setImage(EmbeddedFile $image): void
+    {
+        $this->image = $image;
     }
 
     public function getOwner(): ?User
