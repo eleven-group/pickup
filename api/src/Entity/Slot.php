@@ -19,6 +19,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Slot
 {
 
+    const STATUS = ['available', 'unavailable'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -45,6 +47,12 @@ class Slot
      * @ORM\JoinColumn(name="slot_id", referencedColumnName="id")
      */
     private $booking;
+
+    /**
+     * @Assert\Choice(choices=Slot::STATUS, message="Choose a valid status.")
+     * @ORM\Column(type="string", length=20)
+     */
+    private $status;
 
     public function getId(): ?int
     {

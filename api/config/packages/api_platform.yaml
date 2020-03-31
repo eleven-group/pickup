@@ -19,6 +19,6 @@ api_platform:
     collection:
         pagination:
             client_enabled: true
-            enabled_parameter_name: page
+            page_parameter_name: page
             client_items_per_page: true
             items_per_page_parameter_name: itemsPerPage

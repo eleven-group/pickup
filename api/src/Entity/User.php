@@ -12,6 +12,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="account")
@@ -43,26 +44,44 @@ class User implements UserInterface
      * @Groups({"read"})
      */
     private $id;
+
     /**
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
+
     /**
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=200, unique=true)
      */
     private $email;
+
     /**
      * @Groups({"write"})
      * @ORM\Column(type="string", length=500)
      */
     private $password;
+
     /**
      * @Groups({"read", "write"})
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
+    /**
+     * @Assert\NotBlank
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $firstname;
+
+    /**
+     * @Assert\NotBlank
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $lastname;
 
     /**
      * @ORM\Column(type="json")
@@ -198,6 +217,30 @@ class User implements UserInterface
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }

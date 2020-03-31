@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Booking
 {
 
-    const STATUS = ['accepted', 'pending', 'canceled'];
+    const STATUS = ['accepted', 'pending', 'canceled', 'done'];
 
     /**
      * @ORM\Id()
@@ -33,9 +33,38 @@ class Booking
     private $content;
 
     /**
+     * @Assert\Choice(choices=Booking::STATUS, message="Choose a valid status.")
      * @ORM\Column(type="string", length=20)
      */
     private $status;
+
+    /**
+     * @Assert\NotBlank
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $firstname;
+
+    /**
+     * @Assert\NotBlank
+     *
+     * @ORM\Column(type="string", length=100)
+     */
+    private $lastname;
+
+    /**
+     * @Assert\NotBlank
+     *
+     * @ORM\Column(type="integer", length=10)
+     */
+    private $phonenumber;
+
+    /**
+     * @Assert\NotBlank
+     *
+     * @ORM\Column(type="string", length=200)
+     */
+    private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity="Product")
@@ -181,6 +210,54 @@ class Booking
         if ($newBooking !== $slot->getBooking()) {
             $slot->setBooking($newBooking);
         }
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getPhonenumber(): ?int
+    {
+        return $this->phonenumber;
+    }
+
+    public function setPhonenumber(int $phonenumber): self
+    {
+        $this->phonenumber = $phonenumber;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

@@ -53,6 +53,13 @@ class Product
     private $startAt;
 
     /**
+     * @ORM\Column(type="integer")
+     * @Groups({"read","write"})
+     */
+    private $price;
+
+
+    /**
      * @ORM\Column(type="datetime")
      * @Groups({"read","write"})
      */
@@ -156,6 +163,18 @@ class Product
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
