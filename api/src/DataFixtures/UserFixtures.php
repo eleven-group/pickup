@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Faker;
 
 class UserFixtures extends Fixture
 {
@@ -18,6 +19,7 @@ class UserFixtures extends Fixture
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
+        $this->faker = Faker\Factory::create('fr_FR');
     }
 
     /**
@@ -30,33 +32,31 @@ class UserFixtures extends Fixture
         $user->setEmail('admin@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::ADMIN_ROLE);
+        $user->setFirstname('admin');
+        $user->setLastname('admin');
 
         $password = $this->encoder->encodePassword($user, 'admin');
         $user->setPassword($password);
 
         $manager->persist($user);
 
-        // Create a HR manager user
-        $user = new User('owner');
-        $user->setEmail('owner@narah.io');
-        $user->setIsActive(true);
-        $user->setRoles(self::MANAGER_ROLE);
 
-        $password = $this->encoder->encodePassword($user, 'owner');
-        $user->setPassword($password);
+        for ($i=0; $i < 50; $i++) {
 
-        $manager->persist($user);
+            $user = new User($this->faker->username);
+            $user->setFirstname($this->faker->firstName);
+            $user->setLastname($this->faker->lastName);
+            $user->setEmail($this->faker->email);
+            $user->setIsActive(true);
+            $user->setRoles(self::MANAGER_ROLE);
 
-        // Create an employee user
-        $user = new User('client');
-        $user->setEmail('client@narah.io');
-        $user->setIsActive(true);
-        $user->setRoles(self::USER_ROLE);
+            $password = $this->encoder->encodePassword($user, 'owner');
+            $user->setPassword($password);
 
-        $password = $this->encoder->encodePassword($user, 'client');
-        $user->setPassword($password);
+            $manager->persist($user);
 
-        $manager->persist($user);
+        }
+
 
         $manager->flush();
     }
