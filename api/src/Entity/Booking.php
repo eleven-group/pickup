@@ -38,6 +38,26 @@ class Booking
     private $status;
 
     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="integer", length=10)
+     */
+    private $phonenumber;
+
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
+    private $email;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
