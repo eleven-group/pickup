@@ -52,6 +52,8 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
         $shop->setStreetAdress($this->faker->streetAddress);
         $shop->setOwner($user);
 
+        $shop->setSlotRange($this->faker->randomElement([10,15,20,25]));
+
         $manager->persist($shop);
 
         }

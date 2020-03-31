@@ -23,8 +23,6 @@ reset-db:
 	@php bin/console doctrine:schema:update --force
 
 reset-dev:
-	@php bin/console doctrine:schema:update --force
-	@php bin/console doctrine:database:create --if-not-exists
 	@php bin/console doctrine:schema:drop --full-database --force
 	@php bin/console doctrine:schema:update --force
 	@php bin/console doctrine:fixtures:load --quiet
