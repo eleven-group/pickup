@@ -1,11 +1,11 @@
-export const statusAbsence = [
+export const statusBooking = [
 { id: "pending", name:"Pending" },
-{ id: "validated", name:"Validated" },
-{ id: "refused", name:"Refused" },
+{ id: "accepted", name:"Accepted" },
+{ id: "done", name:"Done" },
 { id: "canceled", name:"Canceled" },
 ];
 
-export const typeAbsence = [
-{ id: "normal", name:"Normal" },
-{ id: "full", name:"Full" },
+export const statusSlot = [
+{ id: "available", name:"Available" },
+{ id: "unavailable", name:"unavailable" },
 ];
