@@ -6,10 +6,11 @@ import {
     AUTH_GET_PERMISSIONS
 } from 'react-admin';
 
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 const authProvider = {
     login: ({ username, password }) => {
-        const request = new Request('http://api.pickup.localhost/api/login_check', {
+        const request = new Request(`${API_ENDPOINT}/login_check`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),

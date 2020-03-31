@@ -7,9 +7,9 @@ import { ShopList } from './Resources/shops';
 import { ProductList } from './Resources/products';
 import { settings, httpClient } from './api/config';
 
-const BASE_URL = process.env.API_ENDPOINT;
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
-const provider = apiProvider(BASE_URL, { ...httpClient, ... settings });
+const provider = apiProvider(API_ENDPOINT, { ...httpClient, ... settings });
 
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={provider}>
