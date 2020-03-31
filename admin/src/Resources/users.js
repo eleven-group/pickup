@@ -7,6 +7,7 @@ import {
     EmailField,
     RichTextField,
     ImageField,
+    ReferenceField
 
 } from 'react-admin';
 
@@ -19,6 +20,9 @@ export const UserList = (props) => (
             <BooleanField source="isActive" />
             <ImageField source="avatar" title="avatar"/>
             <RichTextField source="bio" />
+            <ReferenceField label="Shop" reference="shops" source="relationships.shop.id">
+                <TextField source="name" />
+            </ReferenceField>
         </Datagrid>
     </List>
 );
