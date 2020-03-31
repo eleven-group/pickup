@@ -1,9 +1,5 @@
 version: "3.4"
 
-x-networks: &networks
-  networks:
-    - pickup
-
 services:
   traefik:
     container_name: ${PROJECT_NAME}-traefik
@@ -21,8 +17,8 @@ services:
       - ./.docker/traefik/traefik.toml:/etc/traefik/traefik.toml:ro
       - ./.docker/traefik/dynamic-conf.toml:/etc/traefik/dynamic-conf.toml:ro
       - dev-certs:/certs:ro
-
-    <<: *networks
+    networks:
+      - pickup
 
   php:
     container_name: ${PROJECT_NAME}-php
@@ -40,9 +36,8 @@ services:
       - traefik.http.routers.php-https-${PROJECT_NAME}.entrypoints=web-secure
       - traefik.http.routers.php-https-${PROJECT_NAME}.tls=true
       - traefik.http.routers.php-http-${PROJECT_NAME}.middlewares=redirect@file
-
-
-    <<: *networks
+    networks:
+      - pickup
 
   front:
     container_name: ${PROJECT_NAME}-front
@@ -61,8 +56,8 @@ services:
       - traefik.http.routers.front-https-${PROJECT_NAME}.entrypoints=web-secure
       - traefik.http.routers.front-https-${PROJECT_NAME}.tls=true
       - traefik.http.routers.front-http-${PROJECT_NAME}.middlewares=redirect@file
-
-    <<: *networks
+    networks:
+      - pickup
 
 
   admin:
@@ -82,8 +77,8 @@ services:
       - traefik.http.routers.admin-https-${PROJECT_NAME}.entrypoints=web-secure
       - traefik.http.routers.admin-https-${PROJECT_NAME}.tls=true
       - traefik.http.routers.admin-http-${PROJECT_NAME}.middlewares=redirect@file
-
-    <<: *networks
+    networks:
+      - pickup
 
   dev-tls:
     build:
@@ -100,7 +95,7 @@ services:
     volumes:
       - ./api/public:/home/pickup/api/public:ro
       - ./.docker/nginx:/etc/nginx/conf.d:ro
-    labels: 
+    labels:
       - traefik.enable=true
       - traefik.http.routers.api-http-${PROJECT_NAME}.rule=HostRegexp(`api.${DOMAIN_NAME}`)
       - traefik.http.routers.api-https-${PROJECT_NAME}.rule=HostRegexp(`api.${DOMAIN_NAME}`)
@@ -108,8 +103,8 @@ services:
       - traefik.http.routers.api-https-${PROJECT_NAME}.entrypoints=web-secure
       - traefik.http.routers.api-https-${PROJECT_NAME}.tls=true
       - traefik.http.routers.api-http-${PROJECT_NAME}.middlewares=redirect@file
-
-    <<: *networks
+    networks:
+      - pickup
 
   db:
     container_name: ${PROJECT_NAME}-db
@@ -122,7 +117,8 @@ services:
       - POSTGRES_DB=pickup
       - POSTGRES_USER=pickup
       - POSTGRES_PASSWORD=pickup
-
+    networks:
+      - pickup
 volumes:
   database: {}
   dev-certs: {}
