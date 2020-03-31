@@ -1,0 +1,174 @@
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+@import "~element-ui/packages/theme-chalk/src/index";
+
+$--color-primary: #0062ff;
+$--color-success: #3dd598;
+$--color-warning: #ffc542;
+$--color-danger: #fc5a5a;
+$--color-info: #92929d;
+$--color-text-primary: #171725;
+$--color-text-regular: #44444f;
+$--color-text-secondary: #696974;
+$--color-text-placeholder: #92929d;
+$--font-size-extra-large: 28px;
+$--font-size-large: 18px;
+$--border-color-base: #b5b5be;
+$--border-color-light: #e2e2ea;
+$--border-color-lighter: #f1f1f5;
+$--border-color-extra-light: #fafafb;
+$--background-color-base: #f5f7fa;
+$--font-weight-primary: 500;
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Thin Italic"),
+    local("../fonts/Graphik-ThinItalic"),
+    url("../fonts/Graphik-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Medium Italic"),
+    local("../fonts/Graphik-MediumItalic"),
+    url("../fonts/Graphik-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Bold"), local("../fonts/Graphik-Bold"),
+    url("../fonts/Graphik-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Medium"), local("../fonts/Graphik-Medium"),
+    url("../fonts/Graphik-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Extralight"),
+    local("../fonts/Graphik-Extralight"),
+    url("../fonts/Graphik-Extralight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Light Italic"),
+    local("../fonts/Graphik-LightItalic"),
+    url("../fonts/Graphik-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Regular Italic"),
+    local("../fonts/Graphik-RegularItalic"),
+    url("../fonts/Graphik-RegularItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Light"), local("../fonts/Graphik-Light"),
+    url("../fonts/Graphik-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Thin"), local("../fonts/Graphik-Thin"),
+    url("../fonts/Graphik-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Bold Italic"),
+    local("../fonts/Graphik-BoldItalic"),
+    url("../fonts/Graphik-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik Super";
+  src: local("../fonts/Graphik Super"), local("../fonts/Graphik-Super"),
+    url("../fonts/Graphik-Super.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Black Italic"),
+    local("../fonts/Graphik-BlackItalic"),
+    url("../fonts/Graphik-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Extralight Italic"),
+    local("../fonts/Graphik-ExtralightItalic"),
+    url("../fonts/Graphik-ExtralightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Regular"), local("../fonts/Graphik-Regular"),
+    url("../fonts/Graphik-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Semibold Italic"),
+    local("../fonts/Graphik-SemiboldItalic"),
+    url("../fonts/Graphik-SemiboldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Semibold"), local("../fonts/Graphik-Semibold"),
+    url("../fonts/Graphik-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: local("../fonts/Graphik Black"), local("../fonts/Graphik-Black"),
+    url("../fonts/Graphik-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik Super";
+  src: local("../fonts/Graphik Super Italic"),
+    local("../fonts/Graphik-SuperItalic"),
+    url("../fonts/Graphik-SuperItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
