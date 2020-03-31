@@ -7,8 +7,9 @@ import { AbsenceList } from './Resources/absences';
 import { InvoiceList } from './Resources/invoices';
 import { settings, httpClient } from './api/config';
 
+const BASE_URL = process.env.API_ENDPOINT;
 
-const provider = apiProvider('http://api.pickup.localhost/api', { ...httpClient, ... settings });
+const provider = apiProvider(BASE_URL, { ...httpClient, ... settings });
 
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={provider}>

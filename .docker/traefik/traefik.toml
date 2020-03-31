@@ -1,29 +1,32 @@
-################################################################
-# Global configuration
-################################################################
+# Configuration statique
+
 [global]
-  checkNewVersion = true
   sendAnonymousUsage = false
 
-[entrypoints]
-  [entrypoints.http]
-  address = ":80"
-  [entryPoints.https]
-  address = ":443"
-    [entryPoints.https.tls]
-
 [log]
-
-[api]
-
-[ping]
+  level = "INFO" #DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+  format = "common"
 
 [providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  watch = true
+  exposedByDefault = false
+  [docker.tls]
+    cert = "/certs/local-cert.pem"
+    key = "/certs/local-key.pem"
 
+[api]
+  insecure = true
+  dashboard = true
+  debug = true
 
-[pikcup]
-email = "louis@narah.io"
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+  [entryPoints.web-secure]
+    address = ":443"
 
-[[pikcup.domains]]
-  main = "pickup.localhost"
-  sans = ["api.pickup.localhost", "php.pickup.localhost", "srv.pickup.localhost", "admin.pickup.localhost"]
+[providers]
+  [providers.file]
+    filename = "/etc/traefik/dynamic-conf.toml"
+    watch = true

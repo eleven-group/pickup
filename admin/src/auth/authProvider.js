@@ -1,9 +1,13 @@
 import { AUTH_LOGIN } from 'react-admin';
 
+const BASE_URL = process.env.API_ENDPOINT;
+const LOGIN_ROUTE = process.env.LOGIN_ROUTE;
+
+
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username, password } = params;
-        const request = new Request('http://api.pickup.localhost/api/login_check', {
+        const request = new Request(`${BASE_URL}/${LOGIN_ROUTE}`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),

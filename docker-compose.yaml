@@ -1,23 +1,27 @@
-version: '3'
+version: "3.4"
 
 services:
   traefik:
-    container_name: pickup-traefik
-    image: traefik:1.7-alpine
-    command: --api --docker
+    container_name: ${PROJECT_NAME}-traefik
+    image: traefik:2.2
+    command:
+      - --providers.docker.network=${PROJECT_NAME}
+    depends_on:
+      - dev-tls
     ports:
       - "80:80"
+      - "8080:8080"
       - "443:443"
-      - "18080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./.docker/traefik/traefik.toml:/etc/traefik/traefik.toml:ro
-    labels:
-      - "traefik.frontend.rule=Host:srv.pickup.localhost"
-      - "traefik.port=8080"
+      - ./.docker/traefik/dynamic-conf.toml:/etc/traefik/dynamic-conf.toml:ro
+      - dev-certs:/certs:ro
+    networks:
+      - pickup
 
   php:
-    container_name: pickup-php
+    container_name: ${PROJECT_NAME}-php
     build: .docker/php
     depends_on:
       - db
@@ -25,36 +29,66 @@ services:
       - ./api:/home/pickup/api:rw
       - ./api/var:/home/pickup/api/var:rw,cached
     labels:
-      - "traefik.frontend.rule=Host:php.pickup.localhost"
+      - traefik.enable=true
+      - traefik.http.routers.php-http-${PROJECT_NAME}.rule=HostRegexp(`php.${DOMAIN_NAME}`)
+      - traefik.http.routers.php-https-${PROJECT_NAME}.rule=HostRegexp(`php.${DOMAIN_NAME}`)
+      - traefik.http.routers.php-http-${PROJECT_NAME}.entrypoints=web
+      - traefik.http.routers.php-https-${PROJECT_NAME}.entrypoints=web-secure
+      - traefik.http.routers.php-https-${PROJECT_NAME}.tls=true
+      - traefik.http.routers.php-http-${PROJECT_NAME}.middlewares=redirect@file
+    networks:
+      - pickup
 
   front:
-    container_name: pickup-front
+    container_name: ${PROJECT_NAME}-front
     image: node:lts-alpine
+    command: ["yarn", "serve"]
     working_dir: /home/pickup/front
     volumes:
       - ./front:/home/pickup/front
     ports:
-      - "8080:8080"
+      - "3000:3000"
     labels:
-      - "traefik.frontend.rule=Host:pickup.localhost"
-      - "traefik.port=8080"
-    command: ["yarn", "serve"]
+      - traefik.enable=true
+      - traefik.http.routers.front-http-${PROJECT_NAME}.rule=HostRegexp(`front.${DOMAIN_NAME}`)
+      - traefik.http.routers.front-https-${PROJECT_NAME}.rule=HostRegexp(`front.${DOMAIN_NAME}`)
+      - traefik.http.routers.front-http-${PROJECT_NAME}.entrypoints=web
+      - traefik.http.routers.front-https-${PROJECT_NAME}.entrypoints=web-secure
+      - traefik.http.routers.front-https-${PROJECT_NAME}.tls=true
+      - traefik.http.routers.front-http-${PROJECT_NAME}.middlewares=redirect@file
+    networks:
+      - pickup
+
 
   admin:
-    container_name: pickup-admin
+    container_name: ${PROJECT_NAME}-admin
     image: node:lts-alpine
     working_dir: /home/pickup/admin
+    command: ["yarn", "start"]
     volumes:
       - ./admin:/home/pickup/admin
     ports:
-      - "3000:3000"
+      - "3001:3001"
     labels:
-      - "traefik.frontend.rule=Host:admin.pickup.localhost"
-      - "traefik.port=3000"
-    command: ["yarn", "start"]
+      - traefik.enable=true
+      - traefik.http.routers.admin-http-${PROJECT_NAME}.rule=HostRegexp(`admin.${DOMAIN_NAME}`)
+      - traefik.http.routers.admin-https-${PROJECT_NAME}.rule=HostRegexp(`admin.${DOMAIN_NAME}`)
+      - traefik.http.routers.admin-http-${PROJECT_NAME}.entrypoints=web
+      - traefik.http.routers.admin-https-${PROJECT_NAME}.entrypoints=web-secure
+      - traefik.http.routers.admin-https-${PROJECT_NAME}.tls=true
+      - traefik.http.routers.admin-http-${PROJECT_NAME}.middlewares=redirect@file
+    networks:
+      - pickup
+
+  dev-tls:
+    build:
+      context: ./.docker/dev-tls
+    container_name: dev_tls_${PROJECT_NAME}
+    volumes:
+      - dev-certs:/certs:rw
 
   web:
-    container_name: pickup-web
+    container_name: ${PROJECT_NAME}-web
     image: nginx:1.15-alpine
     depends_on:
       - php
@@ -62,23 +96,33 @@ services:
       - ./api/public:/home/pickup/api/public:ro
       - ./.docker/nginx:/etc/nginx/conf.d:ro
     labels:
-      - "traefik.frontend.rule=Host:api.pickup.localhost"
-      - "traefik.port=80"
+      - traefik.enable=true
+      - traefik.http.routers.api-http-${PROJECT_NAME}.rule=HostRegexp(`api.${DOMAIN_NAME}`)
+      - traefik.http.routers.api-https-${PROJECT_NAME}.rule=HostRegexp(`api.${DOMAIN_NAME}`)
+      - traefik.http.routers.api-http-${PROJECT_NAME}.entrypoints=web
+      - traefik.http.routers.api-https-${PROJECT_NAME}.entrypoints=web-secure
+      - traefik.http.routers.api-https-${PROJECT_NAME}.tls=true
+      - traefik.http.routers.api-http-${PROJECT_NAME}.middlewares=redirect@file
+    networks:
+      - pickup
 
   db:
-    container_name: pickup-db
+    container_name: ${PROJECT_NAME}-db
     image: postgres:10-alpine
     ports:
-      - "55432:5432"
+      - "5432:5432"
     volumes:
       - database:/var/lib/postgresql/data:rw
     environment:
       - POSTGRES_DB=pickup
       - POSTGRES_USER=pickup
       - POSTGRES_PASSWORD=pickup
-    labels:
-      - "traefik.frontend.rule=Host:db.pickup.localhost"
-
+    networks:
+      - pickup
 volumes:
   database: {}
+  dev-certs: {}
 
+networks:
+  pickup:
+    external: true
