@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'LayoutModal'
+  name: 'LayoutError'
 };
 </script>
 

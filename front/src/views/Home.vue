@@ -1,7 +1,51 @@
 <template>
   <div>
-    <div> Welcome to <strong>pickup app</strong></div>
-      <iframe width="1000" height="700" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" :src="`https://www.openstreetmap.org/export/embed.html?bbox=${longitude}%2C${latitude}%2C${longitude}%2C${latitude}&amp;layer=mapnik&amp;marker=${latitude}%2C${longitude}`" style="border: 1px solid black"></iframe><br/><small><a :href="`https://www.openstreetmap.org/?mlat=${latitude}&amp;mlon=${longitude}#map=18/${latitude}/${longitude}`">View Larger Map</a></small>
+    <el-row>
+      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+    </el-row>
+    <el-row :gutter="40">
+      <el-col :span="6" :xs="12" :sm="12" :md="8" :lg="6" :xl="6">
+        <el-card>
+          <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+          <div class="el-card--button">
+            <el-button type="primary" plain>Explorer</el-button>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6" :xs="12" :sm="12" :md="8" :lg="6" :xl="6">
+        <el-card>
+          <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+          <div class="el-card--button">
+            <el-button type="primary" plain>Explorer</el-button>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="12" :xs="24" :sm="24" :md="8" :lg="12" :xl="12">
+        <el-alert
+          title="Attention, COVID-19 !"
+          type="error"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi."
+          show-icon
+          :closable="false"
+        ></el-alert>
+      </el-col>
+    </el-row>
+
+    <!-- To be changed. Placed here as placeholder for demo purposes. -->
+
+    <el-row>
+      <el-col :span="24" class="map">
+        <iframe
+          height="600"
+          scrolling="no"
+          marginheight="0"
+          marginwidth="0"
+          :src="`https://www.openstreetmap.org/export/embed.html?bbox=${longitude}%2C${latitude}%2C${longitude}%2C${latitude}&amp;layer=mapnik&amp;marker=${latitude}%2C${longitude}`"
+        ></iframe>
+      </el-col>
+    </el-row>
+
+    <!-- To be changed. Placed here as placeholder for demo purposes. -->
   </div>
 </template>
 
@@ -33,3 +77,43 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+h1,
+h3 {
+  color: #171725;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+.el-card {
+  &--button {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+
+.el-alert {
+  border-radius: 20px;
+  padding: 24px;
+  &__content {
+    padding-left: 50px !important;
+  }
+}
+
+/* To be changed. Placed here as placeholder for demo purposes. */
+
+.map {
+  filter: saturate(0);
+  iframe {
+    width: 100%;
+    border: 0;
+    border-radius: 20px;
+  }
+}
+
+/* <!-- To be changed. Placed here as placeholder for demo purposes. --> */
+</style>
