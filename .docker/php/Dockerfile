@@ -31,3 +31,5 @@ RUN docker-php-ext-enable \
     xdebug
 
 WORKDIR /home/pickup/api
+
+COPY php.ini /usr/local/etc/php/conf.d/
