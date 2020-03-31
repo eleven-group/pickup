@@ -7,12 +7,15 @@ import {
     EmailField,
     RichTextField,
     ImageField,
-    ReferenceField
+    ReferenceField,
+    TextInput,
+    Filter
 
 } from 'react-admin';
 
-export const UserList = (props) => (
-    <List {...props}>
+
+export const UserList = ({ role, userId, ...props}) => (
+    <List { ...props}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="username" />

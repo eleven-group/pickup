@@ -15,7 +15,7 @@ import {
 import { statusAbsence, typeAbsence } from '../data';
 
 export const ShopList = (props) => (
-    <List {...props}>
+    <List {...props} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="name" />

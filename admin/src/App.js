@@ -13,9 +13,15 @@ const provider = apiProvider(API_ENDPOINT, { ...httpClient, ... settings });
 
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={provider}>
-        <Resource name="users" list={UserList} />
-        <Resource name="shops" list={ShopList} />
-        <Resource name="products" list={ProductList} />
+    {role => [
+      role === 'ROLE_ADMIN'
+      ? <Resource name="users" list={UserList} />
+      : null,
+      role === 'ROLE_ADMIN'
+      ? <Resource name="shops" list={ShopList} />
+      : null,
+        <Resource name="products" list={ProductList} />,
+    ]}
     </Admin>
 );
 
