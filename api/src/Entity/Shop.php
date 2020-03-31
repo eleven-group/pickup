@@ -82,6 +82,13 @@ class Shop
 
     /**
      * @Groups({"read", "write"})
+     * @ORM\Column(type="integer")
+     */
+    private $slotRange;
+
+
+    /**
+     * @Groups({"read", "write"})
      *
      * @ORM\OneToOne(targetEntity="User", inversedBy="shop")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
@@ -249,6 +256,18 @@ class Shop
                 $product->setShop(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlotRange(): ?int
+    {
+        return $this->slotRange;
+    }
+
+    public function setSlotRange(int $slotRange): self
+    {
+        $this->slotRange = $slotRange;
 
         return $this;
     }
