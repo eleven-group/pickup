@@ -182,221 +182,6 @@
 			]
 		},
 		{
-			"name": "File",
-			"item": [
-				{
-					"name": "Removes the File resource.",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/files/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"files",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Updates the File resource.",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "The updated File resource"
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/files/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"files",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Replaces the File resource.",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "The updated File resource"
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/files/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"files",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Retrieves a File resource.",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/files/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"files",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Creates a File resource.",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "The new File resource"
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/files",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"files"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Retrieves the collection of File resources.",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/files?page={{page}}&itemsPerPage={{itemsPerPage}}",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"files"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "{{page}}"
-								},
-								{
-									"key": "itemsPerPage",
-									"value": "{{itemsPerPage}}"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Product",
 			"item": [
 				{
@@ -1138,6 +923,113 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "MediaObject",
+			"item": [
+				{
+					"name": "Retrieves the collection of MediaObject resources.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json, application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/api/media_objects?page={{page}}&itemsPerPage={{itemsPerPage}}",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"files"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "itemsPerPage",
+									"value": "{{itemsPerPage}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieves a MediaObject resource.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json, application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{baseUrl}}/api/media_objects/:id",
+							"protocol": "http",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"media_objects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a MediaObject resource",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "file"
+							}
+						],
+						"body": {
+							"mode": "form-data",
+							"raw": "The new MediaObject resource"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/media_objects",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"media_objects"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
