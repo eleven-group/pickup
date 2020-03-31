@@ -22,7 +22,7 @@ export const ShopList = (props) => (
             <TextField source="streetAdress" />
             <TextField source="city" />
             <TextField source="postalCode" />
-            <ReferenceField label="Owner" source="owner" reference="users">
+            <ReferenceField label="Owner" reference="users" source="relationships.owner.id">
                 <TextField source="email" />
             </ReferenceField>
             <BooleanField source="isActive" />

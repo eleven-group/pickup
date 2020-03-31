@@ -8614,10 +8614,9 @@ ra-i18n-polyglot@^3.3.3:
     node-polyglot "^2.2.2"
     ra-core "^3.3.3"
 
-ra-iri-jsonapi-client@^0.6.0:
+"ra-iri-jsonapi-client@git+https://github.com/LouisHrg/ra-iri-jsonapi-client":
   version "0.6.0"
-  resolved "https://registry.yarnpkg.com/ra-iri-jsonapi-client/-/ra-iri-jsonapi-client-0.6.0.tgz#198e4bc703e4249ae0fd0da402b18e5295464963"
-  integrity sha512-trZVMtJJ4vNNPT2MXQQ90MUccn7hUBvEsM0cVPkLpzmvriefFqAoC6rZmQ9/Yp6aJZI0/348lmrrWvgMLO7MNQ==
+  resolved "git+https://github.com/LouisHrg/ra-iri-jsonapi-client#14e3a0f53012555b32c79f8b993b80251fbd3524"
   dependencies:
     axios "^0.19.0"
     deepmerge "^2.1.1"

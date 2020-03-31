@@ -11,6 +11,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Table(name="account")
@@ -27,6 +28,11 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * )
  *
  * @ApiFilter(OrderFilter::class, properties={"id", "username", "email"}, arguments={"orderParameterName"="order"})
+ *
+ * @ApiFilter(SearchFilter::class,
+ * properties = {
+ *      "id": "exact",
+ * })
  */
 class User implements UserInterface
 {

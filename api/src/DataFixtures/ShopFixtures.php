@@ -47,8 +47,6 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($shop);
 
-        dd($shop);
-
         $manager->flush();
 
     }

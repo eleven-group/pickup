@@ -13,8 +13,8 @@ const provider = apiProvider(BASE_URL, { ...httpClient, ... settings });
 
 const App = () => (
     <Admin authProvider={authProvider} dataProvider={provider}>
-        {permissions => [
-          permissions === 'ROLE_ADMIN'
+        {role => [
+          role === 'ROLE_ADMIN'
           ? <Resource name="users" list={UserList} />
           : null,
         ]}
