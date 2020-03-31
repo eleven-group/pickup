@@ -11,7 +11,7 @@ import {
 } from 'react-admin';
 
 export const ProductList = (props) => (
-    <List {...props} filter={{ id: localStorage.getItem('userId') }}>
+    <List {...props} filter={{ owner: localStorage.getItem('userId') }}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="username" />
