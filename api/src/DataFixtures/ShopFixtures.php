@@ -6,8 +6,10 @@ use App\Entity\Shop;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\UserRepository;
+use App\DataFixtures\UserFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ShopFixtures extends Fixture
+class ShopFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public function __construct(UserRepository $userRepository)
@@ -28,6 +30,7 @@ class ShopFixtures extends Fixture
 
         $user = $this->userRepository->findOneBy(['email'=>'owner@narah.io']);
 
+
         $shop = new Shop();
         $shop->setName('Bistrot Burger');
         $shop->setDescription("This is a shop");
@@ -46,5 +49,12 @@ class ShopFixtures extends Fixture
 
         $manager->flush();
 
+    }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 }

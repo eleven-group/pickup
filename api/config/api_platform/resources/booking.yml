@@ -12,3 +12,7 @@ App\Entity\Booking:
     get: ~
     put: ~
     delete: ~
+  properties:
+    slot:
+      subresource:
+        resourceClass: 'App\Entity\Slot'

@@ -10,8 +10,8 @@ import {
 
 } from 'react-admin';
 
-export const InvoiceList = (props) => (
-    <List {...props}>
+export const ProductList = (props) => (
+    <List {...props} filter={{ owner: localStorage.getItem('userId') }}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="username" />
