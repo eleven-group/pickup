@@ -44,7 +44,8 @@ class UserFixtures extends Fixture
 
         for ($i=0; $i < 50; $i++) {
 
-            $user = new User($this->faker->username);
+            $user = new User();
+            $user->setUsername($this->faker->username);
             $user->setFirstname($this->faker->firstName);
             $user->setLastname($this->faker->lastName);
             $user->setEmail($this->faker->email);
