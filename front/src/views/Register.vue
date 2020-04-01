@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import userApi from '@/api/users';
 import osmApi from '@/api/location';
 import getSlotToMin from '@/helpers/getSlotToMin';
@@ -145,6 +144,19 @@ export default {
           this.loading = false;
         }
       });
+      try {
+        const geoRes = await osmApi.getGeocode(streetAdress, city, postalCode);
+        this.longitude = geoRes.data.features[0].geometry.coordinates[0];
+        this.latitude = geoRes.data.features[0].geometry.coordinates[1];
+      } catch (e) {
+        this.$message({
+          showClose: true,
+          message: "Oops, seems that your company adress can't be found, let's check your informations !",
+          type: 'error'
+        });
+        this.loading = false;
+        return;
+      };
       Object.keys(shop).forEach(item => {
         if (item === 'openingHours') {
           Object.keys(shop[item]).forEach(day => {
@@ -215,19 +227,17 @@ export default {
         this.loading = false;
         return;
       }
-      try {
-        const geoRes = await osmApi.getGeocode(streetAdress, city, postalCode);
-        this.longitude = geoRes.data.features[0].geometry.coordinates[0];
-        this.latitude = geoRes.data.features[0].geometry.coordinates[1];
-      } catch (e) {
+      if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email))) {
         this.$message({
           showClose: true,
-          message: "Oops, seems that your company adress can't be found, let's check your informations !",
+          message: `Your email has a wrong format (e.g. john@smith.usa)`,
           type: 'error'
         });
+        this.$refs.email.focus();
         this.loading = false;
+
         return;
-      };
+      }
       try {
         shop.slotRange = getSlotToMin(shop.slotRange);
         await userApi.registerUser(user, { ...shop, longitude: this.longitude.toString(), latitude: this.latitude.toString() });
