@@ -47,7 +47,15 @@
           <p class="category">Total</p>
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
           <span>999, 99€</span>
-          <div class="el-card--button">
+          <div class="el-card--buttons">
+            <el-select v-model="value" placeholder="Choisissez un horaire">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
             <el-button type="primary">Effectuer la réservation</el-button>
           </div>
         </el-card>
@@ -85,7 +93,30 @@ export default {
           price: '13,99€ TTC',
           address: 'No. 189, Grove St, Los Angeles'
         }
-      ]
+      ],
+      options: [
+        {
+          value: 'Option1',
+          label: 'Option1'
+        },
+        {
+          value: 'Option2',
+          label: 'Option2'
+        },
+        {
+          value: 'Option3',
+          label: 'Option3'
+        },
+        {
+          value: 'Option4',
+          label: 'Option4'
+        },
+        {
+          value: 'Option5',
+          label: 'Option5'
+        }
+      ],
+      value: ''
     };
   },
   methods: {
@@ -123,6 +154,17 @@ th {
       color: #0062ff;
     }
   }
+}
+
+.el-card--buttons {
+  .el-select {
+    margin-bottom: 12px;
+    width: 100%;
+  }
+  &::placeholder {
+    color: #0062ff !important;
+  }
+  border-radius: 10px !important;
 }
 
 .price {

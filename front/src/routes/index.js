@@ -13,6 +13,7 @@ import filesRoutes from '@/routes/files';
 import productsRoutes from '@/routes/products';
 import contactRoutes from '@/routes/contact';
 import confirmationRoutes from '@/routes/confirmation';
+import aboutRoutes from '@/routes/about';
 
 Vue.use(Router);
 
@@ -34,7 +35,8 @@ export const router = new Router({
         ...filesRoutes,
         ...productsRoutes,
         ...contactRoutes,
-        ...confirmationRoutes
+        ...confirmationRoutes,
+        ...aboutRoutes
       ]
     },
     {

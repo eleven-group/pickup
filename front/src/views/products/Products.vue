@@ -8,7 +8,10 @@
         <el-card shadow="never">
           <img src="https://picsum.photos/id/10/250/150" class="image" />
           <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
-          <h3>Prix : 99,9€</h3>
+          <div class="details">
+            <small class="quantity">3 restants</small>
+            <h3>Prix : 99,9€</h3>
+          </div>
           <div class="el-card--button">
             <el-button type="success" plain>Ajouter au panier</el-button>
           </div>
@@ -18,7 +21,10 @@
         <el-card shadow="never">
           <img src="https://picsum.photos/id/10/250/150" class="image" />
           <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
-          <h3>Prix : 99,9€</h3>
+          <div class="details">
+            <small class="quantity">3 restants</small>
+            <h3>Prix : 99,9€</h3>
+          </div>
           <div class="el-card--button">
             <el-button type="success" plain>Ajouter au panier</el-button>
           </div>
@@ -28,7 +34,10 @@
         <el-card shadow="never">
           <img src="https://picsum.photos/id/10/250/150" class="image" />
           <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
-          <h3>Prix : 99,9€</h3>
+          <div class="details">
+            <small class="quantity">3 restants</small>
+            <h3>Prix : 99,9€</h3>
+          </div>
           <div class="el-card--button">
             <el-button type="success" plain>Ajouter au panier</el-button>
           </div>
@@ -38,7 +47,10 @@
         <el-card shadow="never">
           <img src="https://picsum.photos/id/10/250/150" class="image" />
           <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
-          <h3>Prix : 99,9€</h3>
+          <div class="details">
+            <small class="quantity">3 restants</small>
+            <h3>Prix : 99,9€</h3>
+          </div>
           <div class="el-card--button">
             <el-button type="success" plain>Ajouter au panier</el-button>
           </div>
@@ -73,8 +85,22 @@ export default {
 
 <style lang="scss" scoped>
 .el-card {
-  h3 {
-    font-weight: 600;
+  .details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    h3,
+    small {
+      font-weight: 600;
+      margin: 0;
+    }
+
+    small {
+      font-weight: 400;
+      color: #696974;
+    }
   }
 
   .el-card--button,

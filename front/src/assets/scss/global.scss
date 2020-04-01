@@ -17,6 +17,7 @@ $--border-color-lighter: #f1f1f5;
 $--border-color-extra-light: #fafafb;
 $--background-color-base: #f5f7fa;
 $--font-weight-primary: 500;
+$--border-radius-base: 10px !default;
 
 @import "~element-ui/packages/theme-chalk/src/index";
 @import "~element-ui/lib/theme-chalk/display.css";
@@ -24,11 +25,6 @@ $--font-weight-primary: 500;
 * {
   font-family: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
-}
-
-.el-button,
-[class*="el-button"] {
-  border-radius: 10px;
 }
 
 h1,
