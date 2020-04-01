@@ -6,13 +6,14 @@ import {
     BooleanField,
     EmailField,
     RichTextField,
-    ImageField,
     TextInput,
     SimpleForm,
     Create,
     NumberInput,
     ReferenceInput,
-    SelectInput
+    SelectInput,
+    ImageInput,
+    ImageField
 } from 'react-admin';
 
 export const ProductList = ({permissions, ...props }) =>
@@ -26,6 +27,7 @@ return (
     && <List {...props} filter={{ shop: store }}>
         <Datagrid>
             <TextField source="id" />
+            <ImageField source="image" title="title" />
             <TextField source="name" />
             <TextField source="description" />
             <TextField source="price" />
@@ -41,6 +43,9 @@ export const ProductCreate = ({ permissions, ...props }) => (
             <TextInput label="The description of the product" source="description" />
             <NumberInput source="price" format={v => v/100} parse={v => Math.round(v*100)} label="Price" />
             <NumberInput source="quantity" label="Quantity" />
+            <ImageInput source="image" label="Related pictures" accept="image/*" placeholder={<p>Drop your file here</p>}>
+                <ImageField source="src" title="title" />
+            </ImageInput>
         </SimpleForm>
     </Create>
 );
