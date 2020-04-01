@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -14,6 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\HasLifecycleCallbacks()
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
@@ -30,30 +33,35 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
      * @Groups({"read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"read","write"})
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="string", length=20)
+     *
      * @Groups({"read","write"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="datetime")
+     *
      * @Groups({"read","write"})
      */
     private $startAt;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"read","write"})
      */
     private $price;
@@ -61,6 +69,7 @@ class Product
 
     /**
      * @ORM\Column(type="datetime")
+     *
      * @Groups({"read","write"})
      */
     private $endAt;
@@ -79,6 +88,8 @@ class Product
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
     private $shop;
+
+
 
     public function getId(): ?int
     {
@@ -178,4 +189,5 @@ class Product
 
         return $this;
     }
+
 }

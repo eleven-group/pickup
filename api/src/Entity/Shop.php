@@ -10,9 +10,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use App\Entity\Traits\DateTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
+ * @ORM\HasLifecycleCallbacks()
  *
  * @ApiResource(
  *   attributes={
@@ -31,6 +33,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 class Shop
 {
+    use DateTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

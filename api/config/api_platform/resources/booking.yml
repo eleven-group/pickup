@@ -13,6 +13,7 @@ App\Entity\Booking:
     put: ~
     delete: ~
   properties:
-    slot:
+    booking-item:
       subresource:
-        resourceClass: 'App\Entity\Slot'
+        resourceClass: 'App\Entity\BookingItem'
+        collection: true

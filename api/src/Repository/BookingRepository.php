@@ -19,6 +19,28 @@ class BookingRepository extends ServiceEntityRepository
         parent::__construct($registry, Booking::class);
     }
 
+    public function getSlots($shopId, $page = 1)
+    {
+
+
+        $start = mktime(0, 0, 0, date("m")  , date("d")+(7*($page-1)), date("Y"));
+        $end = mktime(0, 0, 0, date("m")  , date("d")+(7*($page)), date("Y"));
+
+        $start = date('Y-m-d H:i:s',$start);
+        $end = date('Y-m-d H:i:s',$end);
+
+
+        $qb = $this->createQueryBuilder('b')
+            ->where('b.date BETWEEN :start AND :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
+
     // /**
     //  * @return Booking[] Returns an array of Booking objects
     //  */

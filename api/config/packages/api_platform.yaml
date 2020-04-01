@@ -5,6 +5,7 @@ api_platform:
         paths:
             - '%kernel.project_dir%/src/Entity'
             - '%kernel.project_dir%/config/api_platform' # yaml or xml directory configuration
+    path_segment_name_generator: api_platform.path_segment_name_generator.dash
     formats:
         jsonapi:
             mime_types: ['application/vnd.api+json']
