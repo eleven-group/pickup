@@ -15,6 +15,10 @@
               <i class="el-icon-house"></i>
               <span>Accueil</span>
             </el-menu-item>
+            <el-menu-item route="/" index="1">
+              <i class="el-icon-question"></i>
+              <span>À propos</span>
+            </el-menu-item>
             <el-menu-item route="/shops" index="2">
               <i class="el-icon-shopping-bag-1"></i>
               <span>Magasins</span>
@@ -52,7 +56,7 @@
 
 <script>
 export default {
-  name: 'LayoutDefault'
+  name: "LayoutDefault"
 };
 </script>
 
@@ -77,7 +81,7 @@ $--aside-width: 250px;
     padding: 28px;
     padding-left: 20px;
     color: #171725;
-    font-weight: 600;
+    font-weight: 500;
 
     &:hover,
     &:active,

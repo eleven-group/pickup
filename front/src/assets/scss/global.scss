@@ -19,6 +19,7 @@ $--background-color-base: #f5f7fa;
 $--font-weight-primary: 500;
 
 @import "~element-ui/packages/theme-chalk/src/index";
+@import "~element-ui/lib/theme-chalk/display.css";
 
 * {
   font-family: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -28,6 +29,39 @@ $--font-weight-primary: 500;
 .el-button,
 [class*="el-button"] {
   border-radius: 10px;
+}
+
+h1,
+h2,
+h3 {
+  color: #171725;
+  line-height: 48px;
+
+  &.header {
+    display: block;
+    text-align: center;
+    margin: 24px auto;
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+h1,
+h2 {
+  font-weight: 600;
+}
+
+th {
+  color: #171725;
+  font-weight: 500;
+}
+
+.category {
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: $--color-text-placeholder;
+  font-weight: 500;
 }
 
 .el-card {
@@ -42,6 +76,15 @@ $--font-weight-primary: 500;
   margin-bottom: 32px;
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .el-col {
+    margin-bottom: 32px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 

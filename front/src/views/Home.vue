@@ -1,7 +1,10 @@
 <template>
   <div>
     <el-row>
-      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+      <h1 class="header">
+        Bienvenue sur FoodCollect, un site francophone et communautaire
+        <br />dédié au Click &amp; Collect.
+      </h1>
     </el-row>
     <el-row :gutter="40">
       <el-col :span="6" :xs="12" :sm="12" :md="8" :lg="6" :xl="6">
@@ -50,20 +53,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
-  name: 'Home',
+  name: "Home",
   computed: mapState({
     longitude: state => state.location.longitude,
     latitude: state => state.location.latitude
   }),
-  created: function () {
+  created: function() {
     if (navigator.geolocation) {
       const success = ({ coords }) => {
         const { latitude, longitude } = coords;
-        this.$store.commit('location/setLatitude', latitude);
-        this.$store.commit('location/setLongitude', longitude);
+        this.$store.commit("location/setLatitude", latitude);
+        this.$store.commit("location/setLongitude", longitude);
       };
 
       const error = err => {
@@ -72,22 +75,13 @@ export default {
 
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
-      console.log('Geolocation is not supported for this Browser/OS.');
+      console.log("Geolocation is not supported for this Browser/OS.");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-h1,
-h3 {
-  color: #171725;
-}
-
-h1 {
-  font-weight: 600;
-}
-
 .el-card {
   &--button {
     display: flex;
