@@ -36,7 +36,7 @@ class Booking
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      *
      * @Groups({"read","write"})
      */
@@ -103,12 +103,11 @@ class Booking
     private $bookingItems;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     *
-     * @Groups({"read","write"})
+     * @ORM\ManyToOne(targetEntity="Shop",)
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
-    private $client;
+    private $shop;
+
 
     public function __construct()
     {
@@ -231,18 +230,6 @@ class Booking
                 $bookingItem->setBooking(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getClient(): ?User
-    {
-        return $this->client;
-    }
-
-    public function setClient(?User $client): self
-    {
-        $this->client = $client;
 
         return $this;
     }

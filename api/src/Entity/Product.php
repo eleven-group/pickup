@@ -46,18 +46,18 @@ class Product
     private $quantity;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string")
      *
      * @Groups({"read","write"})
      */
-    private $status;
+    private $name;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string")
      *
      * @Groups({"read","write"})
      */
-    private $startAt;
+    private $description;
 
     /**
      * @ORM\Column(type="integer")
@@ -65,14 +65,6 @@ class Product
      * @Groups({"read","write"})
      */
     private $price;
-
-
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @Groups({"read","write"})
-     */
-    private $endAt;
 
     /**
      * @var MediaObject|null
@@ -108,41 +100,6 @@ class Product
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getStartAt(): ?\DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(\DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->endAt;
-    }
-
-    public function setEndAt(\DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
-
-        return $this;
-    }
 
     public function getImage(): ?EmbeddedFile
     {
@@ -186,6 +143,30 @@ class Product
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

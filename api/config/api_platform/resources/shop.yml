@@ -13,6 +13,8 @@ App\Entity\Shop:
         method: GET
         path: /shops/{id}/slots
         controller: App\Controller\GetSlotRange
+        formats:
+          json: ['application/json']
     get: ~
     put: ~
     delete: ~
