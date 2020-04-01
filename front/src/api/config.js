@@ -21,4 +21,11 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
+const osmApi = axios.create({
+  baseURL: 'https://nominatim.openstreetmap.org',
+  timeout: DEFAULT_TIMEOUT
+});
+
 export default instance;
+
+export { osmApi };

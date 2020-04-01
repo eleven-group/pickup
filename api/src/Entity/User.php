@@ -50,7 +50,7 @@ class User implements UserInterface
 
     /**
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $username;
     
