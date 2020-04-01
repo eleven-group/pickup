@@ -20,9 +20,16 @@ public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $even
 
     $role = $user->getRoles();
 
+    $store = null;
+
+    if(null !== $user->getShop()){
+        $store = $user->getShop()->getId();
+    }
+
     $data['data'] = [
         'role' => $role[0],
         'id' => $user->getId(),
+        'store' => $store,
     ];
 
     $event->setData($data);

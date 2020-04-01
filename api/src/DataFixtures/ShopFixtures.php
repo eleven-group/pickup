@@ -31,7 +31,7 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
         ];
 
 
-        for ($i=2; $i < 52; $i++) {
+        for ($i=1; $i < 52; $i++) {
 
         $user = $this->userRepository->findOneBy(['id'=>$i]);
 

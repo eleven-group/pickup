@@ -20,7 +20,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
- *      "owner.id": "exact",
+ *      "shop": "exact",
  * })
  */
 class Product

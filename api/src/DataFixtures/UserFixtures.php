@@ -41,8 +41,21 @@ class UserFixtures extends Fixture
 
         $manager->persist($user);
 
+        // Create an admin user
+        $user = new User('owner');
+        $user->setEmail('owner@narah.io');
+        $user->setIsActive(true);
+        $user->setRoles(self::MANAGER_ROLE);
+        $user->setFirstname('owner');
+        $user->setLastname('owner');
 
-        for ($i=0; $i < 50; $i++) {
+        $password = $this->encoder->encodePassword($user, 'owner');
+        $user->setPassword($password);
+
+        $manager->persist($user);
+
+
+        for ($i=0; $i < 49; $i++) {
 
             $user = new User();
             $user->setUsername($this->faker->username);

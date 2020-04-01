@@ -6,7 +6,7 @@
         "version": "0.1"
     },
     "paths": {
-        "\/api\/booking_items": {
+        "\/api\/booking-items": {
             "get": {
                 "tags": [
                     "BookingItem"
@@ -108,7 +108,7 @@
                 ]
             }
         },
-        "\/api\/booking_items\/{id}": {
+        "\/api\/booking-items\/{id}": {
             "get": {
                 "tags": [
                     "BookingItem"
@@ -394,7 +394,7 @@
                 ]
             }
         },
-        "\/api\/media_objects": {
+        "\/api\/media-objects": {
             "post": {
                 "tags": [
                     "MediaObject"
@@ -480,7 +480,7 @@
                 ]
             }
         },
-        "\/api\/media_objects\/{id}": {
+        "\/api\/media-objects\/{id}": {
             "get": {
                 "tags": [
                     "MediaObject"
@@ -535,6 +535,22 @@
                     }
                 },
                 "parameters": [
+                    {
+                        "name": "shop",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "shop[]",
+                        "in": "query",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi"
+                    },
                     {
                         "name": "page",
                         "in": "query",
@@ -907,7 +923,6 @@
                 ],
                 "operationId": "slot_rangeShopItem",
                 "produces": [
-                    "application\/vnd.api+json",
                     "application\/json"
                 ],
                 "summary": "Retrieves a Shop resource.",
@@ -1217,9 +1232,6 @@
                     "items": {
                         "$ref": "#\/definitions\/BookingItem-read"
                     }
-                },
-                "client": {
-                    "$ref": "#\/definitions\/User-read"
                 }
             },
             "required": [
@@ -1263,9 +1275,6 @@
                     "items": {
                         "$ref": "#\/definitions\/BookingItem-write"
                     }
-                },
-                "client": {
-                    "$ref": "#\/definitions\/User-write"
                 }
             },
             "required": [
@@ -1452,19 +1461,14 @@
                 "quantity": {
                     "type": "integer"
                 },
-                "status": {
+                "name": {
                     "type": "string"
                 },
-                "startAt": {
-                    "type": "string",
-                    "format": "date-time"
+                "description": {
+                    "type": "string"
                 },
                 "price": {
                     "type": "integer"
-                },
-                "endAt": {
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -1475,19 +1479,14 @@
                 "quantity": {
                     "type": "integer"
                 },
-                "status": {
+                "name": {
                     "type": "string"
                 },
-                "startAt": {
-                    "type": "string",
-                    "format": "date-time"
+                "description": {
+                    "type": "string"
                 },
                 "price": {
                     "type": "integer"
-                },
-                "endAt": {
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
