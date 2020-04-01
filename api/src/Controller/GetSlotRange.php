@@ -71,18 +71,16 @@ class GetSlotRange
             }
         }
 
-        dd($slots);
-        dd($bookingSlots);
-
         foreach ($slots as $key => $daySlot) {
+
             if(isset($bookingSlots[$key])){
-                $output[] = array_diff($bookingSlots[$key], $daySlot);
+                $output[$key] = array_values(array_diff($daySlot, $bookingSlots[$key]));
+            } else{
+                $output[$key] = $daySlot;
             }
         }
 
-        dd($output);
-
-        return $output;
+        return ['slots' => $output];
 
     }
 
