@@ -7,7 +7,7 @@
       </h1>
     </el-row>
     <el-row :gutter="40">
-      <el-col :span="6" :xs="12" :sm="12" :md="8" :lg="6" :xl="6">
+      <el-col :span="6" :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
         <el-card>
           <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
           <div class="el-card--button">
@@ -15,7 +15,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="12" :sm="12" :md="8" :lg="6" :xl="6">
+      <el-col :span="6" :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
         <el-card>
           <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
           <div class="el-card--button">
@@ -23,7 +23,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="12" :xs="24" :sm="24" :md="8" :lg="12" :xl="12">
+      <el-col :span="12" :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <el-alert
           title="Attention, COVID-19 !"
           type="error"

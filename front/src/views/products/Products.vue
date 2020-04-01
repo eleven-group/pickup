@@ -3,22 +3,48 @@
     <el-row>
       <h1>Tous les produits du restaurant sélectionné :</h1>
     </el-row>
-    <el-card>
-      <p class="category">Tous les produits</p>
-      <el-table empty-text="No data" :data="products" border>
-        <el-table-column prop="id" label="ID"></el-table-column>
-        <el-table-column prop="type" label="Type"></el-table-column>
-        <el-table-column prop="status" label="Status"></el-table-column>
-        <el-table-column prop="startAt" label="From"></el-table-column>
-        <el-table-column prop="endAt" label="To"></el-table-column>
-        <el-table-column label="Actions">
-          <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleView(scope.$index, scope.row)">View</el-button>
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-card>
+    <el-row :gutter="24">
+      <el-col :span="6" :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+        <el-card shadow="never">
+          <img src="https://picsum.photos/id/10/250/150" class="image" />
+          <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+          <h3>Prix : 99,9€</h3>
+          <div class="el-card--button">
+            <el-button type="success" plain>Ajouter au panier</el-button>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6" :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+        <el-card shadow="never">
+          <img src="https://picsum.photos/id/10/250/150" class="image" />
+          <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+          <h3>Prix : 99,9€</h3>
+          <div class="el-card--button">
+            <el-button type="success" plain>Ajouter au panier</el-button>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6" :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+        <el-card shadow="never">
+          <img src="https://picsum.photos/id/10/250/150" class="image" />
+          <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+          <h3>Prix : 99,9€</h3>
+          <div class="el-card--button">
+            <el-button type="success" plain>Ajouter au panier</el-button>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span="6" :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
+        <el-card shadow="never">
+          <img src="https://picsum.photos/id/10/250/150" class="image" />
+          <p>Lorem ipsum dolor sit amet, consectetur elit.</p>
+          <h3>Prix : 99,9€</h3>
+          <div class="el-card--button">
+            <el-button type="success" plain>Ajouter au panier</el-button>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -44,3 +70,20 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.el-card {
+  h3 {
+    font-weight: 600;
+  }
+
+  .el-card--button,
+  h3 {
+    text-align: right;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+</style>

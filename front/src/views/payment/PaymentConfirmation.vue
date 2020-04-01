@@ -4,28 +4,28 @@
       <h1>Tous les produits du restaurant sélectionné :</h1>
     </el-row>
     <el-row :gutter="40">
-      <el-col :span="24" :xs="12" :sm="24" :md="24" :lg="18" :xl="18">
+      <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
         <el-card>
           <p class="category">Contenu du panier</p>
           <el-table :data="tableData" style="width: 100%">
-            <el-table-column label="Catégorie">
+            <el-table-column width="300px" label="Catégorie">
               <template slot-scope="scope">
                 <span style="margin-left: 10px">{{ scope.row.type }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="Nom">
+            <el-table-column width="300px" label="Nom">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium">{{ scope.row.name }}</el-tag>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="Prix">
+            <el-table-column width="100px" label="Prix">
               <template slot-scope="scope">
                 <span>{{ scope.row.price }}</span>
               </template>
             </el-table-column>
-            <el-table-column align="right" label="Opérations">
+            <el-table-column width="300px" align="right" label="Opérations">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -64,25 +64,25 @@ export default {
         {
           type: 'Catégorie produit',
           name: 'Tom',
-          prix: '13,99€ TTC',
+          price: '13,99€ TTC',
           address: 'No. 189, Grove St, Los Angeles'
         },
         {
           type: 'Catégorie produit',
           name: 'Tom',
-          prix: '13,99€ TTC',
+          price: '13,99€ TTC',
           address: 'No. 189, Grove St, Los Angeles'
         },
         {
           type: 'Catégorie produit',
           name: 'Tom',
-          prix: '13,99€ TTC',
+          price: '13,99€ TTC',
           address: 'No. 189, Grove St, Los Angeles'
         },
         {
           type: 'Catégorie produit',
           name: 'Tom',
-          prix: '13,99€ TTC',
+          price: '13,99€ TTC',
           address: 'No. 189, Grove St, Los Angeles'
         }
       ]
@@ -132,6 +132,8 @@ th {
 
   button {
     width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   span {
