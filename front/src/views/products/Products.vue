@@ -23,23 +23,23 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  name: "Products",
+  name: 'Products',
   computed: mapState({
     products: state => state.products.products
   }),
   methods: {
-    ...mapActions("products", ["fetchProducts"]),
-    handleEdit(index, row) {
-      this.$router.push({ name: "products.edit", params: { id: row.id } });
+    ...mapActions('products', ['fetchProducts']),
+    handleEdit (index, row) {
+      this.$router.push({ name: 'products.edit', params: { id: row.id } });
     },
-    handleView(index, row) {
-      this.$router.push({ name: "products.show", params: { id: row.id } });
+    handleView (index, row) {
+      this.$router.push({ name: 'products.show', params: { id: row.id } });
     }
   },
-  created() {
+  created () {
     this.fetchProducts();
   }
 };

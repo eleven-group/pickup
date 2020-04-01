@@ -53,20 +53,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  name: "Home",
+  name: 'Home',
   computed: mapState({
     longitude: state => state.location.longitude,
     latitude: state => state.location.latitude
   }),
-  created: function() {
+  created: function () {
     if (navigator.geolocation) {
       const success = ({ coords }) => {
         const { latitude, longitude } = coords;
-        this.$store.commit("location/setLatitude", latitude);
-        this.$store.commit("location/setLongitude", longitude);
+        this.$store.commit('location/setLatitude', latitude);
+        this.$store.commit('location/setLongitude', longitude);
       };
 
       const error = err => {
@@ -75,7 +75,7 @@ export default {
 
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
-      console.log("Geolocation is not supported for this Browser/OS.");
+      console.log('Geolocation is not supported for this Browser/OS.');
     }
   }
 };

@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "LayoutError"
+  name: 'LayoutError'
 };
 </script>
 

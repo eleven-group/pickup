@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  name: "LayoutDefault"
+  name: 'LayoutDefault'
 };
 </script>
 

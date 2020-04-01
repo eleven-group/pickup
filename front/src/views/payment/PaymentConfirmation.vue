@@ -58,41 +58,41 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tableData: [
         {
-          type: "Catégorie produit",
-          name: "Tom",
-          prix: "13,99€ TTC",
-          address: "No. 189, Grove St, Los Angeles"
+          type: 'Catégorie produit',
+          name: 'Tom',
+          prix: '13,99€ TTC',
+          address: 'No. 189, Grove St, Los Angeles'
         },
         {
-          type: "Catégorie produit",
-          name: "Tom",
-          prix: "13,99€ TTC",
-          address: "No. 189, Grove St, Los Angeles"
+          type: 'Catégorie produit',
+          name: 'Tom',
+          prix: '13,99€ TTC',
+          address: 'No. 189, Grove St, Los Angeles'
         },
         {
-          type: "Catégorie produit",
-          name: "Tom",
-          prix: "13,99€ TTC",
-          address: "No. 189, Grove St, Los Angeles"
+          type: 'Catégorie produit',
+          name: 'Tom',
+          prix: '13,99€ TTC',
+          address: 'No. 189, Grove St, Los Angeles'
         },
         {
-          type: "Catégorie produit",
-          name: "Tom",
-          prix: "13,99€ TTC",
-          address: "No. 189, Grove St, Los Angeles"
+          type: 'Catégorie produit',
+          name: 'Tom',
+          prix: '13,99€ TTC',
+          address: 'No. 189, Grove St, Los Angeles'
         }
       ]
     };
   },
   methods: {
-    handleEdit(index, row) {
+    handleEdit (index, row) {
       console.log(index, row);
     },
-    handleDelete(index, row) {
+    handleDelete (index, row) {
       console.log(index, row);
     }
   }
