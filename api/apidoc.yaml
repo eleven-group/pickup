@@ -410,6 +410,16 @@ paths:
           required: false
           type: string
         -
+          name: 'order[firstname]'
+          in: query
+          required: false
+          type: string
+        -
+          name: 'order[lastname]'
+          in: query
+          required: false
+          type: string
+        -
           name: 'order[email]'
           in: query
           required: false
@@ -566,19 +576,23 @@ definitions:
         type: integer
       username:
         type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
       email:
         type: string
       isActive:
         type: boolean
-      bio:
-        type: string
-      avatar:
-        type: string
   User-write:
     type: object
     description: ''
     properties:
       username:
+        type: string
+      firstname:
+        type: string
+      lastname:
         type: string
       email:
         type: string
@@ -586,7 +600,3 @@ definitions:
         type: string
       isActive:
         type: boolean
-      bio:
-        type: string
-      avatar:
-        type: string

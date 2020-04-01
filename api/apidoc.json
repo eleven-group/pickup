@@ -968,6 +968,18 @@
                         "type": "string"
                     },
                     {
+                        "name": "order[firstname]",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "order[lastname]",
+                        "in": "query",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "order[email]",
                         "in": "query",
                         "required": false,
@@ -1554,6 +1566,46 @@
                 },
                 "isActive": {
                     "type": "boolean"
+                }
+            }
+        },
+        "Slot-read": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "date": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/DateTime"
+                    },
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "booking": {
+                    "type": "string",
+                    "format": "iri-reference"
+                }
+            }
+        },
+        "Slot-write": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "date": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/DateTime"
+                    },
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "booking": {
+                    "type": "string",
+                    "format": "iri-reference"
                 }
             }
         },

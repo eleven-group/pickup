@@ -28,12 +28,13 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Create an admin user
-        $user = new User('admin');
+        $user = new User();
+        $user->setUsername("Nonnonononono");
+        $user->setFirstname("Richard");
+        $user->setLastname("Lefrancis");
         $user->setEmail('admin@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::ADMIN_ROLE);
-        $user->setFirstname('admin');
-        $user->setLastname('admin');
 
         $password = $this->encoder->encodePassword($user, 'admin');
         $user->setPassword($password);

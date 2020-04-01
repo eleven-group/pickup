@@ -50,10 +50,24 @@ class User implements UserInterface
 
     /**
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
+    
+    /**
+     * @Assert\NotBlank
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
 
+    /**
+     * @Assert\NotBlank
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastname;
+    
     /**
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=200, unique=true)
@@ -73,20 +87,6 @@ class User implements UserInterface
     private $isActive;
 
     /**
-     * @Assert\NotBlank
-     *
-     * @ORM\Column(type="string", length=100)
-     */
-    private $firstname;
-
-    /**
-     * @Assert\NotBlank
-     *
-     * @ORM\Column(type="string", length=100)
-     */
-    private $lastname;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -99,11 +99,8 @@ class User implements UserInterface
      */
     public $shop;
 
-
-
-    public function __construct($username)
+    public function __construct()
     {
-        $this->setUsername($username);
         $this->isActive = true;
     }
 
