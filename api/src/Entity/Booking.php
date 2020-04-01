@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Traits\DateTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
- *
+ * @ORM\HasLifecycleCallbacks()
  * @ApiFilter(SearchFilter::class,
  * properties = {
  *      "owner.id": "exact",
@@ -18,30 +22,49 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Booking
 {
 
+    use DateTrait;
+
     const STATUS = ['accepted', 'pending', 'canceled', 'done'];
 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
+     *
+     * @Groups({"read","write"})
      */
     private $content;
 
     /**
      * @Assert\Choice(choices=Booking::STATUS, message="Choose a valid status.")
      * @ORM\Column(type="string", length=20)
+     *
+     * @Groups({"read","write"})
      */
     private $status;
+
+    /**
+     * @Assert\DateTime
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @Groups({"read","write"})
+     */
+    protected $date;
 
     /**
      * @Assert\NotBlank
      *
      * @ORM\Column(type="string", length=100)
+     *
+     * @Groups({"read","write"})
      */
     private $firstname;
 
@@ -49,6 +72,8 @@ class Booking
      * @Assert\NotBlank
      *
      * @ORM\Column(type="string", length=100)
+     *
+     * @Groups({"read","write"})
      */
     private $lastname;
 
@@ -56,6 +81,8 @@ class Booking
      * @Assert\NotBlank
      *
      * @ORM\Column(type="integer", length=10)
+     *
+     * @Groups({"read","write"})
      */
     private $phonenumber;
 
@@ -63,25 +90,29 @@ class Booking
      * @Assert\NotBlank
      *
      * @ORM\Column(type="string", length=200)
+     *
+     * @Groups({"read","write"})
      */
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="BookingItem", mappedBy="booking")
+     *
+     * @Groups({"read","write"})
      */
-    private $product;
+    private $bookingItems;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Shop",)
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
-    private $client;
+    private $shop;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Slot", mappedBy="booking")
-     */
-    private $slot;
+
+    public function __construct()
+    {
+        $this->bookingItems = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,54 +127,6 @@ class Booking
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getAbsence(): ?Absence
-    {
-        return $this->absence;
-    }
-
-    public function setAbsence(?Absence $absence): self
-    {
-        $this->absence = $absence;
-
-        return $this;
-    }
-
-    public function getInvoice(): ?Invoice
-    {
-        return $this->invoice;
-    }
-
-    public function setInvoice(?Invoice $invoice): self
-    {
-        $this->invoice = $invoice;
-
-        return $this;
-    }
-
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): self
-    {
-        $this->owner = $owner;
 
         return $this;
     }
@@ -165,51 +148,9 @@ class Booking
         return $this->date;
     }
 
-    public function setDate(?\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    public function getClient(): ?User
-    {
-        return $this->client;
-    }
-
-    public function setClient(?User $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    public function getSlot(): ?Slot
-    {
-        return $this->slot;
-    }
-
-    public function setSlot(?Slot $slot): self
-    {
-        $this->slot = $slot;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newBooking = $slot === null ? null : $this;
-        if ($newBooking !== $slot->getBooking()) {
-            $slot->setBooking($newBooking);
-        }
 
         return $this;
     }
@@ -261,4 +202,36 @@ class Booking
 
         return $this;
     }
+
+    /**
+     * @return Collection|BookingItem[]
+     */
+    public function getBookingItems(): Collection
+    {
+        return $this->bookingItems;
+    }
+
+    public function addBookingItem(BookingItem $bookingItem): self
+    {
+        if (!$this->bookingItems->contains($bookingItem)) {
+            $this->bookingItems[] = $bookingItem;
+            $bookingItem->setBooking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBookingItem(BookingItem $bookingItem): self
+    {
+        if ($this->bookingItems->contains($bookingItem)) {
+            $this->bookingItems->removeElement($bookingItem);
+            // set the owning side to null (unless already changed)
+            if ($bookingItem->getBooking() === $this) {
+                $bookingItem->setBooking(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

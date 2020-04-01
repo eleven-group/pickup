@@ -9,6 +9,12 @@ App\Entity\Shop:
     get: ~
     post: ~
   itemOperations:
+    slot_range:
+        method: GET
+        path: /shops/{id}/slots
+        controller: App\Controller\GetSlotRange
+        formats:
+          json: ['application/json']
     get: ~
     put: ~
     delete: ~

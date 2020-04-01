@@ -13,10 +13,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Traits\DateTrait;
 
 /**
  * @ORM\Table(name="account")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  *
  * @ApiResource(
  *   attributes={
@@ -37,6 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    use DateTrait;
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id

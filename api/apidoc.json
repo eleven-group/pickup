@@ -6,6 +6,208 @@
         "version": "0.1"
     },
     "paths": {
+        "\/api\/booking_items": {
+            "get": {
+                "tags": [
+                    "BookingItem"
+                ],
+                "operationId": "getBookingItemCollection",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves the collection of BookingItem resources.",
+                "responses": {
+                    "200": {
+                        "description": "BookingItem collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/BookingItem-read"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "booking.id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "booking.id[]",
+                        "in": "query",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "description": "The collection page number",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "itemsPerPage",
+                        "in": "query",
+                        "required": false,
+                        "description": "The number of items per page",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "pagination",
+                        "in": "query",
+                        "required": false,
+                        "description": "Enable or disable pagination",
+                        "type": "boolean"
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "BookingItem"
+                ],
+                "operationId": "postBookingItemCollection",
+                "consumes": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Creates a BookingItem resource.",
+                "responses": {
+                    "201": {
+                        "description": "BookingItem resource created",
+                        "schema": {
+                            "$ref": "#\/definitions\/BookingItem-read"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "bookingItem",
+                        "in": "body",
+                        "description": "The new BookingItem resource",
+                        "schema": {
+                            "$ref": "#\/definitions\/BookingItem-write"
+                        }
+                    }
+                ]
+            }
+        },
+        "\/api\/booking_items\/{id}": {
+            "get": {
+                "tags": [
+                    "BookingItem"
+                ],
+                "operationId": "getBookingItemItem",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves a BookingItem resource.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "BookingItem resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/BookingItem-read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "BookingItem"
+                ],
+                "operationId": "putBookingItemItem",
+                "consumes": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Replaces the BookingItem resource.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "bookingItem",
+                        "in": "body",
+                        "description": "The updated BookingItem resource",
+                        "schema": {
+                            "$ref": "#\/definitions\/BookingItem-write"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "BookingItem resource updated",
+                        "schema": {
+                            "$ref": "#\/definitions\/BookingItem-read"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "BookingItem"
+                ],
+                "operationId": "deleteBookingItemItem",
+                "summary": "Removes the BookingItem resource.",
+                "responses": {
+                    "204": {
+                        "description": "BookingItem resource deleted"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
         "\/api\/bookings": {
             "get": {
                 "tags": [
@@ -44,7 +246,7 @@
                         "type": "integer"
                     },
                     {
-                        "name": "page",
+                        "name": "pagination",
                         "in": "query",
                         "required": false,
                         "description": "Enable or disable pagination",
@@ -192,24 +394,63 @@
                 ]
             }
         },
-        "\/api\/files": {
-            "get": {
+        "\/api\/media_objects": {
+            "post": {
                 "tags": [
-                    "File"
+                    "MediaObject"
                 ],
-                "operationId": "getFileCollection",
+                "operationId": "postMediaObjectCollection",
+                "consumes": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
                 "produces": [
                     "application\/vnd.api+json",
                     "application\/json"
                 ],
-                "summary": "Retrieves the collection of File resources.",
+                "summary": "Creates a MediaObject resource.",
+                "responses": {
+                    "201": {
+                        "description": "MediaObject resource created",
+                        "schema": {
+                            "$ref": "#\/definitions\/MediaObject-media_object_read"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "mediaObject",
+                        "in": "body",
+                        "description": "The new MediaObject resource",
+                        "schema": {
+                            "$ref": "#\/definitions\/MediaObject"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "MediaObject"
+                ],
+                "operationId": "getMediaObjectCollection",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves the collection of MediaObject resources.",
                 "responses": {
                     "200": {
-                        "description": "File collection response",
+                        "description": "MediaObject collection response",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/File"
+                                "$ref": "#\/definitions\/MediaObject-media_object_read"
                             }
                         }
                     }
@@ -230,65 +471,26 @@
                         "type": "integer"
                     },
                     {
-                        "name": "page",
+                        "name": "pagination",
                         "in": "query",
                         "required": false,
                         "description": "Enable or disable pagination",
                         "type": "boolean"
                     }
                 ]
-            },
-            "post": {
-                "tags": [
-                    "File"
-                ],
-                "operationId": "postFileCollection",
-                "consumes": [
-                    "application\/vnd.api+json",
-                    "application\/json"
-                ],
-                "produces": [
-                    "application\/vnd.api+json",
-                    "application\/json"
-                ],
-                "summary": "Creates a File resource.",
-                "responses": {
-                    "201": {
-                        "description": "File resource created",
-                        "schema": {
-                            "$ref": "#\/definitions\/File"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input"
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "file",
-                        "in": "body",
-                        "description": "The new File resource",
-                        "schema": {
-                            "$ref": "#\/definitions\/File"
-                        }
-                    }
-                ]
             }
         },
-        "\/api\/files\/{id}": {
+        "\/api\/media_objects\/{id}": {
             "get": {
                 "tags": [
-                    "File"
+                    "MediaObject"
                 ],
-                "operationId": "getFileItem",
+                "operationId": "getMediaObjectItem",
                 "produces": [
                     "application\/vnd.api+json",
                     "application\/json"
                 ],
-                "summary": "Retrieves a File resource.",
+                "summary": "Retrieves a MediaObject resource.",
                 "parameters": [
                     {
                         "name": "id",
@@ -299,123 +501,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "File resource response",
+                        "description": "MediaObject resource response",
                         "schema": {
-                            "$ref": "#\/definitions\/File"
+                            "$ref": "#\/definitions\/MediaObject-media_object_read"
                         }
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "File"
-                ],
-                "operationId": "deleteFileItem",
-                "summary": "Removes the File resource.",
-                "responses": {
-                    "204": {
-                        "description": "File resource deleted"
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "File"
-                ],
-                "operationId": "putFileItem",
-                "consumes": [
-                    "application\/vnd.api+json",
-                    "application\/json"
-                ],
-                "produces": [
-                    "application\/vnd.api+json",
-                    "application\/json"
-                ],
-                "summary": "Replaces the File resource.",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "file",
-                        "in": "body",
-                        "description": "The updated File resource",
-                        "schema": {
-                            "$ref": "#\/definitions\/File"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "File resource updated",
-                        "schema": {
-                            "$ref": "#\/definitions\/File"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input"
-                    },
-                    "404": {
-                        "description": "Resource not found"
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "File"
-                ],
-                "operationId": "patchFileItem",
-                "summary": "Updates the File resource.",
-                "consumes": [
-                    "application\/vnd.api+json",
-                    "application\/json"
-                ],
-                "produces": [
-                    "application\/vnd.api+json",
-                    "application\/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "file",
-                        "in": "body",
-                        "description": "The updated File resource",
-                        "schema": {
-                            "$ref": "#\/definitions\/File"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "File resource updated",
-                        "schema": {
-                            "$ref": "#\/definitions\/File"
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid input"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -461,7 +550,7 @@
                         "type": "integer"
                     },
                     {
-                        "name": "page",
+                        "name": "pagination",
                         "in": "query",
                         "required": false,
                         "description": "Enable or disable pagination",
@@ -663,7 +752,7 @@
                         "type": "integer"
                     },
                     {
-                        "name": "page",
+                        "name": "pagination",
                         "in": "query",
                         "required": false,
                         "description": "Enable or disable pagination",
@@ -811,6 +900,38 @@
                 ]
             }
         },
+        "\/api\/shops\/{id}\/slots": {
+            "get": {
+                "tags": [
+                    "Shop"
+                ],
+                "operationId": "slot_rangeShopItem",
+                "produces": [
+                    "application\/vnd.api+json",
+                    "application\/json"
+                ],
+                "summary": "Retrieves a Shop resource.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shop resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Shop-read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
         "\/api\/users": {
             "get": {
                 "tags": [
@@ -853,6 +974,22 @@
                         "type": "string"
                     },
                     {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id[]",
+                        "in": "query",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "collectionFormat": "multi"
+                    },
+                    {
                         "name": "page",
                         "in": "query",
                         "required": false,
@@ -867,7 +1004,7 @@
                         "type": "integer"
                     },
                     {
-                        "name": "page",
+                        "name": "pagination",
                         "in": "query",
                         "required": false,
                         "description": "Enable or disable pagination",
@@ -1032,25 +1169,262 @@
     "definitions": {
         "Booking-read": {
             "type": "object",
-            "description": ""
-        },
-        "Booking-write": {
-            "type": "object",
-            "description": ""
-        },
-        "File": {
-            "type": "object",
             "description": "",
-            "required": [
-                "file"
-            ],
             "properties": {
-                "file": {},
                 "id": {
                     "readOnly": true,
                     "type": "integer"
                 },
+                "content": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "date": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/DateTime"
+                    },
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "phonenumber": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "bookingItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/BookingItem-read"
+                    }
+                },
+                "client": {
+                    "$ref": "#\/definitions\/User-read"
+                }
+            },
+            "required": [
+                "firstname",
+                "lastname",
+                "phonenumber",
+                "email"
+            ]
+        },
+        "Booking-write": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "date": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/DateTime"
+                    },
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "phonenumber": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "bookingItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/BookingItem-write"
+                    }
+                },
+                "client": {
+                    "$ref": "#\/definitions\/User-write"
+                }
+            },
+            "required": [
+                "firstname",
+                "lastname",
+                "phonenumber",
+                "email"
+            ]
+        },
+        "BookingItem-read": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "id": {
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "booking": {
+                    "$ref": "#\/definitions\/Booking-read"
+                },
+                "product": {
+                    "$ref": "#\/definitions\/Product-read"
+                }
+            },
+            "required": [
+                "quantity"
+            ]
+        },
+        "BookingItem-write": {
+            "type": "object",
+            "description": "",
+            "required": [
+                "quantity"
+            ],
+            "properties": {
+                "quantity": {
+                    "type": "integer"
+                },
+                "booking": {
+                    "$ref": "#\/definitions\/Booking-write"
+                },
+                "product": {
+                    "$ref": "#\/definitions\/Product-write"
+                }
+            }
+        },
+        "File": {
+            "type": "object",
+            "properties": {
+                "mimeType": {
+                    "readOnly": true,
+                    "description": "Returns the mime type of the file.",
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "filename": {
+                    "readOnly": true
+                },
+                "extension": {
+                    "readOnly": true
+                },
+                "basename": {
+                    "readOnly": true
+                },
+                "pathname": {
+                    "readOnly": true
+                },
+                "perms": {
+                    "readOnly": true
+                },
+                "inode": {
+                    "readOnly": true
+                },
+                "size": {
+                    "readOnly": true
+                },
+                "owner": {
+                    "readOnly": true
+                },
+                "group": {
+                    "readOnly": true
+                },
+                "ATime": {
+                    "readOnly": true
+                },
+                "MTime": {
+                    "readOnly": true
+                },
+                "CTime": {
+                    "readOnly": true
+                },
+                "type": {
+                    "readOnly": true
+                },
+                "writable": {
+                    "readOnly": true,
+                    "type": "boolean"
+                },
+                "readable": {
+                    "readOnly": true,
+                    "type": "boolean"
+                },
+                "executable": {
+                    "readOnly": true,
+                    "type": "boolean"
+                },
+                "file": {
+                    "readOnly": true,
+                    "type": "boolean"
+                },
+                "dir": {
+                    "readOnly": true,
+                    "type": "boolean"
+                },
+                "link": {
+                    "readOnly": true,
+                    "type": "boolean"
+                },
+                "linkTarget": {
+                    "readOnly": true
+                },
+                "realPath": {
+                    "readOnly": true
+                },
+                "fileInfo": {
+                    "readOnly": true
+                },
+                "pathInfo": {
+                    "readOnly": true
+                },
+                "fileClass": {},
+                "infoClass": {}
+            }
+        },
+        "MediaObject": {
+            "type": "object",
+            "description": "",
+            "externalDocs": {
+                "url": "http:\/\/schema.org\/MediaObject"
+            },
+            "properties": {
                 "contentUrl": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/contentUrl"
+                    },
+                    "type": "string"
+                },
+                "file": {
+                    "$ref": "#\/definitions\/File"
+                },
+                "filePath": {
+                    "type": "string"
+                }
+            }
+        },
+        "MediaObject-media_object_read": {
+            "type": "object",
+            "description": "",
+            "externalDocs": {
+                "url": "http:\/\/schema.org\/MediaObject"
+            },
+            "properties": {
+                "contentUrl": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/contentUrl"
+                    },
                     "type": "string"
                 }
             }
@@ -1073,6 +1447,9 @@
                     "type": "string",
                     "format": "date-time"
                 },
+                "price": {
+                    "type": "integer"
+                },
                 "endAt": {
                     "type": "string",
                     "format": "date-time"
@@ -1092,6 +1469,9 @@
                 "startAt": {
                     "type": "string",
                     "format": "date-time"
+                },
+                "price": {
+                    "type": "integer"
                 },
                 "endAt": {
                     "type": "string",
@@ -1127,14 +1507,14 @@
                         "type": "string"
                     }
                 },
+                "slotRange": {
+                    "type": "integer"
+                },
+                "owner": {
+                    "$ref": "#\/definitions\/User-read"
+                },
                 "isActive": {
                     "type": "boolean"
-                },
-                "products": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#\/definitions\/Product-read"
-                    }
                 }
             }
         },
@@ -1166,14 +1546,14 @@
                         "type": "string"
                     }
                 },
+                "slotRange": {
+                    "type": "integer"
+                },
+                "owner": {
+                    "$ref": "#\/definitions\/User-write"
+                },
                 "isActive": {
                     "type": "boolean"
-                },
-                "products": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#\/definitions\/Product-write"
-                    }
                 }
             }
         },
@@ -1193,6 +1573,9 @@
                 },
                 "isActive": {
                     "type": "boolean"
+                },
+                "shop": {
+                    "$ref": "#\/definitions\/Shop-read"
                 }
             }
         },
@@ -1211,6 +1594,9 @@
                 },
                 "isActive": {
                     "type": "boolean"
+                },
+                "shop": {
+                    "$ref": "#\/definitions\/Shop-write"
                 }
             }
         }

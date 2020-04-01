@@ -25,9 +25,9 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
         $businessHours = [
             "mon" => ["9:00-12:00","14:00-18:00"],
             "tue" => ["9:00-12:00","14:00-18:00"],
-            "wen" => ["9:00-12:00","14:00-18:00"],
-            "thu" => ["9:00-12:00","14:00-18:00"],
-            "fri" => ["9:00-12:00","14:00-18:00"]
+            "wed" => ["9:30-12:15","14:00-18:00"],
+            "thu" => ["9:00-12:00","14:45-18:00"],
+            "fri" => ["9:00-12:25","14:00-18:00"]
         ];
 
 
@@ -43,8 +43,7 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
         $shop->setIsActive(true);
         $shop->setOpeningHours($businessHours);
 
-
-        $geocode = $this->faker->latitude(-90,90).', '.$this->faker->longitude(-180,180);
+        $geocode = $this->faker->latitude(48.7270,49.0040).', '.$this->faker->longitude(2.1165,2.5281);
 
         $shop->setGeocode($geocode);
         $shop->setPostalCode($this->faker->postcode);

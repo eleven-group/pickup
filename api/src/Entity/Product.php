@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -14,6 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\HasLifecycleCallbacks()
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
@@ -30,40 +33,38 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
      * @Groups({"read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"read","write"})
      */
     private $quantity;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string")
+     *
      * @Groups({"read","write"})
      */
-    private $status;
+    private $name;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string")
+     *
      * @Groups({"read","write"})
      */
-    private $startAt;
+    private $description;
 
     /**
      * @ORM\Column(type="integer")
+     *
      * @Groups({"read","write"})
      */
     private $price;
-
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"read","write"})
-     */
-    private $endAt;
 
     /**
      * @var MediaObject|null
@@ -79,6 +80,8 @@ class Product
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
     private $shop;
+
+
 
     public function getId(): ?int
     {
@@ -97,41 +100,6 @@ class Product
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getStartAt(): ?\DateTimeInterface
-    {
-        return $this->startAt;
-    }
-
-    public function setStartAt(\DateTimeInterface $startAt): self
-    {
-        $this->startAt = $startAt;
-
-        return $this;
-    }
-
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->endAt;
-    }
-
-    public function setEndAt(\DateTimeInterface $endAt): self
-    {
-        $this->endAt = $endAt;
-
-        return $this;
-    }
 
     public function getImage(): ?EmbeddedFile
     {
@@ -178,4 +146,29 @@ class Product
 
         return $this;
     }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 }

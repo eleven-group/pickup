@@ -1,4 +1,4 @@
-App\Entity\Slot:
+App\Entity\BookingItem:
   attributes:
     pagination_items_per_page: 10
     normalization_context:
