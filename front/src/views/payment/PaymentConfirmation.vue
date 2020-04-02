@@ -106,7 +106,7 @@ export default {
       console.log(index, row);
     }
   },
-  async created() {
+  async created () {
     try {
       const toto = await shopApi.getSlots(1, 1);
       this.slots = toto.data.slots;
