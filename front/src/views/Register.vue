@@ -69,7 +69,7 @@
                 :picker-options="{
                   start: '00:00',
                   step: '00:05',
-                  end: '02:00'
+                  end: '01:00'
                 }">
               </el-time-select>
               <br>
@@ -104,12 +104,12 @@ export default {
           postalCode: '',
           city: '',
           openingHours: {
-            monday: { morning: '', afternoon: '' },
-            tuesday: { morning: '', afternoon: '' },
-            wednesday: { morning: '', afternoon: '' },
-            thursday: { morning: '', afternoon: '' },
-            friday: { morning: '', afternoon: '' },
-            saturday: { morning: '', afternoon: '' },
+            mon: { morning: '', afternoon: '' },
+            tue: { morning: '', afternoon: '' },
+            wed: { morning: '', afternoon: '' },
+            thu: { morning: '', afternoon: '' },
+            fri: { morning: '', afternoon: '' },
+            sat: { morning: '', afternoon: '' },
             sunday: { morning: '', afternoon: '' }
           },
           slotRange: ''
@@ -146,8 +146,8 @@ export default {
       });
       try {
         const geoRes = await osmApi.getGeocode(streetAdress, city, postalCode);
-        this.longitude = geoRes.data.features[0].geometry.coordinates[0];
-        this.latitude = geoRes.data.features[0].geometry.coordinates[1];
+        this.longitude = geoRes.data.results[0].geometry.lng;
+        this.latitude = geoRes.data.results[0].geometry.lat;
       } catch (e) {
         this.$message({
           showClose: true,
@@ -162,22 +162,22 @@ export default {
           Object.keys(shop[item]).forEach(day => {
             if (shop[item][day].morning || shop[item][day].afternoon) {
               if (shop[item][day].morning) {
-                shop[item][day].morning[0] = shop[item][day].morning[0].toLocaleTimeString(navigator.language, {
+                shop[item][day].morning[0] = shop[item][day].morning[0].toLocaleTimeString('fr', {
                   hour: '2-digit',
                   minute: '2-digit'
                 });
-                shop[item][day].morning[1] = shop[item][day].morning[1].toLocaleTimeString(navigator.language, {
+                shop[item][day].morning[1] = shop[item][day].morning[1].toLocaleTimeString('fr', {
                   hour: '2-digit',
                   minute: '2-digit'
                 });
                 shop[item][day].morning = `${shop[item][day].morning[0]}-${shop[item][day].morning[1]}`;
               }
               if (shop[item][day].afternoon) {
-                shop[item][day].afternoon[0] = shop[item][day].afternoon[0].toLocaleTimeString(navigator.language, {
+                shop[item][day].afternoon[0] = shop[item][day].afternoon[0].toLocaleTimeString('fr', {
                   hour: '2-digit',
                   minute: '2-digit'
                 });
-                shop[item][day].afternoon[1] = shop[item][day].afternoon[1].toLocaleTimeString(navigator.language, {
+                shop[item][day].afternoon[1] = shop[item][day].afternoon[1].toLocaleTimeString('fr', {
                   hour: '2-digit',
                   minute: '2-digit'
                 });
