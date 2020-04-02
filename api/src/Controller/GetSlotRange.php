@@ -40,7 +40,36 @@ class GetSlotRange
 
         $data = $this->compareSlots($slots, $bookings);
 
+        ksort($data);
+
+        $data = $this->formatForFrontend($data);
+
         return $data;
+    }
+
+    private function formatForFrontend($data) {
+
+        $output = [];
+        foreach ($data as $day => $value) {
+            $arr['value'] = $day;
+            $step = explode('-', $day);
+            $arr['label'] = $step[2].'/'.$step[1].'/'.$step[0];
+            $arr['children'] = $this->formatChildrenForFrontend($value);
+            $output[] = $arr;
+        }
+        return ["slots" => $output];
+    }
+
+    private function formatChildrenForFrontend($children) {
+
+        $output = [];
+        foreach ($children as $child) {
+            $label = explode(' ', $child);
+            $value = $child;
+            $output[] = ["value" => $value, "label" => $label[1]];
+        }
+
+        return $output;
     }
 
     private function generateSlots($slotTime, $schedule) {
@@ -80,7 +109,7 @@ class GetSlotRange
             }
         }
 
-        return ['slots' => $output];
+        return $output;
 
     }
 

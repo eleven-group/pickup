@@ -28,7 +28,7 @@ public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $even
 
     $data['data'] = [
         'role' => $role[0],
-        'id' => $user->getId(),
+        'active' => $user->getIsActive(),
         'store' => $store,
     ];
 
