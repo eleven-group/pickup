@@ -2,15 +2,18 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import NotFound from '@/views/errors/NotFound.vue';
 
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import LayoutModal from '@/layouts/LayoutModal.vue';
+import LayoutError from '@/layouts/LayoutError.vue';
 
 import usersRoutes from '@/routes/users';
 import invoicesRoutes from '@/routes/invoices';
 import filesRoutes from '@/routes/files';
 import productsRoutes from '@/routes/products';
+import contactRoutes from '@/routes/contact';
+import confirmationRoutes from '@/routes/confirmation';
+import aboutRoutes from '@/routes/about';
 
 Vue.use(Router);
 
@@ -30,7 +33,10 @@ export const router = new Router({
         ...usersRoutes,
         ...invoicesRoutes,
         ...filesRoutes,
-        ...productsRoutes
+        ...productsRoutes,
+        ...contactRoutes,
+        ...confirmationRoutes,
+        ...aboutRoutes
       ]
     },
     {
@@ -38,8 +44,8 @@ export const router = new Router({
       path: ''
     },
     {
-      path: '*',
-      component: NotFound
+      component: LayoutError,
+      path: '*'
     }
   ]
 });

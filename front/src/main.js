@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/reset.css';
-import 'element-ui/lib/theme-chalk/index.css';
-import 'vue-material-design-icons/styles.css';
+import '@/assets/scss/global.scss';
 import router from '@/routes';
 import store from '@/store';
 import App from '@/App.vue';

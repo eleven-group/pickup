@@ -13,17 +13,8 @@ export default {
 </script>
 
 <style scoped>
-  .container, .main {
-    height: 100vh;
-  }
-
-  .container {
-    background: url("../assets/logo.png") repeat, linear-gradient(to right, #0f2027, #203a43, #2c5364) no-repeat;
-    background-size: 100px, 100%;
-  }
-
-  @keyframes moveFromBottomLeftToTopRight {
-    from {background-position: bottom left;}
-    to {background-position: top right;}
-  }
+.container,
+.main {
+  height: 100vh;
+}
 </style>
