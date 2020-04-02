@@ -34,31 +34,60 @@
               <div v-for="(content, day) in form.shop.openingHours" :key="day">
                 <label :for="day">{{day}}</label><br>
                 <label :for="day">Morning</label>
-                <el-time-picker
-                  :id="`${day} morning
-                  `"
-                  :ref="`${day} morning
-                  `"
-                  format="HH:mm"
+              <el-time-select
+                :id="`${day}MorningOpening`"
+                :ref="`${day}MorningOpening`"
                   is-range
-                  v-model="form.shop.openingHours[day].morning"
-                  range-separator="To"
-                  start-placeholder="Starting Time"
-                  end-placeholder="Ending Time">
-                </el-time-picker><br>
+                placeholder="Morning opening"
+                v-model="form.shop.openingHours[day].morning.opening"
+                :picker-options="{
+                  start: '04:00',
+                  step: '00:30',
+                  end: '14:00'
+                }">
+              </el-time-select>
+              <el-time-select
+                :id="`${day}MorningClosing`"
+                :ref="`${day}MorningClosing`"
+                  is-range
+                placeholder="Morning closing"
+                v-model="form.shop.openingHours[day].morning.closing"
+                :picker-options="{
+                  start: '04:00',
+                  step: '00:30',
+                  end: '14:00',
+                  minTime: form.shop.openingHours[day].morning.opening
+                }">
+              </el-time-select>
+                <br>
                 <label :for="day">Afternoon</label>
-                <el-time-picker
-                  :id="`${day} afternoon`"
-                  :ref="`${day} afternoon`"
+              <el-time-select
+                :id="`${day}AfternoonOpening`"
+                :ref="`${day}AfternoonOpening`"
                   is-range
-                  format="HH:mm"
-                  v-model="form.shop.openingHours[day].afternoon"
-                  range-separator="To"
-                  start-placeholder="Starting Time"
-                  end-placeholder="Ending Time">
-                </el-time-picker>
+                placeholder="Afternoon opening"
+                v-model="form.shop.openingHours[day].afternoon.opening"
+                :picker-options="{
+                  start: '14:00',
+                  step: '00:30',
+                  end: '23:00'
+                }">
+              </el-time-select>
+              <el-time-select
+                :id="`${day}AfternoonClosing`"
+                :ref="`${day}AfternoonClosing`"
+                  is-range
+                placeholder="Afternoon closing"
+                v-model="form.shop.openingHours[day].afternoon.closing"
+                :picker-options="{
+                  start: '14:00',
+                  step: '00:30',
+                  end: '23:00',
+                  minTime: form.shop.openingHours[day].afternoon.opening
+                }">
+              </el-time-select>
               </div><br>
-              <label for="slo">Delivery range (time between each delivery)</label>
+              <label for="slot">Delivery range (time between each delivery)</label>
               <br>
               <el-time-select
                 id="slotRange"
@@ -84,6 +113,7 @@
 import userApi from '@/api/users';
 import osmApi from '@/api/location';
 import getSlotToMin from '@/helpers/getSlotToMin';
+import checkHours, { checkPartDay } from '@/helpers/checkHours';
 
 export default {
   name: 'Login',
@@ -104,13 +134,13 @@ export default {
           postalCode: '',
           city: '',
           openingHours: {
-            mon: { morning: '', afternoon: '' },
-            tue: { morning: '', afternoon: '' },
-            wed: { morning: '', afternoon: '' },
-            thu: { morning: '', afternoon: '' },
-            fri: { morning: '', afternoon: '' },
-            sat: { morning: '', afternoon: '' },
-            sunday: { morning: '', afternoon: '' }
+            monday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } },
+            tuesday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } },
+            wednesday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } },
+            thursday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } },
+            friday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } },
+            saturday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } },
+            sunday: { morning: { opening: '', closing: '' }, afternoon: { opening: '', closing: '' } }
           },
           slotRange: ''
         }
@@ -160,34 +190,24 @@ export default {
       Object.keys(shop).forEach(item => {
         if (item === 'openingHours') {
           Object.keys(shop[item]).forEach(day => {
-            if (shop[item][day].morning || shop[item][day].afternoon) {
-              if (shop[item][day].morning) {
-                shop[item][day].morning[0] = shop[item][day].morning[0].toLocaleTimeString('fr', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                });
-                shop[item][day].morning[1] = shop[item][day].morning[1].toLocaleTimeString('fr', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                });
+            if (checkHours(shop, item, day)) {
+              if (checkPartDay(shop, item, day, 'morning')) {
+                shop[item][day].morning[0] = `${shop[item][day].morning.opening}`;
+                shop[item][day].morning[1] = `${shop[item][day].morning.closing}`;
                 shop[item][day].morning = `${shop[item][day].morning[0]}-${shop[item][day].morning[1]}`;
               }
-              if (shop[item][day].afternoon) {
-                shop[item][day].afternoon[0] = shop[item][day].afternoon[0].toLocaleTimeString('fr', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                });
-                shop[item][day].afternoon[1] = shop[item][day].afternoon[1].toLocaleTimeString('fr', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                });
+              if (checkPartDay(shop, item, day, 'afternoon')) {
+                shop[item][day].afternoon[0] = `${shop[item][day].afternoon.opening}`;
+                shop[item][day].afternoon[1] = `${shop[item][day].afternoon.closing}`;
                 shop[item][day].afternoon = `${shop[item][day].afternoon[0]}-${this.form.shop[item][day].afternoon[1]}`;
               }
+              const morning = shop[item][day].morning ? shop[item][day].morning : '';
+              const afternoon = shop[item][day].afternoon ? shop[item][day].afternoon : '';
+              shop[item][day] = [morning, afternoon];
               this.isWeekEmpty = false;
+            } else {
+              shop[item][day] = ['', ''];
             }
-            const morning = shop[item][day].morning ? shop[item][day].morning : '';
-            const afternoon = shop[item][day].afternoon ? shop[item][day].afternoon : '';
-            shop[item][day] = [morning, afternoon];
           });
           return;
         }
@@ -227,7 +247,7 @@ export default {
         this.loading = false;
         return;
       }
-      if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email))) {
+      if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(user.email))) {
         this.$message({
           showClose: true,
           message: `Your email has a wrong format (e.g. john@smith.usa)`,
