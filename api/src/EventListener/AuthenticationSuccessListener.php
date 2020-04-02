@@ -14,7 +14,6 @@ public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $even
 {
     $data = $event->getData();
     $user = $event->getUser();
-
     if (!$user instanceof User) {
         return;
     }
