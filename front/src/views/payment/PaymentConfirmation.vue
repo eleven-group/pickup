@@ -108,12 +108,12 @@ export default {
   },
   async created () {
     try {
-      const toto = await shopApi.getSlots(1, 1);
-      this.slots = toto.data.slots;
+      const res = await shopApi.getSlots(1, 1);
+      this.slots = res.data.slots;
     } catch (error) {
       this.$message({
         showClose: true,
-        message: 'Oops, something went wrong.',
+        message: 'Oops, something went wrong. Try again later or report a bug',
         type: 'error'
       });
       this.loading = false;
