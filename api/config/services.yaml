@@ -42,7 +42,7 @@ services:
     SendinBlue\Client\Configuration:
         factory: ['SendinBlue\Client\Configuration','getDefaultConfiguration']
         calls:
-            - ['setApiKey',['api-key','%env(MAILIN_API_KEY)%']]
+            - ['setApiKey',['api-ky','%env(MAILIN_API_KEY)%']]
 
     App\Service\Mailer:
         arguments:
@@ -55,3 +55,4 @@ services:
     App\EventListener\ShopImageListener:
         tags:
             - {name: 'doctrine.event_listener', event: 'prePersist'}
+

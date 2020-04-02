@@ -9,13 +9,13 @@ App\Entity\User:
     get: ~
     post: ~
   itemOperations:
+    get: ~
+    put: ~
+    delete: ~
     token_check:
         method: GET
-        path: /users/token
+        path: /token-validation
         controller: App\Controller\CheckUserToken
         formats:
           json: ['application/json']
         read: false
-    get: ~
-    put: ~
-    delete: ~

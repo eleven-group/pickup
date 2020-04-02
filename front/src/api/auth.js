@@ -8,6 +8,6 @@ export default {
     return axios.get('/users/me');
   },
   getConfirmation (token) {
-    return axios.get(`/users/token?token=${token}`);
+    return axios.get(`/token-validation?token=${token}`);
   }
 };
