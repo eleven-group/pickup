@@ -21,14 +21,6 @@ export default {
     return {
       itemPopUp: this.item
     };
-  },
-  methods: {
-    initPopUp () {
-      console.log(this.itemPopUp);
-    }
-  },
-  mounted () {
-    this.initPopUp();
   }
 };
 </script>

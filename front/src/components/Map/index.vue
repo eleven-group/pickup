@@ -99,7 +99,6 @@ export default {
     initLayers () {
       const { shops } = this.$store.state.shops;
       shops.forEach((shop, index) => {
-        const geoCode = shop.geocode.split(',');
         this.layers.forEach(layer => {
           layer.features.push(
             {
@@ -107,7 +106,7 @@ export default {
               name: shop.name,
               description: shop.description,
               type: 'marker',
-              coords: latLng(geoCode[0], geoCode[1])
+              coords: latLng(shop.latitude, shop.longitude)
             }
           );
         });
