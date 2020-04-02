@@ -10,14 +10,26 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingItemRepository")
  * @ORM\HasLifecycleCallbacks()
  * @ApiFilter(SearchFilter::class,
  * properties = {
- *      "booking.id": "exact",
+ *      "booking": "exact",
  * })
+ *
+ * @ApiResource(
+ *   attributes={
+ *     "normalization_context"={
+ *       "groups"={"read"},
+ *       "enable_max_depth"=true
+ *     },
+ *     "denormalization_context"={"groups"={"write"}},
+ *   },
+ * )
  */
 class BookingItem
 {
@@ -52,9 +64,12 @@ class BookingItem
 
     /**
      * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     *
+     *  @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      *
      * @Groups({"read","write"})
+     *
+     * @MaxDepth(3)
      */
     private $product;
 

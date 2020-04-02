@@ -20,7 +20,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
- *      "shop": "exact",
+ *      "shop": "exact"
  * })
  */
 class Product
@@ -77,7 +77,6 @@ class Product
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
     private $shop;
-
 
 
     public function getId(): ?int

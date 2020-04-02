@@ -4,6 +4,7 @@ import authProvider from './auth/authProvider';
 import { UserList } from './Resources/users';
 import { ShopList } from './Resources/shops';
 import { ProductList, ProductCreate, ProductEdit } from './Resources/products';
+import { BookingList, BookingShow } from './Resources/bookings';
 import customDataProvider from './api/config';
 
 
@@ -16,7 +17,9 @@ const App = () => (
       permissions.role === 'ROLE_ADMIN'
       ? <Resource name="shops" list={ShopList} />
       : null,
-        <Resource name="products" list={ProductList} create={ProductCreate} edit={ProductEdit} />,
+        <Resource name="products" options={{ label: 'My Products' }} list={ProductList} create={ProductCreate} edit={ProductEdit} />,
+        <Resource name="bookings" options={{ label: 'My Bookings' }} list={BookingList} show={BookingShow}/>,
+        <Resource name="booking-items"/>,
     ]}
     </Admin>
 );

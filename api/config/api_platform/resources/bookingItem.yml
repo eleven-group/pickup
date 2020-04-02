@@ -12,3 +12,8 @@ App\Entity\BookingItem:
     get: ~
     put: ~
     delete: ~
+  properties:
+    products:
+      subresource:
+        resourceClass: 'App\Entity\Product'
+        collection: false
