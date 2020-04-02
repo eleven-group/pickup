@@ -6,5 +6,8 @@ export default {
   },
   getUserInfo () {
     return axios.get('/users/me');
+  },
+  getConfirmation (token) {
+    return axios.get(`/users/token?token=${token}`);
   }
 };

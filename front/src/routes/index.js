@@ -8,7 +8,6 @@ import LayoutModal from '@/layouts/LayoutModal.vue';
 import LayoutError from '@/layouts/LayoutError.vue';
 
 import usersRoutes from '@/routes/users';
-import invoicesRoutes from '@/routes/invoices';
 import filesRoutes from '@/routes/files';
 import productsRoutes from '@/routes/products';
 import contactRoutes from '@/routes/contact';
@@ -32,7 +31,6 @@ export const router = new Router({
           component: Home
         },
         ...usersRoutes,
-        ...invoicesRoutes,
         ...filesRoutes,
         ...productsRoutes,
         ...contactRoutes,
