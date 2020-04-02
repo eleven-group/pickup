@@ -14,6 +14,9 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\DateTrait;
+use App\Controller\CheckUserToken;
+use Ramsey\Uuid\Uuid;
+
 
 /**
  * @ORM\Table(name="account")
@@ -57,14 +60,14 @@ class User implements UserInterface
     /**
      * @Assert\NotBlank
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $firstname;
 
     /**
      * @Assert\NotBlank
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $lastname;
 
@@ -99,9 +102,17 @@ class User implements UserInterface
      */
     public $shop;
 
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $token;
+
+
+
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive = false;
     }
 
     public function getUsername(): ?string
@@ -241,6 +252,28 @@ class User implements UserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function generateToken(): self
+    {
+        $this->token = Uuid::uuid4();
 
         return $this;
     }

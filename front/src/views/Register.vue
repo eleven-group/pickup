@@ -261,7 +261,7 @@ export default {
       try {
         shop.slotRange = getSlotToMin(shop.slotRange);
         await userApi.registerUser(user, { ...shop, longitude: this.longitude.toString(), latitude: this.latitude.toString() });
-        await this.$router.push({ path: '/confirmation' });
+        await this.$router.push({ path: '/confirmation-register' });
       } catch (error) {
         this.$message({
           showClose: true,

@@ -33,7 +33,6 @@ class UserFixtures extends Fixture
         $user->setFirstname($this->faker->firstName);
         $user->setLastname($this->faker->lastName);
         $user->setEmail('admin@narah.io');
-        $user->setIsActive(true);
         $user->setRoles(self::ADMIN_ROLE);
 
         $password = $this->encoder->encodePassword($user, 'admin');
@@ -63,7 +62,6 @@ class UserFixtures extends Fixture
             $user->setFirstname($this->faker->firstName);
             $user->setLastname($this->faker->lastName);
             $user->setEmail($this->faker->email);
-            $user->setIsActive(true);
             $user->setRoles(self::MANAGER_ROLE);
 
             $password = $this->encoder->encodePassword($user, 'owner');
