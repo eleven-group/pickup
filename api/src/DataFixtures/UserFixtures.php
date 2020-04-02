@@ -42,7 +42,8 @@ class UserFixtures extends Fixture
         $manager->persist($user);
 
         // Create an admin user
-        $user = new User('owner');
+        $user = new User();
+        $user->setUsername('owner');
         $user->setEmail('owner@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::MANAGER_ROLE);

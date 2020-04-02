@@ -53,7 +53,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=100, unique=true)
      */
     private $username;
-    
+
     /**
      * @Assert\NotBlank
      * @Groups({"read", "write"})
@@ -67,7 +67,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
-    
+
     /**
      * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=200, unique=true)
