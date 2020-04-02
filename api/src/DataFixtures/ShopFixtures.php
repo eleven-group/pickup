@@ -43,9 +43,8 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
         $shop->setIsActive(true);
         $shop->setOpeningHours($businessHours);
 
-        $geocode = $this->faker->latitude(48.7270,49.0040).', '.$this->faker->longitude(2.1165,2.5281);
-
-        $shop->setGeocode($geocode);
+        $shop->setLatitude($this->faker->latitude(48.7270,49.0040));
+        $shop->setLongitude($this->faker->longitude(2.1165,2.5281));
         $shop->setPostalCode($this->faker->postcode);
         $shop->setCity($this->faker->city);
         $shop->setStreetAdress($this->faker->streetAddress);

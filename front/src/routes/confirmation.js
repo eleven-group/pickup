@@ -1,10 +1,10 @@
-import Confirmation from '@/views/payment/PaymentConfirmation.vue';
+import PaymentConfirmation from '@/views/payment/PaymentConfirmation.vue';
 
 const routes = [
   {
-    path: '/confirmation',
-    name: 'confirmation',
-    component: Confirmation,
+    path: '/confirmation-payment',
+    name: 'confirmation-payment',
+    component: PaymentConfirmation,
     meta: {
       auth: true
     }

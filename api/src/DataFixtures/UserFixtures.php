@@ -28,12 +28,13 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Create an admin user
-        $user = new User('admin');
+        $user = new User();
+        $user->setUsername($this->faker->username);
+        $user->setFirstname($this->faker->firstName);
+        $user->setLastname($this->faker->lastName);
         $user->setEmail('admin@narah.io');
         $user->setIsActive(true);
         $user->setRoles(self::ADMIN_ROLE);
-        $user->setFirstname('admin');
-        $user->setLastname('admin');
 
         $password = $this->encoder->encodePassword($user, 'admin');
         $user->setPassword($password);
@@ -43,7 +44,8 @@ class UserFixtures extends Fixture
 
         for ($i=0; $i < 50; $i++) {
 
-            $user = new User($this->faker->username);
+            $user = new User();
+            $user->setUsername($this->faker->username);
             $user->setFirstname($this->faker->firstName);
             $user->setLastname($this->faker->lastName);
             $user->setEmail($this->faker->email);

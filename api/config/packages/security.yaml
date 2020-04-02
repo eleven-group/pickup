@@ -16,6 +16,7 @@ security:
 
         login:
             pattern:  ^/api/login
+            methods: [POST]
             stateless: true
             anonymous: true
             json_login:
@@ -24,7 +25,8 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api:
-            pattern:  ^/api
+            pattern:  ^/(?!api|api/shops)
+            methods: [POST]
             stateless: true
             provider: entity_provider
             guard:
