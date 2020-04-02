@@ -21,6 +21,7 @@ class CheckUserToken
         try {
             $user = $this->userRepository->findOneBy(['token' => $token]);
             $user->setIsActive(true);
+            $user->setToken(null);
             $entityManager->persist($user);
             $entityManager->flush();
 

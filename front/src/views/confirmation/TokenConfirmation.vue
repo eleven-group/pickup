@@ -11,6 +11,11 @@ export default {
     try {
       await authApi.getConfirmation(this.$route.params.token);
       this.$router.push('/');
+      this.$message({
+        message: 'Votre compte a été confirmé',
+        center: true,
+        type: 'success'
+      });
     } catch (e) {
       console.error(e);
       this.$message({

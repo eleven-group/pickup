@@ -34,6 +34,7 @@ class UserFixtures extends Fixture
         $user->setLastname($this->faker->lastName);
         $user->setEmail('admin@narah.io');
         $user->setRoles(self::ADMIN_ROLE);
+        $user->setIsActive(true);
 
         $password = $this->encoder->encodePassword($user, 'admin');
         $user->setPassword($password);
