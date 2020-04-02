@@ -6,7 +6,7 @@ use App\Entity\Product;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ProductOwnershipListener
+class ProductImageListener
 {
     public function __construct(TokenStorageInterface $tokenStorage = null)
     {
@@ -21,15 +21,10 @@ class ProductOwnershipListener
 
         // if this listener only applies to certain entity types,
         // add some code to check the entity type as early as possible
-        if (!$entity instanceof Product || null === $this->tokenStorage->getToken() ) {
+        if (!$entity instanceof Product ) {
             return;
         }
 
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if(null === $entity->getShop()){
-            $shop = $user->getShop();
-            $entity->setShop($shop);
-        }
+        dd($entity);
     }
 }

@@ -72,6 +72,8 @@ class Product
      * @ORM\ManyToOne(targetEntity=MediaObject::class)
      * @ORM\JoinColumn(nullable=true)
      * @ApiProperty(iri="http://schema.org/image")
+     *
+     * @Groups({"read","write"})
      */
     public $image;
 

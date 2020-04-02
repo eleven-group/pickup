@@ -1469,6 +1469,13 @@
                 },
                 "price": {
                     "type": "integer"
+                },
+                "image": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/image"
+                    },
+                    "type": "string",
+                    "format": "iri-reference"
                 }
             }
         },
@@ -1487,6 +1494,13 @@
                 },
                 "price": {
                     "type": "integer"
+                },
+                "image": {
+                    "externalDocs": {
+                        "url": "http:\/\/schema.org\/image"
+                    },
+                    "type": "string",
+                    "format": "iri-reference"
                 }
             }
         },

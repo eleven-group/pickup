@@ -1,18 +1,14 @@
 import React from 'react';
 import { Admin, Resource, ListGuesser } from 'react-admin';
-import apiProvider from 'ra-iri-jsonapi-client';
 import authProvider from './auth/authProvider';
 import { UserList } from './Resources/users';
 import { ShopList } from './Resources/shops';
 import { ProductList, ProductCreate } from './Resources/products';
-import { settings, httpClient } from './api/config';
+import customDataProvider from './api/config';
 
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-
-const provider = apiProvider(API_ENDPOINT, { ...httpClient, ... settings });
 
 const App = () => (
-    <Admin authProvider={authProvider} dataProvider={provider}>
+    <Admin authProvider={authProvider} dataProvider={customDataProvider}>
     {permissions => [
       permissions.role === 'ROLE_ADMIN'
       ? <Resource name="users" list={UserList} />

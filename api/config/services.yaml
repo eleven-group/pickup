@@ -51,3 +51,7 @@ services:
     App\EventListener\ProductOwnershipListener:
         tags:
             - {name: 'doctrine.event_listener', event: 'prePersist'}
+
+    App\EventListener\ProductImageListener:
+        tags:
+            - {name: 'doctrine.event_listener', event: 'prePersist'}
