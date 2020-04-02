@@ -3,11 +3,11 @@
     <el-row>
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         <el-card>
-          <div v-for="layer in layers" :key="layer.id">
+          <div v-for="category in categories" :key="category.id">
             <el-checkbox
-              v-model="layer.active"
-              @change="layerChanged(layer.id, layer.active)"
-            >{{ layer.name }}</el-checkbox>
+              v-model="category.active"
+              @change="categoryChanged(category.id, category.active)"
+            >{{ category.name }}</el-checkbox>
           </div>
         </el-card>
       </el-col>
@@ -62,15 +62,10 @@ export default {
       center: latLng(48.856274, 2.354124),
       currentCenter: latLng(48.856274, 2.354124),
       tileLayer: null,
-      layers: [
-        {
-          id: 0,
-          name: 'Restaurants',
-          active: false,
-          features: []
-        }
-      ],
-      url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      categoriesShops: ['baker', 'butcher', 'other', 'pastry', 'pizza', 'producer'],
+      categories: [],
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       zoom: 16,
       currentZoom: 11.5,
       markers: []
@@ -115,28 +110,27 @@ export default {
       const { latitude, longitude } = this.$store.state.location;
       this.center = latLng(latitude, longitude);
     },
-    initLayers () {
-      const { shops } = this.$store.state.shops;
-      shops.forEach((shop, index) => {
-        const geoCode = shop.geocode.split(',');
-        this.layers.forEach(layer => {
-          layer.features.push({
-            id: index,
-            name: shop.name,
-            description: shop.description,
-            type: 'marker',
-            coords: latLng(geoCode[0], geoCode[1])
-          });
+    initCategories () {
+      this.categoriesShops.forEach((category, index) => {
+        this.categories.push({
+          id: index,
+          name: category,
+          active: false,
+          features: null
         });
       });
-      this.layers.forEach(layer => {
-        const markerFeatures = layer.features.filter(
-          feature => feature.type === 'marker'
-        );
-        markerFeatures.forEach(feature => {
-          feature.leafletObject = L.marker(feature.coords).bindPopup(
-            feature.name
-          );
+    },
+    retrieveShopsByCategories () {
+      const { shops } = this.$store.state.shops;
+      this.categories.forEach(category => {
+        category.features = shops.filter(shop => shop.category === category.name);
+      });
+    },
+    createMarkers () {
+      this.categories.forEach(category => {
+        category.features.forEach((feature) => {
+          const coords = latLng(feature.latitude, feature.longitude);
+          feature.leafletObject = L.marker(coords).bindPopup(feature.name);
         });
       });
     },
@@ -146,17 +140,21 @@ export default {
     centerUpdate (center) {
       this.currentCenter = center;
     },
-    layerChanged (layerId, active) {
-      const layer = this.layers.find(layer => layer.id === layerId);
-      layer.features.forEach(feature => {
+    categoryChanged (categoryId, active) {
+      const category = this.categories.find(category => category.id === categoryId);
+      category.features.forEach(feature => {
         if (active) {
           this.markers.push({
             name: feature.name,
+            category: category.name,
             description: feature.description,
-            location: latLng(feature.coords.lat, feature.coords.lng)
+            location: latLng(feature.latitude, feature.longitude)
           });
         } else {
-          this.markers = [];
+          const removeMarkers = this.markers.filter(marker => marker.category === category.name);
+          removeMarkers.forEach(removed => this.markers.splice(
+            this.markers.findIndex(marker => marker.category === removed.category), 1)
+          );
         }
       });
     }
@@ -164,7 +162,9 @@ export default {
   mounted () {
     this.fetchShops();
     this.initMap();
-    this.initLayers();
+    this.initCategories();
+    this.retrieveShopsByCategories();
+    this.createMarkers();
   }
 };
 </script>

@@ -35,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Shop
 {
 
-    const TYPE = ['baker', 'butcher', 'pastry', 'food', 'pizza', 'producer', 'burger'];
+    const TYPE = ['baker', 'butcher', 'pastry', 'other', 'pizza', 'producer', 'burger'];
 
     use DateTrait;
     /**
