@@ -7,7 +7,7 @@ export default {
     return osmApi.get('/search', {
       params: {
         q: `${street} ${city} ${postalcode}`,
-        key: token,
+        key: token
       } });
   }
 };
