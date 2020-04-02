@@ -55,3 +55,9 @@ services:
     App\EventListener\ShopImageListener:
         tags:
             - {name: 'doctrine.event_listener', event: 'prePersist'}
+
+    App\EventListener\UserCreateSuccessListener:
+        tags:
+            - {name: 'doctrine.event_listener', event: 'postPersist', priority: 500, connection: 'default'}
+                
+                
