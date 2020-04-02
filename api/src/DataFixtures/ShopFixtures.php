@@ -23,18 +23,21 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
     {
 
         $businessHours = [
-            "mon" => ["9:00-12:00","14:00-18:00"],
-            "tue" => ["9:00-12:00","14:00-18:00"],
-            "wed" => ["9:30-12:15","14:00-18:00"],
-            "thu" => ["9:00-12:00","14:45-18:00"],
-            "fri" => ["9:00-12:25","14:00-18:00"]
+            "monday" => ["9:00-12:00","14:00-18:00"],
+            "tuesday" => ["9:00-12:00","14:00-18:00"],
+            "wednesday" => ["9:30-12:15","14:00-18:00"],
+            "thursday" => ["9:00-12:00","14:45-18:00"],
+            "friday" => ["9:00-12:25","14:00-18:00"]
         ];
+
+        $types = ['baker', 'butcher', 'pastry', 'food', 'pizza', 'producer', 'burger'];
 
 
         for ($i=1; $i < 52; $i++) {
 
         $user = $this->userRepository->findOneBy(['id'=>$i]);
 
+        $category = $types[mt_rand(0, count($types) - 1)];
 
         $shop = new Shop();
         $shop->setName($this->faker->company);
@@ -45,6 +48,9 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
 
         $shop->setLatitude($this->faker->latitude(48.7270,49.0040));
         $shop->setLongitude($this->faker->longitude(2.1165,2.5281));
+
+        $shop->setCategory($category);
+
         $shop->setPostalCode($this->faker->postcode);
         $shop->setCity($this->faker->city);
         $shop->setStreetAdress($this->faker->streetAddress);

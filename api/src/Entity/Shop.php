@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use App\Entity\Traits\DateTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
@@ -33,6 +34,9 @@ use App\Entity\Traits\DateTrait;
  */
 class Shop
 {
+
+    const TYPE = ['baker', 'butcher', 'pastry', 'food', 'pizza', 'producer', 'burger'];
+
     use DateTrait;
     /**
      * @ORM\Id()
@@ -101,7 +105,23 @@ class Shop
     private $isActive;
 
     /**
-     * 
+     * @ORM\Column(type="string", length=500)
+     *
+     * @Groups({"read","write"})
+     */
+    private $imageUrl;
+
+
+    /**
+     * @Groups({"read", "write"})
+     *
+     * @Assert\Choice(choices=Shop::TYPE, message="Choose a valid type.")
+     * @ORM\Column(type="string", length=20)
+     */
+    private $category;
+
+    /**
+     *
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
      */
     public $products;
@@ -268,6 +288,7 @@ class Shop
         return $this;
     }
 
+
     public function getLongitude(): ?string
     {
         return $this->longitude;
@@ -276,6 +297,16 @@ class Shop
     public function setLongitude(string $longitude): self
     {
         $this->longitude = $longitude;
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
+
 
         return $this;
     }
@@ -288,6 +319,15 @@ class Shop
     public function setLatitude(string $latitude): self
     {
         $this->latitude = $latitude;
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

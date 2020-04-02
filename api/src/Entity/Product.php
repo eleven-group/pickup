@@ -26,8 +26,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Product
 {
 
-    const STATUS = ['available', 'unavailable'];
-
     use DateTrait;
     /**
      * @ORM\Id()
@@ -59,23 +57,20 @@ class Product
      */
     private $description;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Groups({"read","write"})
+     */
+    private $imageUrl;
+
     /**
      * @ORM\Column(type="integer")
      *
      * @Groups({"read","write"})
      */
     private $price;
-
-    /**
-     * @var MediaObject|null
-     *
-     * @ORM\ManyToOne(targetEntity=MediaObject::class)
-     * @ORM\JoinColumn(nullable=true)
-     * @ApiProperty(iri="http://schema.org/image")
-     *
-     * @Groups({"read","write"})
-     */
-    public $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="Shop", inversedBy="products")
@@ -169,6 +164,18 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }

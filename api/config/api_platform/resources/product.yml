@@ -12,7 +12,3 @@ App\Entity\Product:
     get: ~
     put: ~
     delete: ~
-  properties:
-    media-object:
-      subresource:
-        resourceClass: 'App\Entity\MediaObject'

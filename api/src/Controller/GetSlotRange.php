@@ -130,9 +130,9 @@ class GetSlotRange
 
     private function generateDates() {
 
-        $toDay = strtolower(date('D'));
+        $toDay = strtolower(date('l'));
 
-        $daysOfWeek = ['mon','tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        $daysOfWeek = ['monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
         $index = array_search($toDay, $daysOfWeek);
 

@@ -7,3 +7,19 @@ Stack trace:
 #4 /home/pickup/api/vendor/symfony/config/Resource/ClassExistenceResource.php(84): class_exists('App\\DataFixture...')
 #5 /home/pickup/api/vendor/symfony/dependency-injection/ContainerBuilder.php(353): Symfony\Component\Config\Resource\ClassExistenceResource->isFresh(0)
 #6 /home/pickup/api/vendor/symfony/dependency-injection/Loader/FileLoader.php(201): Symfony\Component\DependencyInjection\ContainerBuilder->getReflectionClass('App\ in /home/pickup/api/src/DataFixtures/BookingFixtures.php on line 34
+[02-Apr-2020 16:42:07 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\FatalThrowableError: syntax error, unexpected 'public' (T_PUBLIC), expecting ',' or ';' in /home/pickup/api/src/Entity/Shop.php:124
+Stack trace:
+#0 /home/pickup/api/vendor/api-platform/core/src/Bridge/Symfony/Bundle/DependencyInjection/Compiler/AnnotationFilterPass.php(51): ApiPlatform\Core\Util\ReflectionClassRecursiveIterator::getReflectionClassesFromDirectories(Array)
+#1 /home/pickup/api/vendor/symfony/dependency-injection/Compiler/Compiler.php(94): ApiPlatform\Core\Bridge\Symfony\Bundle\DependencyInjection\Compiler\AnnotationFilterPass->process(Object(Symfony\Component\DependencyInjection\ContainerBuilder))
+#2 /home/pickup/api/vendor/symfony/dependency-injection/ContainerBuilder.php(762): Symfony\Component\DependencyInjection\Compiler\Compiler->compile(Object(Symfony\Component\DependencyInjection\ContainerBuilder))
+#3 /home/pickup/api/vendor/symfony/http-kernel/Kernel.php(599): Symfony\Component\DependencyInjection\ContainerBuilder->compile()
+#4 /home/pickup/api/ in /home/pickup/api/src/Entity/Shop.php on line 124
+[02-Apr-2020 17:04:15 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\FatalThrowableError: syntax error, unexpected 'return' (T_RETURN) in /home/pickup/api/src/EventListener/ShopImageListener.php:66
+Stack trace:
+#0 /home/pickup/api/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/home/pickup/ap...')
+#1 /home/pickup/api/vendor/symfony/debug/DebugClassLoader.php(167): Composer\Autoload\ClassLoader->loadClass('App\\EventListen...')
+#2 [internal function]: Symfony\Component\Debug\DebugClassLoader->loadClass('App\\EventListen...')
+#3 [internal function]: spl_autoload_call('App\\EventListen...')
+#4 /home/pickup/api/vendor/symfony/config/Resource/ClassExistenceResource.php(84): class_exists('App\\EventListen...')
+#5 /home/pickup/api/vendor/symfony/dependency-injection/ContainerBuilder.php(353): Symfony\Component\Config\Resource\ClassExistenceResource->isFresh(0)
+#6 /home/pickup/api/vendor/symfony/dependency-injection/Loader/FileLoader.php(201): Symfony\Component\DependencyInjection\ContainerBuilder->getReflectionClass('Ap in /home/pickup/api/src/EventListener/ShopImageListener.php on line 66
