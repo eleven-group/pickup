@@ -9,3 +9,8 @@ export const statusSlot = [
 { id: "available", name:"Available" },
 { id: "unavailable", name:"unavailable" },
 ];
+
+export const typeShop = [
+{ id: "available", name:"Available" },
+{ id: "unavailable", name:"unavailable" },
+];
