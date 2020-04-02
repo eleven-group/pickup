@@ -27,12 +27,14 @@ const authProvider = {
                 localStorage.setItem('token', token);
                 localStorage.setItem('role', data.role);
                 localStorage.setItem('userId', data.id);
+                localStorage.setItem('store', data.store);
             });
     },
     logout: params => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.removeItem('userId');
+        localStorage.removeItem('store');
         return Promise.resolve();
     },
     checkError: error => {
@@ -43,7 +45,10 @@ const authProvider = {
     },
     getPermissions: params =>  {
         const role = localStorage.getItem('role');
-        return role ? Promise.resolve(role) : Promise.reject();
+        const userId = localStorage.getItem('userId');
+        const store = localStorage.getItem('store');
+        const permissions = { role, userId, store };
+        return permissions ? Promise.resolve(permissions) : Promise.reject();
     },
 }
 

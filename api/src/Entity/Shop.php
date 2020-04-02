@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use App\Entity\Traits\DateTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ShopRepository")
@@ -33,6 +34,9 @@ use App\Entity\Traits\DateTrait;
  */
 class Shop
 {
+
+    const TYPE = ['baker', 'butcher', 'pastry', 'food', 'pizza', 'producer', 'burger'];
+
     use DateTrait;
     /**
      * @ORM\Id()
@@ -101,10 +105,25 @@ class Shop
     private $isActive;
 
     /**
-     * 
+     * @ORM\Column(type="string", length=500)
+     *
+     * @Groups({"read","write"})
+     */
+    private $imageUrl;
+
+
+    /**
+     * @Groups({"read", "write"})
+     *
+     * @Assert\Choice(choices=Shop::TYPE, message="Choose a valid type.")
+     * @ORM\Column(type="string", length=20)
+     */
+    private $category;
+
+    /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
      */
-    public $products;
+    private $products;
 
     /**
      * @Groups({"read", "write"})
@@ -122,7 +141,6 @@ class Shop
     {
         $this->products = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -201,6 +219,18 @@ class Shop
         return $this;
     }
 
+    public function getSlotRange(): ?int
+    {
+        return $this->slotRange;
+    }
+
+    public function setSlotRange(int $slotRange): self
+    {
+        $this->slotRange = $slotRange;
+
+        return $this;
+    }
+
     public function getIsActive(): ?bool
     {
         return $this->isActive;
@@ -209,6 +239,54 @@ class Shop
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(string $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(string $latitude): self
+    {
+        $this->latitude = $latitude;
 
         return $this;
     }
@@ -256,41 +334,6 @@ class Shop
         return $this;
     }
 
-    public function getSlotRange(): ?int
-    {
-        return $this->slotRange;
-    }
-
-    public function setSlotRange(int $slotRange): self
-    {
-        $this->slotRange = $slotRange;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?string
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(string $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?string
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(string $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
 
 
 }

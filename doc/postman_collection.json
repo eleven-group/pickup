@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e5ffbb61-991e-4a58-858b-00e66e876173",
+		"_postman_id": "26634ea5-e062-4645-9cb1-d9370f9410af",
 		"name": "Pickup backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,12 +11,24 @@
 				{
 					"name": "Removes the Booking resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/bookings/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/bookings/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -38,6 +50,16 @@
 				{
 					"name": "Replaces the Booking resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -54,8 +76,7 @@
 							"raw": "The updated Booking resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/bookings/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/bookings/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -77,6 +98,16 @@
 				{
 					"name": "Retrieves a Booking resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -89,8 +120,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/bookings/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/bookings/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -112,6 +142,16 @@
 				{
 					"name": "Creates a Booking resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -128,8 +168,7 @@
 							"raw": "The new Booking resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/bookings",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/bookings",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -144,6 +183,16 @@
 				{
 					"name": "Retrieves the collection of Booking resources.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -156,8 +205,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/bookings?page={{page}}&itemsPerPage={{itemsPerPage}}",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/bookings?page={{page}}&itemsPerPage={{itemsPerPage}}",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -187,6 +235,16 @@
 				{
 					"name": "Replaces the Product resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -203,8 +261,7 @@
 							"raw": "The updated Product resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/products/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -226,12 +283,24 @@
 				{
 					"name": "Removes the Product resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/products/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -253,6 +322,16 @@
 				{
 					"name": "Retrieves a Product resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -265,8 +344,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/products/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -288,6 +366,16 @@
 				{
 					"name": "Creates a Product resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -296,16 +384,17 @@
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/vnd.api+json"
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "The new Product resource"
+							"raw": "{\n  \"quantity\": 0,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"price\": 2010\n}\n\n"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/products",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -320,6 +409,16 @@
 				{
 					"name": "Retrieves the collection of Product resources.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -332,8 +431,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/products?page={{page}}&itemsPerPage={{itemsPerPage}}",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products?inclue=media-object",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -343,12 +441,8 @@
 							],
 							"query": [
 								{
-									"key": "page",
-									"value": "{{page}}"
-								},
-								{
-									"key": "itemsPerPage",
-									"value": "{{itemsPerPage}}"
+									"key": "inclue",
+									"value": "media-object"
 								}
 							]
 						}
@@ -363,12 +457,24 @@
 				{
 					"name": "Removes the Shop resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/shops/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/shops/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -390,6 +496,16 @@
 				{
 					"name": "Retrieves a Shop resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -402,8 +518,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/shops/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/shops/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -423,8 +538,63 @@
 					"response": []
 				},
 				{
+					"name": "Retrieves a Shop slots",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json, application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/shops/:id/slots",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"shops",
+								":id",
+								"slots"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Replaces the Shop resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -441,8 +611,7 @@
 							"raw": "The updated Shop resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/shops/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/shops/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -464,6 +633,16 @@
 				{
 					"name": "Creates a Shop resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -480,8 +659,7 @@
 							"raw": "The new Shop resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/shops",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/shops",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -496,6 +674,16 @@
 				{
 					"name": "Retrieves the collection of Shop resources.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -508,198 +696,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/shops?owner.id={{owner.id}}&owner.id[]={{owner.id[]}}&page={{page}}&itemsPerPage={{itemsPerPage}}",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/shops",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"shops"
-							],
-							"query": [
-								{
-									"key": "owner.id",
-									"value": "{{owner.id}}"
-								},
-								{
-									"key": "owner.id[]",
-									"value": "{{owner.id[]}}"
-								},
-								{
-									"key": "page",
-									"value": "{{page}}"
-								},
-								{
-									"key": "itemsPerPage",
-									"value": "{{itemsPerPage}}"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Slot",
-			"item": [
-				{
-					"name": "Removes the Slot resource.",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/slots/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"slots",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Retrieves a Slot resource.",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/slots/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"slots",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Replaces the Slot resource.",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "The updated Shop resource"
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/slots/:id",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"slots",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "{{id}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Creates a Slot resource.",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.api+json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "The new Slot resource"
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/slots",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"slots"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Retrieves the collection of Slot resources.",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/slots",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"slots"
 							]
 						}
 					},
@@ -713,12 +716,24 @@
 				{
 					"name": "Removes the User resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/users/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -740,6 +755,16 @@
 				{
 					"name": "Replaces the User resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -756,8 +781,7 @@
 							"raw": "The updated User resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/users/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -779,6 +803,16 @@
 				{
 					"name": "Retrieves a User resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -791,8 +825,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/users/:id",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users/:id",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -812,8 +845,65 @@
 					"response": []
 				},
 				{
+					"name": "Retrieves the collection of User resources.",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json, application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users?page=2&itemsPerPage=5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "itemsPerPage",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Creates a User resource.",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -830,99 +920,19 @@
 							"raw": "The new User resource"
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/users",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Retrieves the collection of User resources.",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json, application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://{{baseUrl}}/api/users?order[id]={{order[id]}}&order[username]={{order[username]}}&order[email]={{order[email]}}&page={{page}}&itemsPerPage={{itemsPerPage}}",
-							"protocol": "http",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"users"
-							],
-							"query": [
-								{
-									"key": "order[id]",
-									"value": "{{order[id]}}"
-								},
-								{
-									"key": "order[username]",
-									"value": "{{order[username]}}"
-								},
-								{
-									"key": "order[email]",
-									"value": "{{order[email]}}"
-								},
-								{
-									"key": "page",
-									"value": "{{page}}"
-								},
-								{
-									"key": "itemsPerPage",
-									"value": "{{itemsPerPage}}"
-								}
 							]
 						}
 					},
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
-				},
-				"url": {
-					"raw": "{{baseUrl}}/api/login_check",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"api",
-						"login_check"
-					]
-				}
-			},
-			"response": []
 		},
 		{
 			"name": "MediaObject",
@@ -942,7 +952,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{baseUrl}}/api/media_objects?page={{page}}&itemsPerPage={{itemsPerPage}}",
+							"raw": "http://{{baseUrl}}/api/files?page={{page}}&itemsPerPage={{itemsPerPage}}",
 							"protocol": "http",
 							"host": [
 								"{{baseUrl}}"
@@ -1013,8 +1023,8 @@
 							}
 						],
 						"body": {
-							"mode": "form-data",
-							"raw": "The new MediaObject resource"
+							"mode": "raw",
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/media_objects",
@@ -1030,6 +1040,37 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"owner\",\n\t\"password\": \"owner\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/login_check",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login_check"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1039,10 +1080,10 @@
 				"id": "1fcd703e-539c-49ea-8793-1f6d877a0c04",
 				"type": "text/javascript",
 				"exec": [
-					"const baseURL = pm.variables.get(\"baseURL\");",
+					"const baseUrl = pm.variables.get(\"baseUrl\");",
 					"",
 					"const echoPostRequest = {",
-					"  url: `${baseURL}/api/login_check`,",
+					"  url: `${baseUrl}/api/login_check`,",
 					"  method: 'POST',",
 					"  header: 'Content-Type:application/json',",
 					"  body: {",
@@ -1062,8 +1103,7 @@
 					"        var responseJson = res.json();",
 					"        pm.environment.set('accessToken', responseJson.token)",
 					"    }",
-					"});",
-					""
+					"});"
 				]
 			}
 		},
@@ -1080,9 +1120,21 @@
 	],
 	"variable": [
 		{
-			"id": "f9e0a286-3499-4eef-ad09-7712b6ab8f94",
+			"id": "a7915ac1-1037-4abf-9c18-314ba9e300aa",
 			"key": "baseUrl",
-			"value": "",
+			"value": "https://api.localhost",
+			"type": "string"
+		},
+		{
+			"id": "7b78f059-f40a-4730-a5db-42b5e6cb5e9b",
+			"key": "id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "37a7019b-4bb8-4ebb-b617-42aaa9770652",
+			"key": "page",
+			"value": "1",
 			"type": "string"
 		}
 	]

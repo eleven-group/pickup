@@ -1,9 +1,0 @@
-[01-Apr-2020 17:36:51 Europe/Paris] PHP Fatal error:  Uncaught Symfony\Component\Debug\Exception\FatalThrowableError: syntax error, unexpected '$data' (T_VARIABLE) in /home/pickup/api/src/DataFixtures/BookingFixtures.php:34
-Stack trace:
-#0 /home/pickup/api/vendor/composer/ClassLoader.php(322): Composer\Autoload\includeFile('/home/pickup/ap...')
-#1 /home/pickup/api/vendor/symfony/debug/DebugClassLoader.php(167): Composer\Autoload\ClassLoader->loadClass('App\\DataFixture...')
-#2 [internal function]: Symfony\Component\Debug\DebugClassLoader->loadClass('App\\DataFixture...')
-#3 [internal function]: spl_autoload_call('App\\DataFixture...')
-#4 /home/pickup/api/vendor/symfony/config/Resource/ClassExistenceResource.php(84): class_exists('App\\DataFixture...')
-#5 /home/pickup/api/vendor/symfony/dependency-injection/ContainerBuilder.php(353): Symfony\Component\Config\Resource\ClassExistenceResource->isFresh(0)
-#6 /home/pickup/api/vendor/symfony/dependency-injection/Loader/FileLoader.php(201): Symfony\Component\DependencyInjection\ContainerBuilder->getReflectionClass('App\ in /home/pickup/api/src/DataFixtures/BookingFixtures.php on line 34

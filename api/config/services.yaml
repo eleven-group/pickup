@@ -47,3 +47,11 @@ services:
     App\Service\Mailer:
         arguments:
             - '@SendinBlue\Client\Api\SMTPApi'
+
+    App\EventListener\ProductOwnershipListener:
+        tags:
+            - {name: 'doctrine.event_listener', event: 'prePersist'}
+
+    App\EventListener\ShopImageListener:
+        tags:
+            - {name: 'doctrine.event_listener', event: 'prePersist'}

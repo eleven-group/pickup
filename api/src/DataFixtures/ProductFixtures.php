@@ -22,7 +22,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        for ($i=2; $i < 52; $i++) {
+        for ($i=1; $i < 50; $i++) {
 
         $shop = $this->ShopRepository->findOneBy(['id'=>$i]);
 

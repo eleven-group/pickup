@@ -7,14 +7,14 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 class ProductQuantityListener
 {
-    // the listener methods receive an argument which gives you access to
-    // both the entity object of the event and the entity manager itself
-    public function postPersist(LifecycleEventArgs $args)
+
+    public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getObject();
 
-        // if this listener only applies to certain entity types,
-        // add some code to check the entity type as early as possible
+        //when a booking is created, reduce the quantity of products available
+        //when a booking is deleted, restore the quantity of products available
+
         if (!$entity instanceof BookingItem) {
             return;
         }
@@ -24,3 +24,4 @@ class ProductQuantityListener
         dd($entity->getProduct());
     }
 }
+
