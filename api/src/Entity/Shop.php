@@ -73,12 +73,6 @@ class Shop
 
     /**
      * @Groups({"read", "write"})
-     * @ORM\Column(type="string")
-     */
-    private $geocode;
-
-    /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="json")
      */
     private $openingHours;
@@ -89,11 +83,10 @@ class Shop
      */
     private $slotRange;
 
-
     /**
      * @Groups({"read", "write"})
      *
-     * @ORM\OneToOne(targetEntity="User", inversedBy="shop")
+     * @ORM\OneToOne(targetEntity="User", inversedBy="shop", cascade={"persist"})
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      *
      * @MaxDepth(1)
@@ -108,10 +101,22 @@ class Shop
     private $isActive;
 
     /**
-     *
+     * 
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
      */
     public $products;
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $longitude;
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $latitude;
 
     public function __construct()
     {
@@ -180,18 +185,6 @@ class Shop
     public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    public function getGeocode(): ?string
-    {
-        return $this->geocode;
-    }
-
-    public function setGeocode(string $geocode): self
-    {
-        $this->geocode = $geocode;
 
         return $this;
     }
@@ -271,6 +264,30 @@ class Shop
     public function setSlotRange(int $slotRange): self
     {
         $this->slotRange = $slotRange;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(string $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(string $latitude): self
+    {
+        $this->latitude = $latitude;
 
         return $this;
     }

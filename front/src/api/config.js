@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import store from '@/store';
 
-const DEFAULT_TIMEOUT = 5000;
+const DEFAULT_TIMEOUT = 50000;
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BACKEND_PROXY_URL,
@@ -21,4 +21,11 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
+const osmApi = axios.create({
+  baseURL: 'https://api.opencagedata.com/geocode/v1/json',
+  timeout: DEFAULT_TIMEOUT
+});
+
 export default instance;
+
+export { osmApi };
