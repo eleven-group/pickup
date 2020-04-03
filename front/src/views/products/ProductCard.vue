@@ -1,5 +1,6 @@
 <template>
       <el-card shadow="never">
+        <h2>{{product.name}}</h2>
           <img :src="product.imageUrl" class="image" />
           <p>{{product.description}}</p>
           <div class="details">

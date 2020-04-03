@@ -4,6 +4,7 @@ export default products => {
     const { name, quantity, description, imageUrl, price } = product;
     const bookingItem = {
       quantity: product.ordered,
+      price: product.price,
       product: {
         name,
         quantity,

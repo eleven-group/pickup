@@ -23,7 +23,7 @@ const mutations = {
       state.cartShop = product.shop;
       const theProduct = _.find(state.cartProducts, productFromState => (productFromState.id === product.id));
       if (theProduct) {
-        theProduct.quantity += product.quantity;
+        theProduct.ordered += product.ordered;
         state.cartError = '';
         return;
       }
@@ -39,12 +39,12 @@ const mutations = {
     state.cartCounter -= 1;
   },
   deleteOne (state, productIndex) {
-    if (state.cartProducts[productIndex].quantity <= 1) {
+    if (state.cartProducts[productIndex].ordered <= 1) {
       _.remove(state.cartProducts, product => (state.cartProducts[productIndex].id === product.id));
       state.cartCounter -= 1;
       return;
     }
-    state.cartProducts[productIndex].quantity -= 1;
+    state.cartProducts[productIndex].ordered -= 1;
   }
 };
 

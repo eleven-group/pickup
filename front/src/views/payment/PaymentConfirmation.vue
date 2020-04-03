@@ -59,8 +59,8 @@
               <el-input id="lastname" ref="lastname" class="m-5" v-model="form.lastname"></el-input>
               <label for="email">E-mail</label>
               <el-input id="email" ref="email" class="m-5" v-model="form.email"></el-input>
-              <label for="phoneNumber">Numéro de téléphone</label>
-              <el-input id="phoneNumber" ref="phoneNumber" class="m-5" v-model="form.phoneNumber"></el-input>
+              <label for="phonenumber">Numéro de téléphone</label>
+              <el-input id="phonenumber" ref="phonenumber" class="m-5" v-model="form.phonenumber"></el-input>
           <div class="el-card--buttons">
             <el-cascader
               v-model="value"
@@ -89,7 +89,7 @@ export default {
       form: {
         firstname: '',
         lastname: '',
-        phoneNumber: '',
+        phonenumber: '',
         email: '',
         date: ''
       },
@@ -120,9 +120,42 @@ export default {
       this.formatProduct();
     },
     handleSumbit () {
-      this.form.date = this.value[1];
-      console.log({ ...this.form, bookingItem: bookingItemsBuilder(this.products) });
-      bookingApi.postBooking({ ...this.form, bookingItem: bookingItemsBuilder(this.products) });
+      this.error = false;
+      this.form.date = this.value ? this.value[1] : '';
+      Object.keys(this.form).forEach((item) => {
+        if (!this.form[item] && !this.error) {
+          this.$message({
+            showClose: true,
+            message: `Please enter your ${item}.`,
+            type: 'error'
+          });
+          this.error = true;
+          if (item !== 'date') this.$refs[`${item}`].focus();
+        }
+      });
+      if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(this.form.email)) && !this.error) {
+        this.$message({
+          showClose: true,
+          message: `Your email has a wrong format (e.g. john@smith.usa)`,
+          type: 'error'
+        });
+        this.error = true;
+        this.$refs.email.focus();
+
+        return;
+      }
+      if (!this.error) {
+        try {
+          bookingApi.postBooking({ ...this.form, status: 'pending', bookingItem: bookingItemsBuilder(this.products) });
+        } catch (e) {
+          this.$message({
+            showClose: true,
+            message: `Oups, une erreur est survenue, réessayez plus tard ou contactez-nous !`,
+            type: 'error'
+          });
+          this.error = true;
+        }
+      }
     }
   },
   async created () {
