@@ -59,5 +59,7 @@ services:
     App\EventListener\UserCreateSuccessListener:
         tags:
             - {name: 'doctrine.event_listener', event: 'postPersist', priority: 500, connection: 'default'}
-                
-         
+
+    App\EventSubscriber\ProductQuantitySubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber' }

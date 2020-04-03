@@ -25,6 +25,7 @@ class BookingFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i=2; $i < 1000; $i++) {
 
+        $availableHours = ["09","10","11","12","13","14","15","16","17"];
 
         $shop = $this->shopRepository->findOneBy(['id'=>rand(1,50)]);
 
@@ -33,7 +34,7 @@ class BookingFixtures extends Fixture implements DependentFixtureInterface
                     ->format('Y-m-d H:i:s');
 
         $date = explode(' ', $date);
-        $date = $date[0].' '.rand(13, 16).':'.$shop->getSlotRange().':00';
+        $date = $date[0].' '.$availableHours[rand(0,8)].':'.(rand(1,2)*$shop->getSlotRange()).':00';
 
         $date = \DateTime::createFromFormat('Y-m-d H:i:s', $date);
 
