@@ -9,6 +9,12 @@
             v-model="category.active"
             @change="categoryChanged(category.id, category.active)"
           >{{ category.formatted }}</el-checkbox>
+      <el-button
+        v-on:click="getLocation"
+        plain
+        size="small"
+        align="right"
+      >Me localiser</el-button>
         </el-card>
       </el-col>
     </el-row>
@@ -20,7 +26,7 @@
         @update:center="centerUpdate"
         @update:zoom="zoomUpdate"
       >
-        <l-tile-layer :url="url" :attribution="attribution" />
+        <l-tile-layer :url="url"/>
         <l-control class="example-custom-control">
           <el-input placeholder="Cherchez votre adresse" v-model="input">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -60,8 +66,8 @@ export default {
     return {
       input: '',
       map: null,
-      center: latLng(48.856274, 2.354124),
-      currentCenter: latLng(48.856274, 2.354124),
+      center: latLng(this.latitude, this.longitude),
+      currentCenter: latLng(this.latitude, this.longitude),
       tileLayer: null,
       categoriesShops: [
         'Baker',
@@ -84,23 +90,6 @@ export default {
     latitude: state => state.location.latitude,
     shops: state => state.shops
   }),
-  created () {
-    if (navigator.geolocation) {
-      const success = ({ coords }) => {
-        const { latitude, longitude } = coords;
-        this.$store.commit('location/setLatitude', latitude);
-        this.$store.commit('location/setLongitude', longitude);
-      };
-
-      const error = err => {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      };
-
-      navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-      console.log('Geolocation is not supported for this Browser/OS.');
-    }
-  },
   methods: {
     ...mapActions('shops', ['fetchShops']),
     getIcon () {
@@ -113,6 +102,24 @@ export default {
                 </svg>
               `
       });
+    },
+    getLocation () {
+      if (navigator.geolocation) {
+        const success = ({ coords }) => {
+          const { latitude, longitude } = coords;
+          this.$store.commit('location/setLatitude', latitude);
+          this.$store.commit('location/setLongitude', longitude);
+          this.center = latLng(this.latitude, this.longitude);
+        };
+
+        const error = err => {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        console.log('Geolocation is not supported for this Browser/OS.');
+      }
     },
     initMap () {
       const { latitude, longitude } = this.$store.state.location;
@@ -211,6 +218,10 @@ export default {
   @media (max-width: 992px) {
     margin: 12px 0;
   }
+}
+
+.el-button {
+  margin-left: 20px;
 }
 
 .marker {

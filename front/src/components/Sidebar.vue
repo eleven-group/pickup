@@ -44,7 +44,7 @@
             Accès producteurs
           </el-button>
           <el-button class="hidden-sm-and-up" icon="el-icon-user" type="primary"></el-button>
-          <a href="/register">Register</a>
+          <a class="register-button" href="/register">Register</a>
         </div>
       </div>
     </el-menu>
@@ -77,6 +77,10 @@ export default {
 
 <style lang="scss" scoped>
 $--aside-width: 250px;
+
+.register-button {
+  margin-top:15px;
+}
 
 .aside {
   position: fixed;
