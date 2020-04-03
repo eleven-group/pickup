@@ -69,7 +69,7 @@ class BookingItem
      *
      * @Groups({"read","write"})
      *
-     * @MaxDepth(3)
+     * @MaxDepth(1)
      */
     private $product;
 

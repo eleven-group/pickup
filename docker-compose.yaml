@@ -59,7 +59,6 @@ services:
     networks:
       - pickup
 
-
   admin:
     container_name: ${PROJECT_NAME}-admin
     image: node:lts-alpine

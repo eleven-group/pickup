@@ -30,6 +30,7 @@ public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $even
         'role' => $role[0],
         'active' => $user->getIsActive(),
         'store' => $store,
+        'userId' => $user->getId(),
     ];
 
     $event->setData($data);

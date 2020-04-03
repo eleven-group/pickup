@@ -25,10 +25,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * })
  *
  * @UniqueEntity(
- *     fields={"date", "shop"},
- *     errorPath="date",
+ *     fields={"date", "shop", "status"},
+ *     errorPath="shop",
  *     message="This slot is already taken."
- *
+ * )
  * @ApiFilter(OrderFilter::class,
  *  properties= {"date", "status"}, arguments={"orderParameterName"="order"}
  * )
@@ -52,7 +52,6 @@ class Booking
     /**
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Groups({"read","write"})
      */
     private $content;
 
@@ -63,6 +62,7 @@ class Booking
      * @Groups({"read","write"})
      */
     private $status;
+
 
     /**
      * @Assert\DateTime

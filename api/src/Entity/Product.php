@@ -96,17 +96,6 @@ class Product
         return $this;
     }
 
-
-    public function getImage(): ?EmbeddedFile
-    {
-        return $this->image;
-    }
-
-    public function setImage(EmbeddedFile $image): void
-    {
-        $this->image = $image;
-    }
-
     public function getOwner(): ?User
     {
         return $this->owner;
