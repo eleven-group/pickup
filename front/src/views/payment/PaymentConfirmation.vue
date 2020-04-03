@@ -21,20 +21,21 @@
       label="Quantité"
       width="180">
       <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.quantity }}</span>
+        <span style="margin-left: 10px">{{ scope.row.ordered }}</span>
       </template>
     </el-table-column>
     <el-table-column
       label="Prix"
       width="180">
       <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.price }}</span>
+        <span style="margin-left: 10px">{{ scope.row.priceConverted }}</span>
       </template>
     </el-table-column>
     <el-table-column
       label="Opérations">
       <template slot-scope="scope">
         <el-button
+          v-if="scope.row.ordered > 1"
           size="mini"
           type="danger"
           @click="handleDeleteOne(scope.$index)">Retirer 1</el-button>
@@ -52,6 +53,14 @@
           <p class="category">Total</p>
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
           <span>{{totalPrice/100}}€</span>
+              <label for="firstname">Prénom</label>
+              <el-input id="firstname" ref="firstname" class="m-5" v-model="form.firstname"></el-input>
+              <label for="lastname">Nom</label>
+              <el-input id="lastname" ref="lastname" class="m-5" v-model="form.lastname"></el-input>
+              <label for="email">E-mail</label>
+              <el-input id="email" ref="email" class="m-5" v-model="form.email"></el-input>
+              <label for="phoneNumber">Numéro de téléphone</label>
+              <el-input id="phoneNumber" ref="phoneNumber" class="m-5" v-model="form.phoneNumber"></el-input>
           <div class="el-card--buttons">
             <el-cascader
               v-model="value"
@@ -59,7 +68,7 @@
               :options="slots"
               :props="{ expandTrigger: 'hover' }">
               </el-cascader>
-            <el-button type="primary">Effectuer la réservation</el-button>
+            <el-button type="primary" @click="handleSumbit">Effectuer la réservation</el-button>
           </div>
         </el-card>
       </el-col>
@@ -69,12 +78,21 @@
 
 <script>
 import shopApi from '@/api/shops';
+import bookingApi from '@/api/booking';
 import { mapState } from 'vuex';
 import getPriceConverted from '@/helpers/getPriceConverted';
+import bookingItemsBuilder from '@/helpers/bookingItemsBuilder';
 
 export default {
   data () {
     return {
+      form: {
+        firstname: '',
+        lastname: '',
+        phoneNumber: '',
+        email: '',
+        date: ''
+      },
       slots: [],
       value: '',
       totalPrice: 0
@@ -84,22 +102,31 @@ export default {
     products: state => state.cart.cartProducts
   }),
   methods: {
+    formatProduct () {
+      this.totalPrice = 0;
+      this.products.forEach(product => {
+        if (typeof product.price === 'number') {
+          product.priceConverted = getPriceConverted(product.price);
+        }
+        this.totalPrice += (product.price * product.ordered);
+      });
+    },
     handleDeleteAll (productId) {
       this.$store.commit('cart/deleteCartProduct', productId);
       window.location.reload(); // to be removed if we find a better way cause i've no idea it's 5am
     },
     handleDeleteOne (index) {
-      console.log(index);
-      this.products[index].quantity -= 1;
+      this.$store.commit('cart/deleteOne', index);
+      this.formatProduct();
+    },
+    handleSumbit () {
+      this.form.date = this.value[1];
+      console.log({ ...this.form, bookingItem: bookingItemsBuilder(this.products) });
+      bookingApi.postBooking({ ...this.form, bookingItem: bookingItemsBuilder(this.products) })
     }
   },
   async created () {
-    this.products.forEach(product => {
-      if (typeof product.price === 'number') {
-        product.price = getPriceConverted(product.price);
-      }
-      this.totalPrice += product.totalPrice;
-    });
+    this.formatProduct();
     try {
       const res = await shopApi.getSlots(1, 1);
       this.slots = res.data.slots;

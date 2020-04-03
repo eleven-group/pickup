@@ -2,29 +2,49 @@ import _ from 'lodash';
 
 const state = {
   cartCounter: 0,
-  cartProducts: []
+  cartProducts: [],
+  cartShop: {},
+  cartError: ''
 };
 
 const getters = {
   getCartCounter: state => state.cartCounter,
-  getCartProducts: state => state.cartProducts
+  getCartProducts: state => state.cartProducts,
+  getCartShop: state => state.cartShop,
+  getCartError: state => state.cartError
 };
 
 const mutations = {
-  addCartProduct (state, product) {
-    state.cartProducts.push(product);
-    state.cartCounter += 1;
+  setCardShop (state, shop) {
+    state.shop = shop;
   },
-  deleteOne(state, product) {
-    if (state.product.quantity > 1) {
-      state
+  addCartProduct (state, product) {
+    if (state.cartProducts.length === 0 || (state.cartShop.id && state.cartShop.id === product.shop.id)) {
+      state.cartShop = product.shop;
+      const theProduct = _.find(state.cartProducts, productFromState => (productFromState.id === product.id));
+      if (theProduct) {
+        theProduct.quantity += product.quantity;
+        state.cartError = '';
+        return;
+      }
+      state.cartProducts.push(product);
+      state.cartCounter += 1;
+      state.cartError = '';
+      return;
     }
-    state.cartProducts.push(product);
-    state.cartCounter += 1;
+    state.cartError = "Vous ne pouvez pas ajouter un produit d'un autre magasin à une commande déjà en cours";
   },
   deleteCartProduct (state, productId) {
     _.remove(state.cartProducts, product => (productId === product.id));
     state.cartCounter -= 1;
+  },
+  deleteOne (state, productIndex) {
+    if (state.cartProducts[productIndex].quantity <= 1) {
+      _.remove(state.cartProducts, product => (state.cartProducts[productIndex].id === product.id));
+      state.cartCounter -= 1;
+      return;
+    }
+    state.cartProducts[productIndex].quantity -= 1;
   }
 };
 

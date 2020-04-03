@@ -94,7 +94,7 @@ class Booking
     /**
      * @Assert\NotBlank
      *
-     * @ORM\Column(type="integer", length=10)
+     * @ORM\Column(type="string", length=20)
      *
      * @Groups({"read","write"})
      */
@@ -116,6 +116,7 @@ class Booking
     private $bookingItems;
 
     /**
+     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="Shop",)
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */

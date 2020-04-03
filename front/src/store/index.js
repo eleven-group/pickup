@@ -26,7 +26,8 @@ const vueLocalStorage = new VuexPersist({
     },
     cart: {
       cartCounter: state.cart.cartCounter,
-      cartProducts: state.cart.cartProducts
+      cartProducts: state.cart.cartProducts,
+      cartShop: state.cart.cartShop
     }
   })
 });

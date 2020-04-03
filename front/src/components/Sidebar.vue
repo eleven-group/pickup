@@ -37,7 +37,7 @@
               type="primary"
               icon="el-icon-shopping-cart-2"
               plain
-              @click="$router.push('confirmation-payment')"
+              @click="$router.push('/confirmation-payment')"
             >Voir votre panier</el-button>
           </el-badge>
           <el-badge is-dot class="item hidden-sm-and-up">
@@ -45,7 +45,7 @@
               type="primary"
               icon="el-icon-shopping-cart-2"
               plain
-              @click="$router.push('confirmation-payment')"
+              @click="$router.push('/confirmation-payment')"
             ></el-button>
           </el-badge>
           <el-button class="hidden-xs-only" icon="el-icon-user" type="primary">Accès producteurs</el-button>

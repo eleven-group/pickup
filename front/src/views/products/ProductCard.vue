@@ -8,13 +8,14 @@
           </div>
           <div class="el-card--button">
               <el-input-number v-model="num" :min="1" :max="product.quantity"></el-input-number>
-              <el-button type="success" v-on:click="() => addProductToCart({...product, quantity: num, totalPrice: (product.price*num), shop: {...shop}})" plain>Add to cart</el-button>
+              <el-button type="success" v-on:click="() => addProductToCart({...product, ordered: num, shop: {...shop}})" plain>Add to cart</el-button>
           </div>
         </el-card>
 </template>
 
 <script>
 import getPriceConverted from '@/helpers/getPriceConverted';
+import { mapState } from 'vuex';
 
 export default {
   name: 'ProductCard',
@@ -26,6 +27,9 @@ export default {
       required: true
     }
   },
+  computed: mapState({
+    errorMsg: state => state.cart.cartError
+  }),
   data () {
     return {
       priceConverted: getPriceConverted(this.product.price),
@@ -35,6 +39,13 @@ export default {
   methods: {
     addProductToCart (product) {
       this.$store.commit('cart/addCartProduct', product);
+      if (this.errorMsg) {
+        this.$message({
+          showClose: true,
+          message: this.errorMsg,
+          type: 'error'
+        });
+      }
     }
   }
 };
