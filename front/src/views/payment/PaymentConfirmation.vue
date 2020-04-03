@@ -43,13 +43,14 @@
         </el-card>
       </el-col>
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
-        <el-card class="price reversed">
+        <el-card class="price">
           <p class="category">Total</p>
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
           <span>999, 99€</span>
           <div class="el-card--buttons">
             <el-cascader
               v-model="value"
+              placeholder="Sélectionnez votre horaire"
               :options="slots"
               :props="{ expandTrigger: 'hover' }"
               @change="handleChange">
@@ -149,7 +150,7 @@ th {
 }
 
 .el-card--buttons {
-  .el-select {
+  .el-cascader {
     margin-bottom: 12px;
     width: 100%;
   }

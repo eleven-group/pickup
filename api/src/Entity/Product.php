@@ -20,7 +20,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ApiFilter(SearchFilter::class,
  * properties = {
- *      "shop": "exact",
+ *      "shop": "exact"
  * })
  */
 class Product
@@ -79,7 +79,6 @@ class Product
     private $shop;
 
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -95,17 +94,6 @@ class Product
         $this->quantity = $quantity;
 
         return $this;
-    }
-
-
-    public function getImage(): ?EmbeddedFile
-    {
-        return $this->image;
-    }
-
-    public function setImage(EmbeddedFile $image): void
-    {
-        $this->image = $image;
     }
 
     public function getOwner(): ?User

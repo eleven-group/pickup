@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -18,11 +19,18 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ApiFilter(SearchFilter::class,
  * properties = {
  *      "owner.id": "exact",
+ *      "shop": "exact",
+ *      "status": "exact",
+ *      "lastname": "partial"
  * })
+ *
  * @UniqueEntity(
- *     fields={"date", "shop"},
- *     errorPath="date",
+ *     fields={"date", "shop", "status"},
+ *     errorPath="shop",
  *     message="This slot is already taken."
+ * )
+ * @ApiFilter(OrderFilter::class,
+ *  properties= {"date", "status"}, arguments={"orderParameterName"="order"}
  * )
  */
 class Booking
@@ -44,7 +52,6 @@ class Booking
     /**
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Groups({"read","write"})
      */
     private $content;
 
@@ -55,6 +62,7 @@ class Booking
      * @Groups({"read","write"})
      */
     private $status;
+
 
     /**
      * @Assert\DateTime
@@ -104,7 +112,6 @@ class Booking
     /**
      * @ORM\OneToMany(targetEntity="BookingItem", mappedBy="booking")
      *
-     * @Groups({"read","write"})
      */
     private $bookingItems;
 
