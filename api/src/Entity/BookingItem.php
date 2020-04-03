@@ -59,6 +59,8 @@ class BookingItem
      * @ORM\JoinColumn(name="booking_id", referencedColumnName="id")
      *
      * @Groups({"read","write"})
+     *
+     * @MaxDepth(1)
      */
     private $booking;
 
@@ -93,7 +95,7 @@ class BookingItem
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
-        
+
         return $this;
     }
 
