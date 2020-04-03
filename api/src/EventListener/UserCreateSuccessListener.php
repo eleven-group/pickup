@@ -24,11 +24,14 @@ class UserCreateSuccessListener
             return;
         }
 
-        $this->mailer->sendMail($entity->getEmail(), 5, array(
-            'token' => $entity->getToken(),
-            'firstname' => $entity->getFirstname(),
-            'lastname' => $entity->getLastname(),
-        ));
+        if ('cli' != php_sapi_name())
+        {
+            $this->mailer->sendMail($entity->getEmail(), 5, array(
+                'token' => $entity->getToken(),
+                'firstname' => $entity->getFirstname(),
+                'lastname' => $entity->getLastname(),
+            ));
+        }
 
     }
 }
