@@ -1,26 +1,27 @@
 <template>
   <l-popup>
-    <p class="name">{{ itemPopUp.name }}</p>
-    <p class="description">{{ itemPopUp.description }}</p>
+    <p class="name">{{ item.name }}</p>
+    <p class="description">{{ item.description }}</p>
     <div class="button">
-      <el-button type="primary">Voir le catalogue</el-button>
+      <el-button type="primary" v-on:click="$router.push(`/products/${index}`)" >Voir le catalogue</el-button>
     </div>
   </l-popup>
 </template>
 
 <script>
 import { LPopup } from 'vue2-leaflet';
+import shopGetIndex from '@/helpers/shopGetIndex';
 
 export default {
   name: 'Popup',
-  props: ['item'],
+  props: ['item', 'shops'],
   components: {
     LPopup
   },
-  data () {
-    return {
-      itemPopUp: this.item
-    };
+  created () {
+    const { name, location } = this.item;
+    const { lng, lat } = location;
+    this.index = shopGetIndex(this.shops, { name, lng, lat });
   }
 };
 </script>
