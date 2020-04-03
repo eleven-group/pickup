@@ -265,6 +265,9 @@
 .el-date-editor,
 .el-select {
   width: 100%;
+  span {
+    text-transform: capitalize !important;
+  }
 }
 </style>
 
@@ -279,13 +282,13 @@ export default {
   data () {
     return {
       categories: [
-        'Baker',
-        'Butcher',
-        'Burger',
-        'Pastry',
-        'Pizza',
-        'Producer',
-        'Other'
+        'baker',
+        'butcher',
+        'burger',
+        'pastry',
+        'pizza',
+        'producer',
+        'other'
       ],
       form: {
         user: {
