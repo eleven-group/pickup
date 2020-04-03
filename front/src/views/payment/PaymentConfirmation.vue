@@ -122,7 +122,7 @@ export default {
     handleSumbit () {
       this.form.date = this.value[1];
       console.log({ ...this.form, bookingItem: bookingItemsBuilder(this.products) });
-      bookingApi.postBooking({ ...this.form, bookingItem: bookingItemsBuilder(this.products) })
+      bookingApi.postBooking({ ...this.form, bookingItem: bookingItemsBuilder(this.products) });
     }
   },
   async created () {
