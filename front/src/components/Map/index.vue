@@ -12,7 +12,9 @@
       <el-button
         v-on:click="getLocation"
         plain
-      >Trouver ma localisation automatiquement</el-button>
+        size="small"
+        align="right"
+      >Me localiser</el-button>
         </el-card>
       </el-col>
     </el-row>
