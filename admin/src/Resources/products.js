@@ -32,7 +32,7 @@ return (
     && <List {...props} filter={{ shop: store }}>
         <CustomizableDatagrid rowClick="show">
             <TextField source="id" />
-            <ImageField source="image" title="title" />
+            <ImageField source="image" />
             <TextField source="name" />
             <TextField source="description" />
             <FunctionField label="Price" render={record => `€${record.price/100}`} />
@@ -44,11 +44,10 @@ return (
 export const ProductCreate = ({ permissions, ...props }) => (
     <Create {...props}>
         <SimpleForm >
-            <TextInput label="The name of the product" source="name" />
-            <TextInput label="The description of the product" source="description" />
-            <NumberInput source="price" step="false" format={v => v/100} parse={v => Math.round(v*100)} label="Price" />
-            <NumberInput source="quantity" label="Quantity" />
-            <TextInput label="Image url of the product (optionnal)" source="imageUrl" />
+            <TextInput  source="name" />
+            <TextInput source="description" />
+            <NumberInput source="price" format={v => v/100} parse={v => Math.round(v*100)} label="Price" />
+            <NumberInput source="quantity" />
         </SimpleForm>
     </Create>
 );
@@ -56,11 +55,10 @@ export const ProductCreate = ({ permissions, ...props }) => (
 export const ProductEdit = (props) => (
     <Edit {...props}>
         <SimpleForm>
-            <TextInput label="The name of the product" source="name" />
-            <TextInput label="The description of the product" source="description" />
-            <NumberInput source="price" step="false" format={v => v/100} parse={v => Math.round(v*100)} label="Price" />
-            <NumberInput source="quantity" label="Quantity" />
-            <TextInput label="Image url of the product (optionnal)" source="imageUrl" />
+            <TextInput source="name" />
+            <TextInput source="description" />
+            <NumberInput source="price" format={v => v/100} parse={v => Math.round(v*100)} label="Price" />
+            <NumberInput source="quantity" />
         </SimpleForm>
     </Edit>
 );

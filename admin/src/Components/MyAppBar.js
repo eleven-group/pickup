@@ -26,7 +26,7 @@ const MyAppBar = withStyles(styles)(({ classes, ...props }) => (
             className={classes.title}
             id="react-admin-title"
         />
-        <img src={Logo} style={{width: "40px"}} />
+        <img src={Logo} alt="Logo" style={{width: "40px"}} />
         <span className={classes.spacer} />
     </AppBar>
 ));
