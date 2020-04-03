@@ -51,7 +51,8 @@ class BookingFixtures extends Fixture implements DependentFixtureInterface
         $booking->setFirstname($this->faker->firstName);
         $booking->setLastname($this->faker->lastName);
         $booking->setEmail($this->faker->email);
-        $booking->setPhonenumber(intval($phoneNumber));
+        $booking->setPhonenumber($phoneNumber);
+        $booking->setTotal(rand(1,10000));
 
         $manager->persist($booking);
 

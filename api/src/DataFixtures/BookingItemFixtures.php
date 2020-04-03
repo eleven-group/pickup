@@ -33,6 +33,7 @@ class BookingItemFixtures extends Fixture implements DependentFixtureInterface
         $bookingItem = new BookingItem;
 
         $bookingItem->setQuantity(rand(1, 10));
+        $bookingItem->setPrice(rand(1, 1000));
         $bookingItem->setProduct($product);
         $bookingItem->setBooking($booking);
 

@@ -56,9 +56,13 @@ services:
         tags:
             - {name: 'doctrine.event_listener', event: 'prePersist'}
 
-    App\EventListener\UserCreateSuccessListener:
+    App\EventListener\ResourceCreateEventListener:
         tags:
             - {name: 'doctrine.event_listener', event: 'postPersist', priority: 500, connection: 'default'}
+
+    App\EventListener\ResourceUpdateEventListener:
+        tags:
+            - {name: 'doctrine.event_listener', event: 'postUpdate', priority: 500, connection: 'default'}
 
     App\EventSubscriber\ProductQuantitySubscriber:
         tags:

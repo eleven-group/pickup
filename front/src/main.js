@@ -2,7 +2,7 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/reset.css';
 import '@/assets/scss/global.scss';
-import locale from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale/lang/fr';
 import router from '@/routes';
 import store from '@/store';
 import App from '@/App.vue';

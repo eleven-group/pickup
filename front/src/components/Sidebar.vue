@@ -18,10 +18,6 @@
             <i class="el-icon-shopping-bag-1"></i>
             <span slot="title">Magasins</span>
           </el-menu-item>
-          <el-menu-item route="/products" index="3">
-            <i class="el-icon-shopping-cart-2"></i>
-            <span slot="title">Produits</span>
-          </el-menu-item>
           <el-menu-item route="/about" index="1">
             <i class="el-icon-news"></i>
             <span slot="title">À propos</span>
@@ -32,24 +28,23 @@
           </el-menu-item>
         </div>
         <div class="sidebar--bottom">
-          <el-badge :value="3" :max="10" class="item hidden-xs-only">
+          <el-badge :value="productCounter" class="item hidden-xs-only">
             <el-button
               type="primary"
               icon="el-icon-shopping-cart-2"
               plain
-              @click="$router.push('confirmation-payment')"
+              @click="$router.push('/order')"
             >Voir votre panier</el-button>
           </el-badge>
-          <el-badge is-dot class="item hidden-sm-and-up">
-            <el-button
-              type="primary"
-              icon="el-icon-shopping-cart-2"
-              plain
-              @click="$router.push('confirmation')"
-            ></el-button>
-          </el-badge>
-          <el-button class="hidden-xs-only" icon="el-icon-user" type="primary">Accès producteurs</el-button>
+          <el-button
+            class="hidden-xs-only"
+            icon="el-icon-user"
+            type="primary"
+            @click="redirect">
+            Accès producteurs
+          </el-button>
           <el-button class="hidden-sm-and-up" icon="el-icon-user" type="primary"></el-button>
+          <a class="register-button" href="/register">Register</a>
         </div>
       </div>
     </el-menu>
@@ -57,7 +52,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: mapState({
+    productCounter: state => state.cart.cartCounter
+  }),
   data () {
     return {
       windowWidth: window.innerWidth
@@ -68,12 +68,19 @@ export default {
       this.windowWidth = window.innerWidth;
     };
   },
+  methods: {
+    redirect () { window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`); }
+  },
   name: 'Sidebar'
 };
 </script>
 
 <style lang="scss" scoped>
 $--aside-width: 250px;
+
+.register-button {
+  margin-top:15px;
+}
 
 .aside {
   position: fixed;

@@ -8,9 +8,6 @@ import {
     RichTextField,
     ImageField,
     ReferenceField,
-    TextInput,
-    Filter
-
 } from 'react-admin';
 
 

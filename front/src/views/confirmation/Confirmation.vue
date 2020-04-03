@@ -6,7 +6,7 @@
         <br />Vous pouvez dès maintenant parcourir notre application en toute liberté,
         mais vous pouvez également accéder à votre "espace producteurs".
       </h1>
-      <el-button type="primary" plain>Connectez-vous dès maintenant</el-button>
+      <el-button type="primary" @click="redirect" plain>Connectez-vous dès maintenant</el-button>
     </el-row>
   </div>
 </template>
@@ -31,6 +31,9 @@ div {
 
 <script>
 export default {
-  name: 'Confirmation'
+  name: 'ConfirmationRegister',
+  methods: {
+    redirect () { window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`); }
+  }
 };
 </script>

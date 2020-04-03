@@ -1,16 +1,34 @@
 <template>
   <div class="map-container">
     <el-row>
-      <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        <el-card>
-          <el-checkbox
-            v-for="category in categories"
-            :key="category.id"
-            v-model="category.active"
-            @change="categoryChanged(category.id, category.active)"
-          >{{ category.name }}</el-checkbox>
-        </el-card>
-      </el-col>
+      <el-card>
+        <el-row align="middle" justify="space-between" type="flex" class="header-row">
+          <el-col :span="18" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-checkbox
+              v-for="category in categories"
+              :key="category.id"
+              v-model="category.active"
+              @change="categoryChanged(category.id, category.active)"
+            >{{ category.formatted }}</el-checkbox>
+          </el-col>
+          <el-col
+            v-if="!getLocationActive"
+            type="flex"
+            :span="6"
+            :xs="24"
+            :sm="24"
+            :md="24"
+            :lg="8"
+            :xl="8"
+          >
+            <el-button
+              v-if="!getLocationActive"
+              v-on:click="getLocation"
+              plain
+            >Trouver ma localisation automatiquement</el-button>
+          </el-col>
+        </el-row>
+      </el-card>
     </el-row>
     <el-row class="map">
       <l-map
@@ -28,7 +46,7 @@
           :latLng="item.location"
           :icon="getIcon()"
         >
-          <Popup :item="item" />
+          <Popup :item="item" :shops="shops" />
         </l-marker>
       </l-map>
     </el-row>
@@ -38,11 +56,11 @@
 <script>
 import L, { latLng } from 'leaflet';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
-import { LMap, LTileLayer, LMarker, LControl } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import VGeosearch from 'vue2-leaflet-geosearch';
 import { mapState, mapActions } from 'vuex';
+import { categoriesName } from '../../constants';
 
-import osmApi from '@/api/location/';
 import Popup from '@/components/PopUp/';
 
 export default {
@@ -51,7 +69,6 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LControl,
     Popup,
     VGeosearch
   },
@@ -59,8 +76,8 @@ export default {
     return {
       input: '',
       map: null,
-      center: latLng(48.856274, 2.354124),
-      currentCenter: latLng(48.856274, 2.354124),
+      center: latLng(this.latitude, this.longitude),
+      currentCenter: latLng(this.latitude, this.longitude),
       tileLayer: null,
       categoriesShops: [
         'Baker',
@@ -74,45 +91,25 @@ export default {
       categories: [],
       geosearchOptions: {
         provider: new OpenStreetMapProvider(),
-        position: 'topright',
         style: 'bar',
         showMarker: true,
         autoClose: true,
         animateZoom: true,
         searchLabel: 'Chercher votre adresse'
       },
-      form: {
-        streetAddress: ''
-      },
-      loading: false,
       url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       zoom: 16,
       currentZoom: 11.5,
-      markers: []
+      markers: [],
+      getLocationActive: false
     };
   },
   computed: mapState({
     longitude: state => state.location.longitude,
     latitude: state => state.location.latitude,
-    shops: state => state.shops
+    shops: state => state.shops,
+    automatedGeolocation: state => state.automatedGeolocation
   }),
-  created () {
-    if (navigator.geolocation) {
-      const success = ({ coords }) => {
-        const { latitude, longitude } = coords;
-        this.$store.commit('location/setLatitude', latitude);
-        this.$store.commit('location/setLongitude', longitude);
-      };
-
-      const error = err => {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      };
-
-      navigator.geolocation.getCurrentPosition(success, error);
-    } else {
-      console.log('Geolocation is not supported for this Browser/OS.');
-    }
-  },
   methods: {
     ...mapActions('shops', ['fetchShops']),
     getIcon () {
@@ -126,6 +123,25 @@ export default {
               `
       });
     },
+    getLocation () {
+      if (navigator.geolocation) {
+        const success = ({ coords }) => {
+          const { latitude, longitude } = coords;
+          this.$store.commit('location/setLatitude', latitude);
+          this.$store.commit('location/setLongitude', longitude);
+          this.center = latLng(this.latitude, this.longitude);
+        };
+
+        const error = err => {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error);
+        this.getLocationActive = true;
+      } else {
+        console.log('Geolocation is not supported for this Browser/OS.');
+      }
+    },
     initMap () {
       const { latitude, longitude } = this.$store.state.location;
       this.center = latLng(latitude, longitude);
@@ -135,6 +151,7 @@ export default {
         this.categories.push({
           id: index,
           name: category,
+          formatted: categoriesName[category.toLowerCase()],
           active: false,
           features: null
         });
@@ -175,7 +192,9 @@ export default {
           removeMarkers.forEach(removed =>
             this.markers.splice(
               this.markers.findIndex(
-                marker => marker.category.toLowerCase() === removed.category.toLowerCase()
+                marker =>
+                  marker.category.toLowerCase() ===
+                  removed.category.toLowerCase()
               ),
               1
             )
@@ -188,20 +207,6 @@ export default {
     },
     centerUpdate (center) {
       this.currentCenter = center;
-    },
-    async submitSearch () {
-      const { streetAddress } = this.form;
-      try {
-        const geoResSearchBar = await osmApi.getGeocodeSearchBar(streetAddress);
-        console.log(geoResSearchBar);
-      } catch (e) {
-        this.$message({
-          showClose: true,
-          message: "Oops, seems that your company adress can't be found !",
-          type: 'error'
-        });
-        this.loading = false;
-      }
     }
   },
   mounted () {
@@ -221,6 +226,33 @@ export default {
   justify-content: flex-start;
   align-items: stretch;
   height: 100%;
+  .header-row {
+    .el-col:nth-child(2) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 1200px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .el-card-body {
+        padding-bottom: 0;
+      }
+
+      .el-col {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .el-col:nth-child(2) {
+        justify-content: center;
+      }
+    }
+  }
 }
 
 .map {
@@ -234,8 +266,12 @@ export default {
 
 .el-checkbox {
   @media (max-width: 992px) {
-    margin: 12px 0;
+    margin: 12px;
   }
+}
+
+.el-button {
+  margin-left: 20px;
 }
 
 .marker {

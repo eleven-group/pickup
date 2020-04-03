@@ -1,16 +1,11 @@
 export const statusBooking = [
-{ id: "pending", name:"Pending" },
-{ id: "accepted", name:"Accepted" },
-{ id: "done", name:"Done" },
-{ id: "canceled", name:"Canceled" },
-];
-
-export const statusSlot = [
-{ id: "available", name:"Available" },
-{ id: "unavailable", name:"unavailable" },
+{ id: "pending", name:"En attente de confirmation" },
+{ id: "accepted", name:"En cours" },
+{ id: "done", name:"Terminée" },
+{ id: "canceled", name:"Annulée" },
 ];
 
 export const typeShop = [
-{ id: "available", name:"Available" },
-{ id: "unavailable", name:"unavailable" },
+{ id: "available", name:"Disponible" },
+{ id: "unavailable", name:"Indisponible" },
 ];

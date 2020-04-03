@@ -6,7 +6,7 @@ up:
 down:
 	docker-compose down --remove-orphans
 
-help: 
+help:
 	@grep -E '(^[0-9a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-25s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 run:
@@ -55,7 +55,6 @@ install-front:
 
 install-admin:
 	docker exec pickup-admin yarn install
-
 
 .PHONY: up down run sh-php sh-front sh-admin first-init copy-env install install-php php-dev install-admin install-front
 

@@ -24,7 +24,11 @@ import indigo from '@material-ui/core/colors/indigo';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import frenchMessages from 'ra-language-french';
+import englishMessages from 'ra-language-english';
 
+import { translations } from './translations';
 
 const theme = createMuiTheme({
   palette: {
@@ -33,13 +37,28 @@ const theme = createMuiTheme({
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
-    type: 'dark', // Switching the dark mode on is a single property value change.
+    type: 'dark',
   },
 });
 
+const messages = {
+  'fr': { ...frenchMessages, ...translations }
+};
+
+
+console.log(messages['fr']);
+
+const i18nProvider = polyglotI18nProvider(() => messages['fr']);
 
 const App = () => (
-    <Admin layout={MyLayout} theme={theme} dashboard={Dashboard} authProvider={authProvider} dataProvider={customDataProvider}>
+    <Admin
+      layout={MyLayout}
+      theme={theme}
+      dashboard={Dashboard}
+      authProvider={authProvider}
+      dataProvider={customDataProvider}
+      i18nProvider={i18nProvider}
+    >
     {permissions => [
       permissions.role === 'ROLE_ADMIN'
       ? <Resource name="users" list={UserList} icon={UserIcon}/>
@@ -57,7 +76,8 @@ const App = () => (
           edit={ProductEdit}
         />,
 
-        <Resource name="bookings"
+        <Resource
+          name="bookings"
           options={{ label: 'My Bookings' }}
           icon={BookingIcon}
           list={BookingList}

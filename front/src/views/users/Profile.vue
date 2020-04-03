@@ -17,10 +17,6 @@
         </el-card>
         <el-card class="clearfix">
           <h2> Informations </h2>
-          <p> Email : lharang.pro@gmail.com </p>
-          <p> Address : 15 rue notre Dame </p>
-          <p> City : Montmorency </p>
-          <p> Postal Code : 95160 </p>
         </el-card>
       </el-col>
     </el-row>

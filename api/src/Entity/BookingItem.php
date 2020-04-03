@@ -59,6 +59,8 @@ class BookingItem
      * @ORM\JoinColumn(name="booking_id", referencedColumnName="id")
      *
      * @Groups({"read","write"})
+     *
+     * @MaxDepth(1)
      */
     private $booking;
 
@@ -72,6 +74,13 @@ class BookingItem
      * @MaxDepth(1)
      */
     private $product;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @Groups({"read","write"})
+     */
+    private $price;
 
     public function getId(): ?int
     {
@@ -110,6 +119,18 @@ class BookingItem
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
