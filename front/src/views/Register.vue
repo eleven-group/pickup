@@ -144,7 +144,7 @@
                 class="delivery-individual"
               >
                 <el-card>
-                  <label class="category" :for="day">{{ day }} morning</label>
+                  <label class="category" :for="day">{{ daysName[day] }} matin</label>
                   <el-row :gutter="20">
                     <el-col :span="12">
                       <el-time-select
@@ -178,7 +178,7 @@
                     </el-col>
                   </el-row>
 
-                  <label :for="day" class="category">{{ day }} afternoon</label>
+                  <label :for="day" class="category">{{ daysName[day] }} après-midi</label>
 
                   <el-row :gutter="20">
                     <el-col :span="12">
@@ -218,7 +218,7 @@
               id="slotRange"
               ref="slotRange"
               is-range
-              placeholder="Time between each delivery"
+              placeholder="Temps entre chaque commande livrée"
               v-model="form.shop.slotRange"
               :picker-options="{
                 start: '00:00',
@@ -277,6 +277,7 @@ import userApi from '@/api/users';
 import osmApi from '@/api/location';
 import getSlotToMin from '@/helpers/getSlotToMin';
 import checkHours, { checkPartDay } from '@/helpers/checkHours';
+import { daysName } from '../constants';
 
 export default {
   name: 'Login',
@@ -291,6 +292,7 @@ export default {
         'producer',
         'other'
       ],
+      daysName,
       form: {
         user: {
           firstname: '',

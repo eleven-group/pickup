@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
@@ -31,6 +33,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * )
  * @ApiFilter(OrderFilter::class,
  *  properties= {"date", "status"}, arguments={"orderParameterName"="order"}
+ * )
+ * @ApiResource(
+ *   attributes={
+ *     "normalization_context"={
+ *       "groups"={"read"},
+ *       "enable_max_depth"=true
+ *     },
+ *     "denormalization_context"={"groups"={"write"}},
+ *   },
  * )
  */
 class Booking
@@ -111,7 +122,6 @@ class Booking
 
     /**
      * @ORM\OneToMany(targetEntity="BookingItem", mappedBy="booking")
-     *
      */
     private $bookingItems;
 
@@ -119,6 +129,8 @@ class Booking
      * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="Shop",)
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
+     *
+     * @MaxDepth(1)
      */
     private $shop;
 

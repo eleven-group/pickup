@@ -62,9 +62,9 @@ const uglyDateFormatter = (date) => {
 
 const BookingList = ({payload, title, color, store, status}) => (
     <Query type='GET_LIST' resource='bookings' payload={{...payload, filter: { shop: store, status}}}>
-        {({ data, total, loading, error }) => {
+        {({ data, total, loading }) => {
             if (loading) { return <Loading />; }
-            if (error) { return <Error />; }
+            if (data === undefined ) { return (<h2> Une erreur est survenue. </h2>); }
             return (
                 <CardContent>
                     <Typography variant="h5" component="h2">
@@ -80,6 +80,7 @@ const BookingList = ({payload, title, color, store, status}) => (
                                 </ListItemText>
                             </ListItem>
                             )}
+                            {data.length === 0 && <h4> Aucune commande </h4>}
                         </List>
                     </Typography>
                 </CardContent>
@@ -92,7 +93,7 @@ const UserProfile = ({ userId }) => (
     <Query type="GET_ONE" resource="users" payload={{ "id": userId }}>
         {({ data, loading, error }) => {
             if (loading) { return <Loading />; }
-            if (error) { return <p>ERROR</p>; }
+            if (data === undefined) { return (<h2> Une erreur est survenue </h2>); }
             return <UserInfos record={data}/>;
         }}
     </Query>
@@ -116,7 +117,7 @@ const ShopProfile = ({ shopId }) => (
     <Query type="GET_ONE" resource="shops" payload={{ "id": shopId }}>
         {({ data, loading, error }) => {
             if (loading) { return <Loading />; }
-            if (error) { return <p>ERROR</p>; }
+            if (data === undefined) { return (<h2> Une erreur est survenue </h2>); }
             return <ShopInfos record={data}/>;
         }}
     </Query>
@@ -158,7 +159,7 @@ export default function Dashboard() {
               <BookingList
                 payload={payloadUpcoming}
                 store={store}
-                title="Commande en cours"
+                title="Commandes en cours"
                 color="primary"
                 status="accepted"
               />
@@ -169,7 +170,7 @@ export default function Dashboard() {
               <BookingList
                 payload={payloadPending}
                 store={store}
-                title="Commande en attente de confirmation"
+                title="Commandes en attente de confirmation"
                 color="error"
                 status="pending"
               />

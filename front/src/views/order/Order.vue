@@ -62,7 +62,7 @@
               :options="slots"
               :props="{ expandTrigger: 'hover' }"
             ></el-cascader>
-            <el-button type="primary" @click="handleSumbit">Effectuer la réservation</el-button>
+            <el-button type="primary" @click="openModalConfirmation">Effectuer la réservation</el-button>
           </div>
         </el-card>
       </el-col>
@@ -96,6 +96,15 @@ export default {
     products: state => state.cart.cartProducts
   }),
   methods: {
+    openModalConfirmation() {
+      this.$confirm('En confirmant ma commande je m\'engage à venir recupérer ma commande à l\'heure indiquée et de respecter les gestes barrières évitants la propagation du COVID-19', 'Veuillez confirmer votre réservation', {
+        confirmButtonText: 'Confirmation ma commande',
+        cancelButtonText: 'Annuler',
+        type: 'success'
+      }).then(() => {
+        this.handleSumbit();
+      });
+    },
     formatProduct () {
       this.totalPrice = 0;
       this.products.forEach(product => {
@@ -120,7 +129,7 @@ export default {
         if (!this.form[item] && !this.error) {
           this.$message({
             showClose: true,
-            message: `Please enter your ${item}.`,
+            message: `Merci de renseigner votre ${item}.`,
             type: 'error'
           });
           this.error = true;
@@ -133,7 +142,7 @@ export default {
       ) {
         this.$message({
           showClose: true,
-          message: `Your email has a wrong format (e.g. john@smith.usa)`,
+          message: `Votre e-mail est au mauvais format (ex: martin@durand.fr)`,
           type: 'error'
         });
         this.error = true;
