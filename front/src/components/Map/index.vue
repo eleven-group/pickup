@@ -32,7 +32,7 @@
           :latLng="item.location"
           :icon="getIcon()"
         >
-          <Popup :item="item" />
+          <Popup :item="item" :shops="shops" />
         </l-marker>
       </l-map>
     </el-row>
