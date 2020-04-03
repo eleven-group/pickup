@@ -7,35 +7,34 @@
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
         <el-card>
           <p class="category">Contenu du panier</p>
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column width="300px" label="Catégorie">
+          <el-table :data="products" style="width: 100%">
+            <el-table-column label="Nom" width="180">
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.type }}</span>
+                <span style="margin-left: 10px">{{ scope.row.name }}</span>
               </template>
             </el-table-column>
-            <el-table-column width="300px" label="Nom">
+            <el-table-column label="Quantité" width="180">
               <template slot-scope="scope">
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium">{{ scope.row.name }}</el-tag>
-                </div>
+                <span style="margin-left: 10px">{{ scope.row.ordered }}</span>
               </template>
             </el-table-column>
-            <el-table-column width="100px" label="Prix">
+            <el-table-column label="Prix" width="180">
               <template slot-scope="scope">
-                <span>{{ scope.row.price }}</span>
+                <span style="margin-left: 10px">{{ scope.row.priceConverted }}</span>
               </template>
             </el-table-column>
-            <el-table-column width="300px" align="right" label="Opérations">
+            <el-table-column label="Opérations">
               <template slot-scope="scope">
                 <el-button
+                  v-if="scope.row.ordered > 1"
                   size="mini"
-                  type="success"
-                  @click="handleEdit(scope.$index, scope.row)"
-                >Ajouter</el-button>
+                  type="danger"
+                  @click="handleDeleteOne(scope.$index)"
+                >Retirer 1</el-button>
                 <el-button
                   size="mini"
                   type="danger"
-                  @click="handleDelete(scope.$index, scope.row)"
+                  @click="handleDeleteAll(scope.row.id)"
                 >Supprimer</el-button>
               </template>
             </el-table-column>
@@ -46,16 +45,24 @@
         <el-card class="price">
           <p class="category">Total</p>
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
-          <span>999, 99€</span>
+          <span>{{totalPrice/100}}€</span>
+          <el-input id="firstname" placeholder="Prénom" ref="firstname" v-model="form.firstname"></el-input>
+          <el-input id="lastname" placeholder="Nom" ref="lastname" v-model="form.lastname"></el-input>
+          <el-input id="email" placeholder="E-mail" ref="email" v-model="form.email"></el-input>
+          <el-input
+            id="phonenumber"
+            placeholder="Téléphone"
+            ref="phonenumber"
+            v-model="form.phonenumber"
+          ></el-input>
           <div class="el-card--buttons">
             <el-cascader
               v-model="value"
-              placeholder="Sélectionnez votre horaire"
+              placeholder="Choix de tranche horaire"
               :options="slots"
               :props="{ expandTrigger: 'hover' }"
-              @change="handleChange">
-              </el-cascader>
-            <el-button type="primary">Effectuer la réservation</el-button>
+            ></el-cascader>
+            <el-button type="primary" @click="handleSumbit">Effectuer la réservation</el-button>
           </div>
         </el-card>
       </el-col>
@@ -65,49 +72,98 @@
 
 <script>
 import shopApi from '@/api/shops';
+import bookingApi from '@/api/booking';
+import { mapState } from 'vuex';
+import getPriceConverted from '@/helpers/getPriceConverted';
+import bookingItemsBuilder from '@/helpers/bookingItemsBuilder';
 
 export default {
   data () {
     return {
-      tableData: [
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        },
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        },
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        },
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        }
-      ],
+      form: {
+        firstname: '',
+        lastname: '',
+        phonenumber: '',
+        email: '',
+        date: ''
+      },
       slots: [],
-      value: ''
+      value: '',
+      totalPrice: 0
     };
   },
+  computed: mapState({
+    products: state => state.cart.cartProducts
+  }),
   methods: {
-    handleEdit (index, row) {
-      console.log(index, row);
+    formatProduct () {
+      this.totalPrice = 0;
+      this.products.forEach(product => {
+        if (typeof product.price === 'number') {
+          product.priceConverted = getPriceConverted(product.price);
+        }
+        this.totalPrice += product.price * product.ordered;
+      });
     },
-    handleDelete (index, row) {
-      console.log(index, row);
+    handleDeleteAll (productId) {
+      this.$store.commit('cart/deleteCartProduct', productId);
+      window.location.reload(); // to be removed if we find a better way cause i've no idea it's 5am
+    },
+    handleDeleteOne (index) {
+      this.$store.commit('cart/deleteOne', index);
+      this.formatProduct();
+    },
+    async handleSumbit () {
+      this.error = false;
+      this.form.date = this.value ? this.value[1] : '';
+      Object.keys(this.form).forEach(item => {
+        if (!this.form[item] && !this.error) {
+          this.$message({
+            showClose: true,
+            message: `Please enter your ${item}.`,
+            type: 'error'
+          });
+          this.error = true;
+          if (item !== 'date') this.$refs[`${item}`].focus();
+        }
+      });
+      if (
+        !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(this.form.email) &&
+        !this.error
+      ) {
+        this.$message({
+          showClose: true,
+          message: `Your email has a wrong format (e.g. john@smith.usa)`,
+          type: 'error'
+        });
+        this.error = true;
+        this.$refs.email.focus();
+
+        return;
+      }
+      if (!this.error) {
+        try {
+          await bookingApi.postBooking({
+            ...this.form,
+            status: 'pending',
+            total: this.totalPrice,
+            bookingItem: bookingItemsBuilder(this.products)
+          });
+          this.$store.commit('cart/clearState');
+          this.$router.push('/confirmation-booking');
+        } catch (e) {
+          this.$message({
+            showClose: true,
+            message: `Oups, une erreur est survenue, réessayez plus tard ou contactez-nous !`,
+            type: 'error'
+          });
+          this.error = true;
+        }
+      }
     }
   },
   async created () {
+    this.formatProduct();
     try {
       const res = await shopApi.getSlots(1, 1);
       this.slots = res.data.slots;
@@ -177,6 +233,10 @@ th {
     font-size: 24px;
     font-weight: 600;
     text-align: right;
+  }
+
+  .el-input {
+    margin-bottom: 12px;
   }
 }
 </style>

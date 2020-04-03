@@ -73,6 +73,13 @@ class BookingItem
      */
     private $product;
 
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @Groups({"read","write"})
+     */
+    private $price;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,7 +93,7 @@ class BookingItem
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
-
+        
         return $this;
     }
 
@@ -110,6 +117,18 @@ class BookingItem
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

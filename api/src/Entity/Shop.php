@@ -41,6 +41,7 @@ class Shop
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
+     * @Groups({"read", "write"})
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -121,6 +122,7 @@ class Shop
     private $category;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
      */
     private $products;

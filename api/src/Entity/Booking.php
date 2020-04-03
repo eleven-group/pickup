@@ -94,7 +94,7 @@ class Booking
     /**
      * @Assert\NotBlank
      *
-     * @ORM\Column(type="integer", length=10)
+     * @ORM\Column(type="string", length=20)
      *
      * @Groups({"read","write"})
      */
@@ -116,10 +116,18 @@ class Booking
     private $bookingItems;
 
     /**
+     * @Groups({"read","write"})
      * @ORM\ManyToOne(targetEntity="Shop",)
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      */
     private $shop;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @Groups({"read","write"})
+     */
+    private $total;
 
 
     public function __construct()
@@ -192,12 +200,12 @@ class Booking
         return $this;
     }
 
-    public function getPhonenumber(): ?int
+    public function getPhonenumber(): ?string
     {
         return $this->phonenumber;
     }
 
-    public function setPhonenumber(int $phonenumber): self
+    public function setPhonenumber(string $phonenumber): self
     {
         $this->phonenumber = $phonenumber;
 
@@ -255,6 +263,18 @@ class Booking
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+
+    public function setTotal(int $total): self
+    {
+        $this->total = $total;
 
         return $this;
     }
