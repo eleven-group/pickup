@@ -96,7 +96,7 @@ export default {
     products: state => state.cart.cartProducts
   }),
   methods: {
-    openModalConfirmation() {
+    openModalConfirmation () {
       this.$confirm('En confirmant ma commande je m\'engage à venir recupérer ma commande à l\'heure indiquée et de respecter les gestes barrières évitants la propagation du COVID-19', 'Veuillez confirmer votre réservation', {
         confirmButtonText: 'Confirmation ma commande',
         cancelButtonText: 'Annuler',

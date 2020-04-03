@@ -1,22 +1,34 @@
 <template>
   <div class="map-container">
     <el-row>
-      <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        <el-card>
-          <el-checkbox
-            v-for="category in categories"
-            :key="category.id"
-            v-model="category.active"
-            @change="categoryChanged(category.id, category.active)"
-          >{{ category.formatted }}</el-checkbox>
-      <el-button
-        v-on:click="getLocation"
-        plain
-        size="small"
-        align="right"
-      >Me localiser</el-button>
-        </el-card>
-      </el-col>
+      <el-card>
+        <el-row align="middle" justify="space-between" type="flex" class="header-row">
+          <el-col :span="18" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-checkbox
+              v-for="category in categories"
+              :key="category.id"
+              v-model="category.active"
+              @change="categoryChanged(category.id, category.active)"
+            >{{ category.formatted }}</el-checkbox>
+          </el-col>
+          <el-col
+            v-if="!getLocationActive"
+            type="flex"
+            :span="6"
+            :xs="24"
+            :sm="24"
+            :md="24"
+            :lg="8"
+            :xl="8"
+          >
+            <el-button
+              v-if="!getLocationActive"
+              v-on:click="getLocation"
+              plain
+            >Trouver ma localisation automatiquement</el-button>
+          </el-col>
+        </el-row>
+      </el-card>
     </el-row>
     <el-row class="map">
       <l-map
@@ -26,7 +38,7 @@
         @update:center="centerUpdate"
         @update:zoom="zoomUpdate"
       >
-        <l-tile-layer :url="url"/>
+        <l-tile-layer :url="url" />
         <l-control class="example-custom-control">
           <el-input placeholder="Cherchez votre adresse" v-model="input">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -82,13 +94,15 @@ export default {
       url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       zoom: 16,
       currentZoom: 11.5,
-      markers: []
+      markers: [],
+      getLocationActive: false
     };
   },
   computed: mapState({
     longitude: state => state.location.longitude,
     latitude: state => state.location.latitude,
-    shops: state => state.shops
+    shops: state => state.shops,
+    automatedGeolocation: state => state.automatedGeolocation
   }),
   methods: {
     ...mapActions('shops', ['fetchShops']),
@@ -117,6 +131,7 @@ export default {
         };
 
         navigator.geolocation.getCurrentPosition(success, error);
+        this.getLocationActive = true;
       } else {
         console.log('Geolocation is not supported for this Browser/OS.');
       }
@@ -177,7 +192,9 @@ export default {
           removeMarkers.forEach(removed =>
             this.markers.splice(
               this.markers.findIndex(
-                marker => marker.category.toLowerCase() === removed.category.toLowerCase()
+                marker =>
+                  marker.category.toLowerCase() ===
+                  removed.category.toLowerCase()
               ),
               1
             )
@@ -203,6 +220,33 @@ export default {
   justify-content: flex-start;
   align-items: stretch;
   height: 100%;
+  .header-row {
+    .el-col:nth-child(2) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 1200px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .el-card-body {
+        padding-bottom: 0;
+      }
+
+      .el-col {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .el-col:nth-child(2) {
+        justify-content: center;
+      }
+    }
+  }
 }
 
 .map {
@@ -216,7 +260,7 @@ export default {
 
 .el-checkbox {
   @media (max-width: 992px) {
-    margin: 12px 0;
+    margin: 12px;
   }
 }
 

@@ -24,5 +24,5 @@ export const daysName = {
   saturday: 'samedi',
   sunday: 'dimanche',
   morning: 'matin',
-  afternoon: 'matin',
+  afternoon: 'matin'
 };
