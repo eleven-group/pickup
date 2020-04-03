@@ -30,7 +30,7 @@ class ShopFixtures extends Fixture implements DependentFixtureInterface
             "friday" => ["9:00-12:25","14:00-18:00"]
         ];
 
-        $types = ['baker', 'butcher', 'pastry', 'food', 'pizza', 'producer', 'burger'];
+        $types = ['baker', 'butcher', 'pastry', 'other', 'pizza', 'producer', 'burger'];
 
 
         for ($i=1; $i < 52; $i++) {
