@@ -1,18 +1,17 @@
 <template>
-      <el-card shadow="never">
-          <img :src="imageUrl" class="image" />
-          <p>{{description}}</p>
-          <div class="details">
-            <h3>{{name}}</h3>
-          </div>
-          <div class="el-card--button">
-            <el-button type="success" v-on:click="() => goToProduct(index)" plain>See available products</el-button>
-          </div>
-        </el-card>
+  <el-card shadow="never">
+    <img :src="imageUrl" class="image" />
+    <div class="details">
+      <p>{{name}}</p>
+    </div>
+    <p class="description">{{description}}</p>
+    <div class="el-card--button">
+      <el-button type="success" v-on:click="() => goToProduct(index)" plain>See available products</el-button>
+    </div>
+  </el-card>
 </template>
 
 <script>
-
 export default {
   name: 'ShopCard',
   props: {
@@ -42,16 +41,30 @@ export default {
 
 <style lang="scss" scoped>
 .el-card {
+  margin: 12px auto;
+  max-height: 400px;
+
+  img {
+    object-fit: cover;
+    height: 100px;
+    width: auto;
+    border-radius: 8px;
+  }
+
   .details {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 
-    h3,
+    p,
     small {
       font-weight: 600;
       margin: 0;
+    }
+
+    p {
+      margin-top: 24px;
     }
 
     small {
@@ -60,8 +73,15 @@ export default {
     }
   }
 
-  .el-card--button,
-  h3 {
+  .description {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .el-card--button {
     text-align: right;
   }
 

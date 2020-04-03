@@ -7,45 +7,38 @@
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
         <el-card>
           <p class="category">Contenu du panier</p>
-  <el-table
-    :data="products"
-    style="width: 100%">
-    <el-table-column
-      label="Nom"
-      width="180">
-      <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.name }}</span>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="Quantité"
-      width="180">
-      <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.ordered }}</span>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="Prix"
-      width="180">
-      <template slot-scope="scope">
-        <span style="margin-left: 10px">{{ scope.row.priceConverted }}</span>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="Opérations">
-      <template slot-scope="scope">
-        <el-button
-          v-if="scope.row.ordered > 1"
-          size="mini"
-          type="danger"
-          @click="handleDeleteOne(scope.$index)">Retirer 1</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDeleteAll(scope.row.id)">Supprimer</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+          <el-table :data="products" style="width: 100%">
+            <el-table-column label="Nom" width="180">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.name }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Quantité" width="180">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.ordered }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Prix" width="180">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.priceConverted }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="Opérations">
+              <template slot-scope="scope">
+                <el-button
+                  v-if="scope.row.ordered > 1"
+                  size="mini"
+                  type="danger"
+                  @click="handleDeleteOne(scope.$index)"
+                >Retirer 1</el-button>
+                <el-button
+                  size="mini"
+                  type="danger"
+                  @click="handleDeleteAll(scope.row.id)"
+                >Supprimer</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-card>
       </el-col>
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
@@ -53,21 +46,22 @@
           <p class="category">Total</p>
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
           <span>{{totalPrice/100}}€</span>
-              <label for="firstname">Prénom</label>
-              <el-input id="firstname" ref="firstname" class="m-5" v-model="form.firstname"></el-input>
-              <label for="lastname">Nom</label>
-              <el-input id="lastname" ref="lastname" class="m-5" v-model="form.lastname"></el-input>
-              <label for="email">E-mail</label>
-              <el-input id="email" ref="email" class="m-5" v-model="form.email"></el-input>
-              <label for="phonenumber">Numéro de téléphone</label>
-              <el-input id="phonenumber" ref="phonenumber" class="m-5" v-model="form.phonenumber"></el-input>
+          <el-input id="firstname" placeholder="Prénom" ref="firstname" v-model="form.firstname"></el-input>
+          <el-input id="lastname" placeholder="Nom" ref="lastname" v-model="form.lastname"></el-input>
+          <el-input id="email" placeholder="E-mail" ref="email" v-model="form.email"></el-input>
+          <el-input
+            id="phonenumber"
+            placeholder="Téléphone"
+            ref="phonenumber"
+            v-model="form.phonenumber"
+          ></el-input>
           <div class="el-card--buttons">
             <el-cascader
               v-model="value"
-              placeholder="Sélectionnez votre horaire"
+              placeholder="Choix de tranche horaire"
               :options="slots"
-              :props="{ expandTrigger: 'hover' }">
-              </el-cascader>
+              :props="{ expandTrigger: 'hover' }"
+            ></el-cascader>
             <el-button type="primary" @click="handleSumbit">Effectuer la réservation</el-button>
           </div>
         </el-card>
@@ -108,7 +102,7 @@ export default {
         if (typeof product.price === 'number') {
           product.priceConverted = getPriceConverted(product.price);
         }
-        this.totalPrice += (product.price * product.ordered);
+        this.totalPrice += product.price * product.ordered;
       });
     },
     handleDeleteAll (productId) {
@@ -122,7 +116,7 @@ export default {
     async handleSumbit () {
       this.error = false;
       this.form.date = this.value ? this.value[1] : '';
-      Object.keys(this.form).forEach((item) => {
+      Object.keys(this.form).forEach(item => {
         if (!this.form[item] && !this.error) {
           this.$message({
             showClose: true,
@@ -133,7 +127,10 @@ export default {
           if (item !== 'date') this.$refs[`${item}`].focus();
         }
       });
-      if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(this.form.email)) && !this.error) {
+      if (
+        !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(this.form.email) &&
+        !this.error
+      ) {
         this.$message({
           showClose: true,
           message: `Your email has a wrong format (e.g. john@smith.usa)`,
@@ -146,7 +143,12 @@ export default {
       }
       if (!this.error) {
         try {
-          await bookingApi.postBooking({ ...this.form, status: 'pending', total: this.totalPrice, bookingItem: bookingItemsBuilder(this.products) });
+          await bookingApi.postBooking({
+            ...this.form,
+            status: 'pending',
+            total: this.totalPrice,
+            bookingItem: bookingItemsBuilder(this.products)
+          });
           this.$store.commit('cart/clearState');
           this.$router.push('/confirmation-booking');
         } catch (e) {
@@ -231,6 +233,10 @@ th {
     font-size: 24px;
     font-weight: 600;
     text-align: right;
+  }
+
+  .el-input {
+    margin-bottom: 12px;
   }
 }
 </style>

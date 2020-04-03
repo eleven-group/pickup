@@ -3,9 +3,23 @@
     <el-row>
       <h1>Every Shop around you :</h1>
     </el-row>
-    <el-row :gutter="24">
-      <el-col v-for="(shop, index) in shops" v-bind:key="shop.id" :span="6" :xs="24" :sm="12" :md="12" :lg="6" :xl="6">
-        <ShopCard :name="shop.name" :description="shop.description" :imageUrl="shop.imageUrl" :index="index"/>
+    <el-row :gutter="24" justify="center">
+      <el-col
+        v-for="(shop, index) in shops"
+        v-bind:key="shop.id"
+        :span="6"
+        :xs="24"
+        :sm="12"
+        :md="12"
+        :lg="8"
+        :xl="6"
+      >
+        <ShopCard
+          :name="shop.name"
+          :description="shop.description"
+          :imageUrl="shop.imageUrl"
+          :index="index"
+        />
       </el-col>
     </el-row>
   </div>
