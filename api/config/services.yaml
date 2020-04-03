@@ -42,7 +42,7 @@ services:
     SendinBlue\Client\Configuration:
         factory: ['SendinBlue\Client\Configuration','getDefaultConfiguration']
         calls:
-            - ['setApiKey',['api-ky','%env(MAILIN_API_KEY)%']]
+            - ['setApiKey',['api-key','%env(MAILIN_API_KEY)%']]
 
     App\Service\Mailer:
         arguments:
