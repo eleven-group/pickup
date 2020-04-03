@@ -20,12 +20,8 @@
         @update:center="centerUpdate"
         @update:zoom="zoomUpdate"
       >
-        <l-tile-layer :url="url" :attribution="attribution" />
-        <l-control class="example-custom-control">
-          <el-input placeholder="Cherchez votre adresse" v-model="input">
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-        </l-control>
+        <l-tile-layer :url="url" />
+        <v-geosearch :options="geosearchOptions" />
         <l-marker
           v-for="(item, index) in markers"
           :key="'marker-' + index"
@@ -41,9 +37,12 @@
 
 <script>
 import L, { latLng } from 'leaflet';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { LMap, LTileLayer, LMarker, LControl } from 'vue2-leaflet';
+import VGeosearch from 'vue2-leaflet-geosearch';
 import { mapState, mapActions } from 'vuex';
 
+import osmApi from '@/api/location/';
 import Popup from '@/components/PopUp/';
 
 export default {
@@ -53,7 +52,8 @@ export default {
     LTileLayer,
     LMarker,
     LControl,
-    Popup
+    Popup,
+    VGeosearch
   },
   data () {
     return {
@@ -72,6 +72,19 @@ export default {
         'Other'
       ],
       categories: [],
+      geosearchOptions: {
+        provider: new OpenStreetMapProvider(),
+        position: 'topright',
+        style: 'bar',
+        showMarker: true,
+        autoClose: true,
+        animateZoom: true,
+        searchLabel: 'Chercher votre adresse'
+      },
+      form: {
+        streetAddress: ''
+      },
+      loading: false,
       url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       zoom: 16,
       currentZoom: 11.5,
@@ -143,12 +156,6 @@ export default {
         });
       });
     },
-    zoomUpdate (zoom) {
-      this.currentZoom = zoom;
-    },
-    centerUpdate (center) {
-      this.currentCenter = center;
-    },
     categoryChanged (categoryId, active) {
       const category = this.categories.find(
         category => category.id === categoryId
@@ -175,6 +182,26 @@ export default {
           );
         }
       });
+    },
+    zoomUpdate (zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate (center) {
+      this.currentCenter = center;
+    },
+    async submitSearch () {
+      const { streetAddress } = this.form;
+      try {
+        const geoResSearchBar = await osmApi.getGeocodeSearchBar(streetAddress);
+        console.log(geoResSearchBar);
+      } catch (e) {
+        this.$message({
+          showClose: true,
+          message: "Oops, seems that your company adress can't be found !",
+          type: 'error'
+        });
+        this.loading = false;
+      }
     }
   },
   mounted () {
