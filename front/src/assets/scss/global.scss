@@ -46,17 +46,10 @@ $--border-radius-base: 10px !default;
     }
   }
 }
-.el-input {
-  input {
-    text-transform: capitalize !important;
-  }
-}
 
-.el-select {
-  .el-select-dropdown__item {
-    span {
-      text-transform: capitalize !important;
-    }
+.el-select-dropdown {
+  span {
+    text-transform: capitalize !important;
   }
 }
 

@@ -262,14 +262,13 @@
   }
 }
 
+.el-input__inner::first-letter {
+  text-transform: uppercase;
+}
+
 .el-date-editor,
 .el-select {
   width: 100%;
-  .el-input {
-    input {
-      text-transform: capitalize !important;
-    }
-  }
 }
 </style>
 
