@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <h1>Tous les produits du restaurant sélectionné :</h1>
+      <h1>Tous les produits du magasin sélectionné :</h1>
     </el-row>
     <el-row :gutter="40">
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="18" :xl="18">

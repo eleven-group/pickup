@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <h1>Every Shop around you :</h1>
+      <h1>Tous les magasins autour de vous :</h1>
     </el-row>
     <el-row :gutter="24" justify="center">
       <el-col

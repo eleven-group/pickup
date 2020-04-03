@@ -3,10 +3,11 @@
     <h2>{{product.name}}</h2>
     <p>{{product.description}}</p>
     <div class="details">
-      <small class="quantity">{{product.quantity}} left</small>
+      <b v-if="product.quantity > 0" class="quantity">{{product.quantity}} en stock</b>
+      <b v-else class="quantity">En rupture de stock</b>
       <h3>Price : {{priceConverted}}</h3>
     </div>
-    <div class="el-card--button">
+    <div v-if="product.quantity > 0" class="el-card--button">
       <el-input-number v-model="num" :min="1" :max="product.quantity"></el-input-number>
       <el-button
         type="success"

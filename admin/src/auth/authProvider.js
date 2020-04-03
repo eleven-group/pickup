@@ -1,13 +1,3 @@
-import {
-    AUTH_LOGIN,
-    AUTH_LOGOUT,
-    AUTH_ERROR,
-    AUTH_CHECK,
-    AUTH_GET_PERMISSIONS
-} from 'react-admin';
-
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-
 const authProvider = {
     login: ({ username, password }) => {
         const request = new Request(`${process.env.REACT_APP_API_ENDPOINT}/login_check`, {
@@ -18,13 +8,13 @@ const authProvider = {
         return fetch(request)
             .then(response => {
                 if (response.status < 200 || response.status >= 300) {
-                    throw new Error(response.statusText);
+                    throw new Error('Une erreur est survenue, veuillez réessayer plus tard.');
                 }
                 return response.json();
             })
             .then(({ token, data }) => {
                 if(!data.active){
-                    throw new Error("User is inactive");
+                    throw new Error("Cet utilisateur est inactif, veuillez valider votre email");
                 }
                 localStorage.setItem('token', token);
                 localStorage.setItem('role', data.role);
@@ -41,7 +31,6 @@ const authProvider = {
         return Promise.resolve();
     },
     checkError: error => {
-        // ...
     },
     checkAuth: () => {
         return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();

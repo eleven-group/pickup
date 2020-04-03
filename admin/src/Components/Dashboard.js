@@ -1,16 +1,25 @@
 import React from 'react';
-import { Title, Loading, useGetOne, usePermissions, Query, Error, ShowButton } from 'react-admin';
+import {
+  Title,
+  Loading,
+  usePermissions,
+  Query,
+  Error,
+  ShowButton
+} from 'react-admin';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import BookingIcon from '@material-ui/icons/CalendarToday';
-import BookingIconPending from '@material-ui/icons/HourglassEmpty';
-import { Badge, List, ListItem, ListItemText, Link } from '@material-ui/core';
+import {
+  Badge,
+  List,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -29,12 +38,6 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
 });
-
-
-const preventDefault = () => {
-  this.props.push("/bookings");
-}
-
 
 const payloadPending = {
    pagination: { page: 1, perPage: 10 },
@@ -71,7 +74,7 @@ const BookingList = ({payload, title, color, store, status}) => (
                         <List>
                             {data.map(booking =>
                             <ListItem key={booking.quantity}>
-                                <ShowButton resource="bookings" basePath="/bookings" record={booking} label={`Booking #${booking.id}`} icon={null} />
+                                <ShowButton resource="bookings" basePath="/bookings" record={booking} label={`Commande #${booking.id}`} icon={null} />
                                 <ListItemText
                                   secondary={`${booking.firstname} ${booking.lastname}, ${uglyDateFormatter(booking.date)}`}>
                                 </ListItemText>
@@ -96,11 +99,17 @@ const UserProfile = ({ userId }) => (
 );
 
 const UserInfos = ({ record }) => (
-  <div>
-    <div>Username : {record.username}</div>
-    <div>Email : {record.email}</div>
-    <div>Name : {record.firstname} {record.lastname}</div>
-  </div>
+  <List>
+    <ListItem>
+      <ListItemText> Nom d'utilisateur : {record.username}</ListItemText>
+    </ListItem>
+    <ListItem>
+      <ListItemText> Votre E-Mail: {record.email}</ListItemText>
+    </ListItem>
+    <ListItem>
+      <ListItemText> Nom : {record.firstname} {record.lastname}</ListItemText>
+    </ListItem>
+  </List>
 );
 
 const ShopProfile = ({ shopId }) => (
@@ -113,13 +122,20 @@ const ShopProfile = ({ shopId }) => (
     </Query>
 );
 
+
 const ShopInfos = ({ record }) => (
-  <div>
-    <img style={{width: "250px"}} src={record.imageUrl}/>
-    <div>Name : {record.name}</div>
-    <div>Category : {record.category}</div>
-    <div>Address : {record.streetAdress}, <br /> {record.postalCode } {record.city}</div>
-  </div>
+  <List>
+    <ListItem> <img style={{width: "250px"}} src={record.imageUrl}/> </ListItem>
+    <ListItem>
+      <ListItemText> Nom de l'enseigne : {record.name}</ListItemText>
+    </ListItem>
+    <ListItem>
+      <ListItemText> Catégorie : {record.category}</ListItemText>
+    </ListItem>
+    <ListItem>
+      <ListItemText> Addresse : {record.streetAdress}, {record.postalCode } {record.city}</ListItemText>
+    </ListItem>
+  </List>
 );
 
 export default function Dashboard() {
@@ -140,22 +156,22 @@ export default function Dashboard() {
       <Grid xs={11} item>
         <Card className={classes.card}>
               <BookingList
-                payload={payloadPending}
+                payload={payloadUpcoming}
                 store={store}
-                title="Pending Bookings"
-                color="error"
-                status="pending"
+                title="Commande en cours"
+                color="primary"
+                status="accepted"
               />
         </Card>
       </Grid>
       <Grid xs={11} item>
         <Card className={classes.card}>
               <BookingList
-                payload={payloadUpcoming}
+                payload={payloadPending}
                 store={store}
-                title="Upcoming Bookings"
-                color="primary"
-                status="accepted"
+                title="Commande en attente de confirmation"
+                color="error"
+                status="pending"
               />
         </Card>
       </Grid>
@@ -165,10 +181,10 @@ export default function Dashboard() {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h5" component="h2">
-              Welcome to foodcollect !
+              Bienvenue sur foodcollect !
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              Click & collect app
+              Dashboard professionnel
             </Typography>
             <Typography variant="body2" component="p">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur facilisis mattis ligula ultricies ultricies. Donec mollis est erat, a posuere neque pulvinar a. Cras eget varius mi, eu vulputate dolor. Aliquam erat volutpat. Aliquam non nibh quis risus laoreet rhoncus ac non eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec auctor libero et metus blandit luctus. Sed nec commodo nulla, et dapibus libero.
@@ -180,7 +196,7 @@ export default function Dashboard() {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Your account
+            Votre compte
           </Typography>
           <UserProfile userId={userId} />
         </CardContent>
@@ -190,7 +206,7 @@ export default function Dashboard() {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Your shop
+            Votre enseigne
           </Typography>
           <ShopProfile shopId={store} />
         </CardContent>

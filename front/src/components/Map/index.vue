@@ -8,7 +8,7 @@
             :key="category.id"
             v-model="category.active"
             @change="categoryChanged(category.id, category.active)"
-          >{{ category.name }}</el-checkbox>
+          >{{ category.formatted }}</el-checkbox>
         </el-card>
       </el-col>
     </el-row>
@@ -43,6 +43,7 @@
 import L, { latLng } from 'leaflet';
 import { LMap, LTileLayer, LMarker, LControl } from 'vue2-leaflet';
 import { mapState, mapActions } from 'vuex';
+import { categoriesName } from '../../constants';
 
 import Popup from '@/components/PopUp/';
 
@@ -122,6 +123,7 @@ export default {
         this.categories.push({
           id: index,
           name: category,
+          formatted: categoriesName[category.toLowerCase()],
           active: false,
           features: null
         });
