@@ -14,3 +14,15 @@ export const categoriesName = {
   pastry: 'Pâtissier',
   other: 'Autres'
 };
+
+export const daysName = {
+  thursday: 'jeudi',
+  monday: 'lundi',
+  tuesday: 'mardi',
+  wednesday: 'mercredi',
+  friday: 'vendredi',
+  saturday: 'samedi',
+  sunday: 'dimanche',
+  morning: 'matin',
+  afternoon: 'matin',
+};
