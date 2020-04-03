@@ -6,7 +6,7 @@
     </div>
     <p class="description">{{description}}</p>
     <div class="el-card--button">
-      <el-button type="success" v-on:click="() => goToProduct(index)" plain>See available products</el-button>
+      <el-button type="success" v-on:click="() => goToProduct(index)" plain>Voir les produits disponibles</el-button>
     </div>
   </el-card>
 </template>

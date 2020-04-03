@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <h1>Every product from {{companyName}} :</h1>
+      <h1>Tous les produits de {{companyName}} :</h1>
     </el-row>
     <el-row :gutter="24">
       <el-col

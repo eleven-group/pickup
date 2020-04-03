@@ -14,9 +14,9 @@
             <i class="el-icon-house"></i>
             <span slot="title">Accueil</span>
           </el-menu-item>
-          <el-menu-item route="/products" index="3">
-            <i class="el-icon-shopping-cart-2"></i>
-            <span slot="title">Produits</span>
+          <el-menu-item route="/shops" index="2">
+            <i class="el-icon-shopping-bag-1"></i>
+            <span slot="title">Magasins</span>
           </el-menu-item>
           <el-menu-item route="/about" index="1">
             <i class="el-icon-news"></i>
