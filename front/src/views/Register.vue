@@ -84,7 +84,7 @@
                   ref="description"
                   v-model="form.shop.description"
                   type="textarea"
-                  :autosize="{ minRows: 2, maxRows: 4 }"
+                  :autosize="{ minRows: 3, maxRows: 4 }"
                   maxlength="200"
                   show-word-limit
                 ></el-input>
@@ -108,14 +108,22 @@
                   ></el-input>
                 </el-col>
                 <el-col :span="8" :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
-                  <el-input
-                    id="city"
-                    placeholder="Ville"
-                    ref="city"
-                    v-model="form.shop.city"
-                  ></el-input>
+                  <el-input id="city" placeholder="Ville" ref="city" v-model="form.shop.city"></el-input>
                 </el-col>
               </el-row>
+              <el-select
+                id="category"
+                placeholder="Sélectionnez la catégorie de votre restaurant"
+                ref="city"
+                v-model="form.shop.category"
+              >
+                <el-option
+                  v-for="category in categories"
+                  :key="category"
+                  :label="category"
+                  :value="category"
+                ></el-option>
+              </el-select>
             </div>
           </el-card>
         </el-col>
@@ -221,9 +229,7 @@
           </el-card>
         </el-col>
       </el-row>
-      <el-button native-type="submit" type="primary" :loading="loading"
-        >Valider l'inscription</el-button
-      >
+      <el-button native-type="submit" type="primary" :loading="loading">Valider l'inscription</el-button>
     </el-form>
   </div>
 </template>
@@ -256,7 +262,8 @@
   }
 }
 
-.el-date-editor {
+.el-date-editor,
+.el-select {
   width: 100%;
 }
 </style>
@@ -271,6 +278,15 @@ export default {
   name: 'Login',
   data () {
     return {
+      categories: [
+        'Baker',
+        'Butcher',
+        'Burger',
+        'Pastry',
+        'Pizza',
+        'Producer',
+        'Other'
+      ],
       form: {
         user: {
           firstname: '',
@@ -285,6 +301,7 @@ export default {
           streetAdress: '',
           postalCode: '',
           city: '',
+          category: '',
           openingHours: {
             monday: {
               morning: { opening: '', closing: '' },
