@@ -113,7 +113,7 @@
               </el-row>
               <el-select
                 id="category"
-                placeholder="Sélectionnez la catégorie de votre restaurant"
+                placeholder="Catégorie"
                 ref="city"
                 v-model="form.shop.category"
               >
@@ -151,7 +151,7 @@
                         :id="`${day}MorningOpening`"
                         :ref="`${day}MorningOpening`"
                         is-range
-                        placeholder="Opening"
+                        placeholder="Ouverture"
                         v-model="form.shop.openingHours[day].morning.opening"
                         :picker-options="{
                           start: '04:00',
@@ -166,7 +166,7 @@
                         :id="`${day}MorningClosing`"
                         :ref="`${day}MorningClosing`"
                         is-range
-                        placeholder="Closing"
+                        placeholder="Fermeture"
                         v-model="form.shop.openingHours[day].morning.closing"
                         :picker-options="{
                           start: '04:00',
@@ -186,7 +186,7 @@
                         :id="`${day}AfternoonOpening`"
                         :ref="`${day}AfternoonOpening`"
                         is-rangeclass="category"
-                        placeholder="Opening"
+                        placeholder="Ouverture"
                         v-model="form.shop.openingHours[day].afternoon.opening"
                         :picker-options="{
                           start: '14:00',
@@ -200,7 +200,7 @@
                         :id="`${day}AfternoonClosing`"
                         :ref="`${day}AfternoonClosing`"
                         is-range
-                        placeholder="Closing"
+                        placeholder="Fermeture"
                         v-model="form.shop.openingHours[day].afternoon.closing"
                         :picker-options="{
                           start: '14:00',
@@ -265,8 +265,10 @@
 .el-date-editor,
 .el-select {
   width: 100%;
-  span {
-    text-transform: capitalize !important;
+  .el-input {
+    input {
+      text-transform: capitalize !important;
+    }
   }
 }
 </style>
