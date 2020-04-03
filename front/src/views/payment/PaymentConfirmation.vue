@@ -141,6 +141,15 @@ export default {
 
         return;
       }
+      if (this.products.length < 1) {
+        this.$message({
+          showClose: true,
+          message: `Vous devez sélectionner au moins un produit à commander !`,
+          type: 'error'
+        });
+        this.error = true;
+        return;
+      }
       if (!this.error) {
         try {
           await bookingApi.postBooking({
