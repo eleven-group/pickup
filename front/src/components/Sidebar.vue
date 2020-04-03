@@ -32,7 +32,7 @@
           </el-menu-item>
         </div>
         <div class="sidebar--bottom">
-          <el-badge :value="3" :max="10" class="item hidden-xs-only">
+          <el-badge :value="productCounter" class="item hidden-xs-only">
             <el-button
               type="primary"
               icon="el-icon-shopping-cart-2"
@@ -45,7 +45,7 @@
               type="primary"
               icon="el-icon-shopping-cart-2"
               plain
-              @click="$router.push('confirmation')"
+              @click="$router.push('confirmation-payment')"
             ></el-button>
           </el-badge>
           <el-button class="hidden-xs-only" icon="el-icon-user" type="primary">Accès producteurs</el-button>
@@ -57,7 +57,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: mapState({
+    productCounter: state => state.cart.cartCounter
+  }),
   data () {
     return {
       windowWidth: window.innerWidth

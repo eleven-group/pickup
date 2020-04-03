@@ -7,53 +7,57 @@
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
         <el-card>
           <p class="category">Contenu du panier</p>
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column width="300px" label="Catégorie">
-              <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.type }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column width="300px" label="Nom">
-              <template slot-scope="scope">
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium">{{ scope.row.name }}</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column width="100px" label="Prix">
-              <template slot-scope="scope">
-                <span>{{ scope.row.price }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column width="300px" align="right" label="Opérations">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="success"
-                  @click="handleEdit(scope.$index, scope.row)"
-                >Ajouter</el-button>
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)"
-                >Supprimer</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
+  <el-table
+    :data="products"
+    style="width: 100%">
+    <el-table-column
+      label="Nom"
+      width="180">
+      <template slot-scope="scope">
+        <span style="margin-left: 10px">{{ scope.row.name }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="Quantité"
+      width="180">
+      <template slot-scope="scope">
+        <span style="margin-left: 10px">{{ scope.row.quantity }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="Prix"
+      width="180">
+      <template slot-scope="scope">
+        <span style="margin-left: 10px">{{ scope.row.price }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="Opérations">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDeleteOne(scope.$index)">Retirer 1</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDeleteAll(scope.row.id)">Supprimer</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
         </el-card>
       </el-col>
       <el-col :span="24" :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
         <el-card class="price">
           <p class="category">Total</p>
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
-          <span>999, 99€</span>
+          <span>{{totalPrice/100}}€</span>
           <div class="el-card--buttons">
             <el-cascader
               v-model="value"
               placeholder="Sélectionnez votre horaire"
               :options="slots"
-              :props="{ expandTrigger: 'hover' }"
-              @change="handleChange">
+              :props="{ expandTrigger: 'hover' }">
               </el-cascader>
             <el-button type="primary">Effectuer la réservation</el-button>
           </div>
@@ -65,49 +69,37 @@
 
 <script>
 import shopApi from '@/api/shops';
+import { mapState } from 'vuex';
+import getPriceConverted from '@/helpers/getPriceConverted';
 
 export default {
   data () {
     return {
-      tableData: [
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        },
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        },
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        },
-        {
-          type: 'Catégorie produit',
-          name: 'Tom',
-          price: '13,99€ TTC',
-          address: 'No. 189, Grove St, Los Angeles'
-        }
-      ],
       slots: [],
-      value: ''
+      value: '',
+      totalPrice: 0
     };
   },
+  computed: mapState({
+    products: state => state.cart.cartProducts
+  }),
   methods: {
-    handleEdit (index, row) {
-      console.log(index, row);
+    handleDeleteAll (productId) {
+      this.$store.commit('cart/deleteCartProduct', productId);
+      window.location.reload(); // to be removed if we find a better way cause i've no idea it's 5am
     },
-    handleDelete (index, row) {
-      console.log(index, row);
+    handleDeleteOne (index) {
+      console.log(index);
+      this.products[index].quantity -= 1;
     }
   },
   async created () {
+    this.products.forEach(product => {
+      if (typeof product.price === 'number') {
+        product.price = getPriceConverted(product.price);
+      }
+      this.totalPrice += product.totalPrice;
+    });
     try {
       const res = await shopApi.getSlots(1, 1);
       this.slots = res.data.slots;

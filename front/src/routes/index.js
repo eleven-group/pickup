@@ -14,6 +14,7 @@ import contactRoutes from '@/routes/contact';
 import confirmationRoutes from '@/routes/confirmation';
 import aboutRoutes from '@/routes/about';
 import registerRoutes from '@/routes/register';
+import shopsRoutes from '@/routes/shops';
 
 Vue.use(Router);
 
@@ -34,6 +35,7 @@ export const router = new Router({
         ...filesRoutes,
         ...productsRoutes,
         ...contactRoutes,
+        ...shopsRoutes,
         ...confirmationRoutes,
         ...aboutRoutes,
         ...registerRoutes
