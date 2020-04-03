@@ -75,6 +75,8 @@ class BookingItem
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read","write"})
      */
     private $price;
 

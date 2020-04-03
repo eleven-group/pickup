@@ -122,6 +122,13 @@ class Booking
      */
     private $shop;
 
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @Groups({"read","write"})
+     */
+    private $total;
+
 
     public function __construct()
     {
@@ -193,12 +200,12 @@ class Booking
         return $this;
     }
 
-    public function getPhonenumber(): ?int
+    public function getPhonenumber(): ?string
     {
         return $this->phonenumber;
     }
 
-    public function setPhonenumber(int $phonenumber): self
+    public function setPhonenumber(string $phonenumber): self
     {
         $this->phonenumber = $phonenumber;
 
@@ -256,6 +263,18 @@ class Booking
     public function setShop(?Shop $shop): self
     {
         $this->shop = $shop;
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+
+    public function setTotal(int $total): self
+    {
+        $this->total = $total;
 
         return $this;
     }

@@ -10,7 +10,7 @@ export default {
   async created () {
     try {
       await authApi.getConfirmation(this.$route.params.token);
-      this.$router.push('/');
+      window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`);
       this.$message({
         message: 'Votre compte a été confirmé',
         center: true,

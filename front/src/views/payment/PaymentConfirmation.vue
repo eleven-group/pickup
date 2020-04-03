@@ -119,7 +119,7 @@ export default {
       this.$store.commit('cart/deleteOne', index);
       this.formatProduct();
     },
-    handleSumbit () {
+    async handleSumbit () {
       this.error = false;
       this.form.date = this.value ? this.value[1] : '';
       Object.keys(this.form).forEach((item) => {
@@ -146,7 +146,9 @@ export default {
       }
       if (!this.error) {
         try {
-          bookingApi.postBooking({ ...this.form, status: 'pending', bookingItem: bookingItemsBuilder(this.products) });
+          await bookingApi.postBooking({ ...this.form, status: 'pending', total: this.totalPrice, bookingItem: bookingItemsBuilder(this.products) });
+          this.$store.commit('cart/clearState');
+          this.$router.push('/confirmation-booking');
         } catch (e) {
           this.$message({
             showClose: true,

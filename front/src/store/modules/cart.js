@@ -1,11 +1,13 @@
 import _ from 'lodash';
-
-const state = {
-  cartCounter: 0,
-  cartProducts: [],
-  cartShop: {},
-  cartError: ''
+const getDefaultState = () => {
+  return {
+    cartCounter: 0,
+    cartProducts: [],
+    cartShop: {},
+    cartError: ''
+  };
 };
+const state = getDefaultState();
 
 const getters = {
   getCartCounter: state => state.cartCounter,
@@ -45,6 +47,9 @@ const mutations = {
       return;
     }
     state.cartProducts[productIndex].ordered -= 1;
+  },
+  clearState (state) {
+    Object.assign(state, getDefaultState());
   }
 };
 
