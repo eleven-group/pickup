@@ -1,13 +1,13 @@
-import PaymentConfirmation from '@/views/payment/PaymentConfirmation.vue';
+import Order from '@/views/order/Order.vue';
 import RegisterConfirmation from '@/views/confirmation/Confirmation.vue';
 import TokenConfirmation from '@/views/confirmation/TokenConfirmation.vue';
 import BookingConfirmation from '@/views/confirmation/BookingConfirmation.vue';
 
 const routes = [
   {
-    path: '/confirmation-payment',
-    name: 'confirmation-payment',
-    component: PaymentConfirmation,
+    path: '/order',
+    name: 'order',
+    component: Order,
     meta: {
       auth: true
     }

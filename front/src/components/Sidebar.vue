@@ -33,19 +33,18 @@
               type="primary"
               icon="el-icon-shopping-cart-2"
               plain
-              @click="$router.push('/confirmation-payment')"
+              @click="$router.push('/order')"
             >Voir votre panier</el-button>
           </el-badge>
-          <el-badge is-dot class="item hidden-sm-and-up">
-            <el-button
-              type="primary"
-              icon="el-icon-shopping-cart-2"
-              plain
-              @click="$router.push('/confirmation-payment')"
-            ></el-button>
-          </el-badge>
-          <el-button class="hidden-xs-only" icon="el-icon-user" type="primary">Accès producteurs</el-button>
+          <el-button
+            class="hidden-xs-only"
+            icon="el-icon-user"
+            type="primary"
+            @click="redirect">
+            Accès producteurs
+          </el-button>
           <el-button class="hidden-sm-and-up" icon="el-icon-user" type="primary"></el-button>
+          <a href="/register">Register</a>
         </div>
       </div>
     </el-menu>
@@ -68,6 +67,9 @@ export default {
     window.onresize = () => {
       this.windowWidth = window.innerWidth;
     };
+  },
+  methods: {
+    redirect () { window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`); }
   },
   name: 'Sidebar'
 };
