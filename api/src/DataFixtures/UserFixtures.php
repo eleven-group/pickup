@@ -29,7 +29,7 @@ class UserFixtures extends Fixture
     {
         // Create an admin user
         $user = new User();
-        $user->setUsername($this->faker->username);
+        $user->setUsername('admin');
         $user->setFirstname($this->faker->firstName);
         $user->setLastname($this->faker->lastName);
         $user->setEmail('admin@narah.io');

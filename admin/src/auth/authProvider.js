@@ -17,23 +17,23 @@ const authProvider = {
         })
         return fetch(request)
             .then(response => {
-                console.log(response);
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
                 }
                 return response.json();
             })
             .then(({ token, data }) => {
+                if(!data.active){
+                    throw new Error("User is inactive");
+                }
                 localStorage.setItem('token', token);
                 localStorage.setItem('role', data.role);
-                localStorage.setItem('userId', data.id);
                 localStorage.setItem('store', data.store);
             });
     },
     logout: params => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
-        localStorage.removeItem('userId');
         localStorage.removeItem('store');
         return Promise.resolve();
     },
@@ -45,9 +45,8 @@ const authProvider = {
     },
     getPermissions: params =>  {
         const role = localStorage.getItem('role');
-        const userId = localStorage.getItem('userId');
         const store = localStorage.getItem('store');
-        const permissions = { role, userId, store };
+        const permissions = { role, store };
         return permissions ? Promise.resolve(permissions) : Promise.reject();
     },
 }

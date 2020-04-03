@@ -10,6 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\DateTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
@@ -18,6 +19,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * properties = {
  *      "owner.id": "exact",
  * })
+ * @UniqueEntity(
+ *     fields={"date", "shop"},
+ *     errorPath="date",
+ *     message="This slot is already taken."
+ * )
  */
 class Booking
 {

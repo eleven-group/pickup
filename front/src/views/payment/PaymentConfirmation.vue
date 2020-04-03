@@ -48,14 +48,12 @@
           <p>Le total de votre commande (à payer chez votre commerçant) est donc fixé à :</p>
           <span>999, 99€</span>
           <div class="el-card--buttons">
-            <el-select v-model="value" placeholder="Choisissez un horaire">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
+            <el-cascader
+              v-model="value"
+              :options="slots"
+              :props="{ expandTrigger: 'hover' }"
+              @change="handleChange">
+              </el-cascader>
             <el-button type="primary">Effectuer la réservation</el-button>
           </div>
         </el-card>
@@ -65,6 +63,8 @@
 </template>
 
 <script>
+import shopApi from '@/api/shops';
+
 export default {
   data () {
     return {
@@ -94,28 +94,7 @@ export default {
           address: 'No. 189, Grove St, Los Angeles'
         }
       ],
-      options: [
-        {
-          value: 'Option1',
-          label: 'Option1'
-        },
-        {
-          value: 'Option2',
-          label: 'Option2'
-        },
-        {
-          value: 'Option3',
-          label: 'Option3'
-        },
-        {
-          value: 'Option4',
-          label: 'Option4'
-        },
-        {
-          value: 'Option5',
-          label: 'Option5'
-        }
-      ],
+      slots: [],
       value: ''
     };
   },
@@ -125,6 +104,19 @@ export default {
     },
     handleDelete (index, row) {
       console.log(index, row);
+    }
+  },
+  async created () {
+    try {
+      const res = await shopApi.getSlots(1, 1);
+      this.slots = res.data.slots;
+    } catch (error) {
+      this.$message({
+        showClose: true,
+        message: 'Oops, something went wrong. Try again later or report a bug',
+        type: 'error'
+      });
+      this.loading = false;
     }
   }
 };
