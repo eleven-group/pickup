@@ -115,6 +115,12 @@ th {
   }
 }
 
+div.sidebar--content > div.sidebar--bottom button > span {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
 @font-face {
   font-family: "Graphik";
   src: local("../fonts/Graphik Thin Italic"),

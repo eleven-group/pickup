@@ -18,7 +18,7 @@
             <i class="el-icon-shopping-bag-1"></i>
             <span slot="title">Magasins</span>
           </el-menu-item>
-          <el-menu-item route="/about" index="1">
+          <el-menu-item route="/about" index="3">
             <i class="el-icon-news"></i>
             <span slot="title">À propos</span>
           </el-menu-item>
@@ -26,9 +26,13 @@
             <i class="el-icon-chat-line-round"></i>
             <span slot="title">Contactez-nous !</span>
           </el-menu-item>
+          <el-menu-item route="/register" index="5">
+            <i class="el-icon-user"></i>
+            <span slot="title">Inscription</span>
+          </el-menu-item>
         </div>
         <div class="sidebar--bottom">
-          <el-badge :value="productCounter" class="item hidden-xs-only">
+          <el-badge :value="productCounter">
             <el-button
               type="primary"
               icon="el-icon-shopping-cart-2"
@@ -36,15 +40,7 @@
               @click="$router.push('/order')"
             >Voir votre panier</el-button>
           </el-badge>
-          <el-button
-            class="hidden-xs-only"
-            icon="el-icon-user"
-            type="primary"
-            @click="redirect">
-            Accès producteurs
-          </el-button>
-          <el-button class="hidden-sm-and-up" icon="el-icon-user" type="primary"></el-button>
-          <a class="register-button" href="/register">Register</a>
+          <el-button icon="el-icon-lock" type="primary" @click="redirect">Accès producteurs</el-button>
         </div>
       </div>
     </el-menu>
@@ -69,7 +65,9 @@ export default {
     };
   },
   methods: {
-    redirect () { window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`); }
+    redirect () {
+      window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`);
+    }
   },
   name: 'Sidebar'
 };
@@ -79,7 +77,7 @@ export default {
 $--aside-width: 250px;
 
 .register-button {
-  margin-top:15px;
+  margin-top: 15px;
 }
 
 .aside {

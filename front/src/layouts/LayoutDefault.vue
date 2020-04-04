@@ -3,7 +3,9 @@
     <Sidebar />
     <el-container class="main">
       <el-main>
-        <router-view />
+        <transition name="fade" mode="out-in">
+          <router-view />
+        </transition>
       </el-main>
     </el-container>
   </el-container>
@@ -32,6 +34,18 @@ $--aside-width-collapsed: 65px;
     padding: 24px;
     margin-left: $--aside-width-collapsed;
   }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.2s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
 '
