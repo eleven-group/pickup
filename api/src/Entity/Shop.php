@@ -124,6 +124,8 @@ class Shop
     /**
      * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
+     *
+     * @MaxDepth(1)
      */
     private $products;
 

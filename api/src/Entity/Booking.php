@@ -121,16 +121,21 @@ class Booking
     private $email;
 
     /**
+     * @Groups({"read","write"})
+     *
      * @ORM\OneToMany(targetEntity="BookingItem", mappedBy="booking")
+     *
+     * @MaxDepth(3)
      */
     private $bookingItems;
 
     /**
      * @Groups({"read","write"})
+     *
      * @ORM\ManyToOne(targetEntity="Shop",)
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
      *
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      */
     private $shop;
 

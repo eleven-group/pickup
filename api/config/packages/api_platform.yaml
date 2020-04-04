@@ -12,6 +12,8 @@ api_platform:
         json:
             mime_types: ['application/json']
     enable_swagger_ui: true
+    eager_loading:
+        force_eager: false
     swagger:
         api_keys:
             apiKey:

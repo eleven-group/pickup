@@ -93,7 +93,8 @@ export default {
     };
   },
   computed: mapState({
-    products: state => state.cart.cartProducts
+    products: state => state.cart.cartProducts,
+    shop: state => state.cart.cartShop
   }),
   methods: {
     openModalConfirmation () {
@@ -165,6 +166,7 @@ export default {
             ...this.form,
             status: 'pending',
             total: this.totalPrice,
+            shop: `api/shops/${this.shop.id}`,
             bookingItem: bookingItemsBuilder(this.products)
           });
           this.$store.commit('cart/clearState');
