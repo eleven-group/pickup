@@ -5,7 +5,7 @@ export default products => {
     const bookingItem = {
       quantity: ordered,
       price: price,
-      product: id
+      product: `/api/products/${id}`
     };
     bookingItems.push(bookingItem);
   });

@@ -123,7 +123,7 @@ class Booking
     /**
      * @Groups({"read","write"})
      *
-     * @ORM\OneToMany(targetEntity="BookingItem", mappedBy="booking")
+     * @ORM\OneToMany(targetEntity="BookingItem", mappedBy="booking", cascade={"persist"})
      *
      * @MaxDepth(3)
      */

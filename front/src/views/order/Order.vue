@@ -167,7 +167,7 @@ export default {
             status: 'pending',
             total: this.totalPrice,
             shop: `api/shops/${this.shop.id}`,
-            bookingItem: bookingItemsBuilder(this.products)
+            bookingItems: bookingItemsBuilder(this.products)
           });
           this.$store.commit('cart/clearState');
           this.$router.push('/confirmation-booking');

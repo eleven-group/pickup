@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\EventListener;
 
@@ -24,17 +24,14 @@ class ResourceUpdateEventListener
             return;
         }
 
-        if ('cli' != php_sapi_name())
-        {
             $templateId = $entity->getStatus() === 'accepted' ? 3 : 4;
-            $params = $entity->getStatus() === 'accepted' ? 
+            $params = $entity->getStatus() === 'accepted' ?
             array(
                 'shipping_date' => $entity->getDate(),
                 'price' => $entity->getTotal(),
             ) : array();
-            
+
             $this->mailer->sendMail($entity->getEmail(), $templateId, $params);
-        }
 
     }
 }
