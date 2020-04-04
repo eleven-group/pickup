@@ -56,5 +56,23 @@ install-front:
 install-admin:
 	docker exec pickup-admin yarn install
 
+cleanup: down
+	make cleanup-front
+	make cleanup-admin
+	make restart
+	make cleanup-php
+
+cleanup-front:
+	sudo rm -Rf front/node_modules && \
+	cd front && \
+	yarn
+
+cleanup-admin:
+	sudo rm -Rf admin/node_modules && \
+	cd admin && \
+	yarn
+
+cleanup-php: install-php
+
 .PHONY: up down run sh-php sh-front sh-admin first-init copy-env install install-php php-dev install-admin install-front
 
