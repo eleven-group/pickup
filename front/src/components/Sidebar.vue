@@ -18,18 +18,22 @@
             <i class="el-icon-shopping-bag-1"></i>
             <span slot="title">Magasins</span>
           </el-menu-item>
-          <el-menu-item route="/about" index="3">
-            <i class="el-icon-news"></i>
-            <span slot="title">À propos</span>
-          </el-menu-item>
-          <el-menu-item route="/contact" index="4">
-            <i class="el-icon-chat-line-round"></i>
-            <span slot="title">Contactez-nous !</span>
-          </el-menu-item>
-          <el-menu-item route="/register" index="5">
+          <el-menu-item route="/register" index="3">
             <i class="el-icon-user"></i>
             <span slot="title">Inscription</span>
           </el-menu-item>
+          <el-submenu index="4">
+            <template slot="title">
+              <i class="el-icon-edit-outline"></i>
+              <span slot="title">À propos</span>
+            </template>
+            <el-menu-item route="/about" index="6-1">
+              <span slot="title">Qui-sommes-nous ?</span>
+            </el-menu-item>
+            <el-menu-item route="/cgu" index="6-2">
+              <span slot="title">C.G.U</span>
+            </el-menu-item>
+          </el-submenu>
         </div>
         <div class="sidebar--bottom">
           <el-badge :value="productCounter">
@@ -96,7 +100,8 @@ $--aside-width: 250px;
     justify-content: flex-start;
   }
 
-  .el-menu-item {
+  .el-menu-item,
+  .title {
     display: flex;
     align-items: center;
     padding: 28px;
@@ -110,7 +115,27 @@ $--aside-width: 250px;
       color: #0062ff !important;
     }
 
-    > i {
+    i {
+      padding-right: 20px;
+    }
+  }
+
+  .el-submenu {
+    &__title span {
+      font-weight: 500;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .el-menu-item {
+      font-weight: 400;
+      > span {
+        padding-left: 28px;
+      }
+    }
+
+    i {
       padding-right: 20px;
     }
   }
