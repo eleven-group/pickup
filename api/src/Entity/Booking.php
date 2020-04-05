@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
@@ -49,7 +50,7 @@ class Booking
 
     use DateTrait;
 
-    const STATUS = ['accepted', 'pending', 'canceled', 'done'];
+    const STATUS = ['accepted', 'pending', 'canceled', 'canceled_by_user', 'done'];
 
     /**
      * @ORM\Id()
@@ -145,6 +146,12 @@ class Booking
      * @Groups({"read","write"})
      */
     private $total;
+
+    /**
+     * @Groups({"read", "write"})
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $token;
 
 
     public function __construct()
@@ -292,6 +299,38 @@ class Booking
     public function setTotal(int $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getTotalFormatted(): ?string
+    {
+        return ($this->total/100).'€';
+    }
+
+    public function getDateFormatted()
+    {
+        return $this->date->format('l d F Y, H:i');
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function generateToken(): self
+    {
+        $this->token = Uuid::uuid4();
 
         return $this;
     }

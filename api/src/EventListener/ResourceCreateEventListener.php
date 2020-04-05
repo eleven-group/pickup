@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\EventListener;
 
@@ -11,10 +11,12 @@ class ResourceCreateEventListener
 {
 
     private $mailer;
+    private $baseUrl;
 
-    public function __construct(Mailer $mailer)
+    public function __construct(string $baseUrl, Mailer $mailer)
     {
         $this->mailer = $mailer;
+        $this->baseUrl = $baseUrl;
     }
 
     public function postPersist(LifecycleEventArgs $args)
@@ -23,23 +25,47 @@ class ResourceCreateEventListener
         if (!$entity instanceof User && !$entity instanceof Booking) {
             return;
         }
-        
+
         if ('cli' != php_sapi_name())
         {
-            $templateId = $entity instanceof User ? 5 : 2;
-            $params = $entity instanceof User ? 
-            array(
-                'token' => $entity->getToken(),
-                'firstname' => $entity->getFirstname(),
-                'lastname' => $entity->getLastname(),
-            ) : 
-            array(
-                'shipping_date' => $entity->getDate(),
-                'price' => $entity->getTotal(),
-            );
-            
-            $this->mailer->sendMail($entity->getEmail(), $templateId, $params);
+
+            if($entity instanceof User){
+                $this->createUserEmail($entity);
+                return;
+            }
+
+            $this->createBookingEmail($entity);
+            return;
         }
 
+    }
+
+    private function createUserEmail($user) {
+
+        $templateId = 'prod_register_confirmation';
+
+        $params = [
+            'lastname' => $user->getLastname(),
+            'firstname' => $user->getFirstname(),
+            'adminUrl' => 'https://admin.'.$this->baseUrl,
+        ];
+
+        $this->mailer->sendMail($user->getEmail(), $templateId, $params);
+    }
+
+    private function createBookingEmail($booking) {
+
+        $templateId = 'user_order_validation';
+
+        $params = [
+            'shippingDate' => $booking->getDateFormatted(),
+            'price' => $booking->getTotalFormatted(),
+            'shopName' => $booking->getShop()->getName(),
+            'shopAddress' => $booking->getShop()->getAddress(),
+            'commandValidationLink' => 'https://'.$this->baseUrl.'/confirmation-new-booking?token='.$booking->getToken(),
+            'orderId' => $booking->getId(),
+        ];
+
+        $this->mailer->sendMail($booking->getEmail(), $templateId, $params);
     }
 }

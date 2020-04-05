@@ -339,5 +339,11 @@ class Shop
     }
 
 
+    public function getAddress(): ?string
+    {
+        return $this->streetAdress.', '.$this->postalCode.' '.$this->city;
+    }
+
+
 
 }

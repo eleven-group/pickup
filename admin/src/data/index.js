@@ -3,6 +3,7 @@ export const statusBooking = [
 { id: "accepted", name:"En cours" },
 { id: "done", name:"Terminée" },
 { id: "canceled", name:"Annulée" },
+{ id: 'canceled_by_user', name:"Annulée par le client"},
 ];
 
 export const typeShop = [

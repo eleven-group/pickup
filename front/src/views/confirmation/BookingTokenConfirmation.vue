@@ -6,13 +6,13 @@
 <script>
 import authApi from '@/api/auth';
 export default {
-  name: 'TokenConfirmation',
+  name: 'BookingTokenConfirmation',
   async created () {
     try {
-      await authApi.getConfirmation(this.$route.params.token);
-      window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`);
+      await authApi.getConfirmationBooking(this.$route.params.token);
+      this.$router.push('home');
       this.$message({
-        message: 'Votre compte a été confirmé',
+        message: 'Votre commande a été confirmée, vous allez recevoir un email recapitulatif.',
         center: true,
         type: 'success'
       });

@@ -6,13 +6,13 @@
 <script>
 import authApi from '@/api/auth';
 export default {
-  name: 'TokenConfirmation',
+  name: 'BookingTokenCancelation',
   async created () {
     try {
-      await authApi.getConfirmation(this.$route.params.token);
+      await authApi.getCanceledBooking(this.$route.params.token);
       window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`);
       this.$message({
-        message: 'Votre compte a été confirmé',
+        message: 'Votre commande a bien été annulée, vous allez recevoir un email recapitulatif.',
         center: true,
         type: 'success'
       });
