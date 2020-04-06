@@ -2,8 +2,8 @@
   <div>
     <el-row>
       <h1 class="header">
-        Bravo, votre commande est validée !
-        <br />Vous pouvez dès maintenant consulter le mail que nous vous avons transmis avec un récapitulatif
+        Bravo, votre commande est enregistrée !
+        <br />Pour la valider vous devez cliquer sur le lien qui se trouve dans l'email que nous venons de vous envoyer.
       </h1>
       <el-button type="primary" @click="$router.push('/')" plain>Retour sur la page d'accueil</el-button>
     </el-row>

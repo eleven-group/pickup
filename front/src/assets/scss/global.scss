@@ -115,6 +115,26 @@ th {
   }
 }
 
+div.sidebar--content > div.sidebar--bottom button > span {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+.el-message-box {
+  padding: 16px;
+  border-radius: 10px;
+  &__btns {
+    padding: 16px;
+  }
+}
+
+.el-submenu__icon-arrow {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
 @font-face {
   font-family: "Graphik";
   src: local("../fonts/Graphik Thin Italic"),

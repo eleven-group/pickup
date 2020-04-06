@@ -14,6 +14,7 @@ import contactRoutes from '@/routes/contact';
 import confirmationRoutes from '@/routes/confirmation';
 import aboutRoutes from '@/routes/about';
 import registerRoutes from '@/routes/register';
+import cguRoutes from '@/routes/cgu';
 import shopsRoutes from '@/routes/shops';
 
 Vue.use(Router);
@@ -38,7 +39,8 @@ export const router = new Router({
         ...shopsRoutes,
         ...confirmationRoutes,
         ...aboutRoutes,
-        ...registerRoutes
+        ...registerRoutes,
+        ...cguRoutes
       ]
     },
     {

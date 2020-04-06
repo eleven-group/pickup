@@ -57,10 +57,14 @@ services:
             - {name: 'doctrine.event_listener', event: 'prePersist'}
 
     App\EventListener\ResourceCreateEventListener:
+        arguments:
+            $baseUrl: '%env(FRONT_URL)%'
         tags:
             - {name: 'doctrine.event_listener', event: 'postPersist', priority: 500, connection: 'default'}
 
     App\EventListener\ResourceUpdateEventListener:
+        arguments:
+            $baseUrl: '%env(FRONT_URL)%'
         tags:
             - {name: 'doctrine.event_listener', event: 'postUpdate', priority: 500, connection: 'default'}
 

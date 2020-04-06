@@ -1,6 +1,5 @@
 App\Entity\BookingItem:
   attributes:
-    pagination_items_per_page: 10
     normalization_context:
       groups: ['read']
     denormalization_context:
@@ -13,7 +12,7 @@ App\Entity\BookingItem:
     put: ~
     delete: ~
   properties:
-    products:
+    product:
       subresource:
         resourceClass: 'App\Entity\Product'
         collection: false

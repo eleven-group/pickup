@@ -60,18 +60,18 @@ class BookingItem
      *
      * @Groups({"read","write"})
      *
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      */
     private $booking;
 
     /**
      * @ORM\ManyToOne(targetEntity="Product")
      *
-     *  @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      *
      * @Groups({"read","write"})
      *
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      */
     private $product;
 

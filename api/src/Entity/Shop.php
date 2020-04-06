@@ -124,6 +124,8 @@ class Shop
     /**
      * @Groups({"read", "write"})
      * @ORM\OneToMany(targetEntity="Product", mappedBy="shop")
+     *
+     * @MaxDepth(1)
      */
     private $products;
 
@@ -334,6 +336,12 @@ class Shop
         }
 
         return $this;
+    }
+
+
+    public function getAddress(): ?string
+    {
+        return $this->streetAdress.', '.$this->postalCode.' '.$this->city;
     }
 
 
