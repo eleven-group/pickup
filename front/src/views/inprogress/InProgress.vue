@@ -496,7 +496,7 @@
 </template>
 <script>
 export default {
-  name: 'About'
+  name: 'InProgress'
 };
 </script>
 

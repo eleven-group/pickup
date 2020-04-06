@@ -1,6 +1,11 @@
 <template>
   <div>
-    <el-row>
+    <div v-if="products.length == 0">
+      <NoData
+        v-bind:title="'Il n\'y a malheureusement aucun produit chez' + companyName + ' actuellement.'"
+      />
+    </div>
+    <el-row v-else>
       <h1>Tous les produits de {{companyName}} :</h1>
     </el-row>
     <el-row :gutter="24">
@@ -23,11 +28,13 @@
 <script>
 import { mapState } from 'vuex';
 import ProductCard from './ProductCard';
+import NoData from '@/components/NoData/NoData';
 
 export default {
   name: 'Products',
   components: {
-    ProductCard
+    ProductCard,
+    NoData
   },
   computed: mapState({
     products: function (state) {

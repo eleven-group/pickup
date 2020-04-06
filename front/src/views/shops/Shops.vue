@@ -1,38 +1,45 @@
 <template>
   <div>
-    <el-row>
-      <h1>Tous les magasins autour de vous :</h1>
-    </el-row>
-    <el-row :gutter="24" justify="center">
-      <el-col
-        v-for="(shop, index) in shops"
-        v-bind:key="shop.id"
-        :span="6"
-        :xs="24"
-        :sm="12"
-        :md="12"
-        :lg="8"
-        :xl="6"
-      >
-        <ShopCard
-          :name="shop.name"
-          :description="shop.description"
-          :imageUrl="shop.imageUrl"
-          :index="index"
-        />
-      </el-col>
-    </el-row>
+    <div v-if="shops.length !== 0">
+      <NoData title="Il n'y a aucun magasin en ligne pour le moment." />
+    </div>
+    <div v-else>
+      <el-row>
+        <h1>Tous les magasins autour de vous :</h1>
+      </el-row>
+      <el-row :gutter="24" justify="center">
+        <el-col
+          v-for="(shop, index) in shops"
+          v-bind:key="shop.id"
+          :span="6"
+          :xs="24"
+          :sm="12"
+          :md="12"
+          :lg="8"
+          :xl="6"
+        >
+          <ShopCard
+            :name="shop.name"
+            :description="shop.description"
+            :imageUrl="shop.imageUrl"
+            :index="index"
+          />
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 import ShopCard from './ShopCard';
+import NoData from '@/components/NoData/NoData';
 
 export default {
   name: 'Shops',
   components: {
-    ShopCard
+    ShopCard,
+    NoData
   },
   computed: mapState({
     shops: state => state.shops.shops
