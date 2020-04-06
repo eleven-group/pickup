@@ -23,7 +23,7 @@
           >
             <el-button
               v-if="!getLocationActive"
-              v-on:click="getLocation"
+              @click="getLocation"
               plain
             >Trouver ma localisation automatiquement</el-button>
           </el-col>
@@ -39,16 +39,12 @@
         @update:zoom="zoomUpdate"
       >
         <l-tile-layer :url="url" />
-        <l-control class="example-custom-control">
-          <el-input placeholder="Cherchez votre adresse" v-model="input">
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-        </l-control>
+        <l-geo-search :options="geoSearchOptions" />
         <l-marker
           v-for="(item, index) in markers"
           :key="'marker-' + index"
           :latLng="item.location"
-          :icon="getIcon()"
+          :icon="icon"
         >
           <Popup :item="item" :shops="shops" />
         </l-marker>
@@ -59,9 +55,11 @@
 
 <script>
 import L, { latLng } from 'leaflet';
-import { LMap, LTileLayer, LMarker, LControl } from 'vue2-leaflet';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import LGeoSearch from 'vue2-leaflet-geosearch';
 import { mapState, mapActions } from 'vuex';
-import { categoriesName } from '../../constants';
+import { categoriesName } from '@/constants';
 
 import Popup from '@/components/PopUp/';
 
@@ -71,16 +69,13 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LControl,
-    Popup
+    Popup,
+    LGeoSearch
   },
   data () {
     return {
-      input: '',
-      map: null,
       center: latLng(this.latitude, this.longitude),
       currentCenter: latLng(this.latitude, this.longitude),
-      tileLayer: null,
       categoriesShops: [
         'Baker',
         'Butcher',
@@ -91,6 +86,20 @@ export default {
         'Other'
       ],
       categories: [],
+      geoSearchOptions: {
+        provider: new OpenStreetMapProvider(),
+        style: 'bar',
+        marker: {
+          icon: new L.Icon({
+            iconUrl: require('@/assets/images/findMeMarker.svg')
+          })
+        },
+        autoComplete: false,
+        searchLabel: 'Chercher votre adresse'
+      },
+      icon: L.icon({
+        iconUrl: require('@/assets/images/shopsMarker.svg')
+      }),
       url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       zoom: 16,
       currentZoom: 11.5,
@@ -106,17 +115,6 @@ export default {
   }),
   methods: {
     ...mapActions('shops', ['fetchShops']),
-    getIcon () {
-      return L.divIcon({
-        className: 'marker',
-        html: `<svg width="52" height="42" viewBox="0 0 52 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="21" cy="21" r="7.875" fill="#0062FF"/>
-                <circle cx="21" cy="21" r="7.875" fill="#0062FF"/>
-                <circle cx="21" cy="21" r="21" fill="#0062FF" fill-opacity="0.18"/>
-                </svg>
-              `
-      });
-    },
     getLocation () {
       if (navigator.geolocation) {
         const success = ({ coords }) => {
@@ -167,12 +165,6 @@ export default {
         });
       });
     },
-    zoomUpdate (zoom) {
-      this.currentZoom = zoom;
-    },
-    centerUpdate (center) {
-      this.currentCenter = center;
-    },
     categoryChanged (categoryId, active) {
       const category = this.categories.find(
         category => category.id === categoryId
@@ -201,6 +193,12 @@ export default {
           );
         }
       });
+    },
+    zoomUpdate (zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate (center) {
+      this.currentCenter = center;
     }
   },
   mounted () {
