@@ -12,6 +12,20 @@ App\Entity\Booking:
     get: ~
     put: ~
     delete: ~
+    confirm_order:
+        method: GET
+        path: /order-confirmation
+        controller: App\Controller\ConfirmBooking
+        formats:
+          json: ['application/json']
+        read: false
+    cancel_order:
+        method: GET
+        path: /order-cancelation
+        controller: App\Controller\CancelBooking
+        formats:
+          json: ['application/json']
+        read: false
   properties:
     booking-item:
       subresource:

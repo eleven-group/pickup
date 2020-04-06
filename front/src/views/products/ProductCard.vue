@@ -50,6 +50,11 @@ export default {
           message: this.errorMsg,
           type: 'error'
         });
+      } else {
+        this.$message({
+          message: 'Le produit a bien été ajouté au panier.',
+          type: 'success'
+        });
       }
     }
   }

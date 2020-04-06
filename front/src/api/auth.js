@@ -9,5 +9,11 @@ export default {
   },
   getConfirmation (token) {
     return axios.get(`/token-validation?token=${token}`);
+  },
+  getConfirmationBooking (token) {
+    return axios.get(`/order-confirmation?token=${token}`);
+  },
+  getCanceledBooking (token) {
+    return axios.get(`/order-cancelation?token=${token}`);
   }
 };
