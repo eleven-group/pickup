@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="products.length == 0">
+    <div v-if="products.length === 0">
       <NoData
-        v-bind:title="'Il n\'y a malheureusement aucun produit chez' + companyName + ' actuellement.'"
+        v-bind:title="'Il n\'y a malheureusement aucun produit chez ' + companyName + ' actuellement.'"
       />
     </div>
     <el-row v-else>

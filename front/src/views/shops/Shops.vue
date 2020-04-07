@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="shops.length !== 0">
+    <div v-if="shops.length === 0">
       <NoData title="Il n'y a aucun magasin en ligne pour le moment." />
     </div>
     <div v-else>
