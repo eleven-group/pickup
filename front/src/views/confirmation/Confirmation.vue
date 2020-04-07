@@ -2,11 +2,10 @@
   <div>
     <el-row>
       <h1 class="header">
-        Bravo, vous avez validé votre e-mail !
-        <br />Vous pouvez dès maintenant parcourir notre application en toute liberté,
-        mais vous pouvez également accéder à votre "espace producteurs".
+        Bravo, plus qu'une dernière étape !
+        <br />Vous allez recevoir un email permettant de valider votre compte ainsi qu'un identifiant qui vous permettra de vous connecter a votre espace d'admin !
       </h1>
-      <el-button type="primary" @click="redirect" plain>Connectez-vous dès maintenant</el-button>
+      <el-button type="primary" @click="redirect" plain>Retour à l'acceuil</el-button>
     </el-row>
   </div>
 </template>
@@ -33,7 +32,7 @@ div {
 export default {
   name: 'ConfirmationRegister',
   methods: {
-    redirect () { window.location.replace(`${process.env.VUE_APP_ADMIN_URL}/login`); }
+    redirect () { window.location.replace('/'); }
   }
 };
 </script>
