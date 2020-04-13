@@ -341,6 +341,35 @@ export default {
           slotRange: ''
         }
       },
+      hoursFormatted: {
+        monday: {
+          morning: '',
+          afternoon: ''
+        },
+        tuesday: {
+          morning: '',
+          afternoon: ''
+        },
+        wednesday: {
+          morning: '',
+          afternoon: ''
+        },
+        thursday: {
+          morning: '',
+          afternoon: ''
+        },
+        friday: {
+          morning: '',
+          afternoon: ''
+        },
+        saturday: {
+          morning: '',
+          afternoon: ''
+        },
+        sunday: {
+          morning: '',
+          afternoon: ''
+        } },
       loading: false,
       error: false,
       isWeekEmpty: true,
@@ -399,25 +428,21 @@ export default {
           Object.keys(shop[item]).forEach(day => {
             if (checkHours(shop, item, day)) {
               if (checkPartDay(shop, item, day, 'morning')) {
-                shop[item][day].morning[0] = `${shop[item][day].morning.opening}`;
-                shop[item][day].morning[1] = `${shop[item][day].morning.closing}`;
-                shop[item][day].morning = `${shop[item][day].morning[0]}-${shop[item][day].morning[1]}`;
+                this.hoursFormatted[day].morning = `${shop[item][day].morning.opening}-${shop[item][day].morning.closing}`;
               }
               if (checkPartDay(shop, item, day, 'afternoon')) {
-                shop[item][day].afternoon[0] = `${shop[item][day].afternoon.opening}`;
-                shop[item][day].afternoon[1] = `${shop[item][day].afternoon.closing}`;
-                shop[item][day].afternoon = `${shop[item][day].afternoon[0]}-${this.form.shop[item][day].afternoon[1]}`;
+                this.hoursFormatted[day].afternoon = `${shop[item][day].afternoon.opening}-${shop[item][day].afternoon.closing}`;
               }
-              const morning = shop[item][day].morning
-                ? shop[item][day].morning
+              const morning = this.hoursFormatted[day].morning
+                ? this.hoursFormatted[day].morning
                 : '';
-              const afternoon = shop[item][day].afternoon
-                ? shop[item][day].afternoon
+              const afternoon = this.hoursFormatted[day].afternoon
+                ? this.hoursFormatted[day].afternoon
                 : '';
-              shop[item][day] = [morning, afternoon];
+              this.hoursFormatted[day] = [morning, afternoon];
               this.isWeekEmpty = false;
-            } else if (!this.isWeekEmpty) {
-              shop[item][day] = ['', ''];
+            } else {
+              this.hoursFormatted[day] = ['', ''];
             }
           });
         }
@@ -461,8 +486,16 @@ export default {
       }
       try {
         shop.slotRange = getSlotToMin(shop.slotRange);
+        const { slotRange, name, description, streetAdress, postalCode, city, category } = shop;
         await userApi.registerUser(user, {
-          ...shop,
+          slotRange,
+          name,
+          description,
+          streetAdress,
+          postalCode,
+          city,
+          category,
+          openingHours: this.hoursFormatted,
           longitude: this.longitude.toString(),
           latitude: this.latitude.toString()
         });
