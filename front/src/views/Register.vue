@@ -362,7 +362,7 @@ export default {
         if (!user[item] && !this.error) {
           this.$message({
             showClose: true,
-            message: `Please enter your ${item}.`,
+            message: `Nous avons besoin de votre ${item}.`,
             type: 'error'
           });
           this.error = true;
@@ -378,14 +378,24 @@ export default {
         this.$message({
           showClose: true,
           message:
-            "Oops, seems that your company adress can't be found, let's check your informations !",
+            "Oups, on dirait que nous n'avons pas pu trouver l'adresse de votre compagnie, veuillez vérifier vos informations",
           type: 'error'
         });
         this.loading = false;
         return;
       }
       Object.keys(shop).forEach(item => {
-        if (item === 'openingHours') {
+        if (!shop[item] && !this.error) {
+          this.$message({
+            showClose: true,
+            message: `Please enter your ${item}.`,
+            type: 'error'
+          });
+          this.error = true;
+          this.$refs[`${item}`].focus();
+          this.loading = false;
+        }
+        if (item === 'openingHours' && !this.error) {
           Object.keys(shop[item]).forEach(day => {
             if (checkHours(shop, item, day)) {
               if (checkPartDay(shop, item, day, 'morning')) {
@@ -406,41 +416,31 @@ export default {
                 : '';
               shop[item][day] = [morning, afternoon];
               this.isWeekEmpty = false;
-            } else {
+            } else if (!this.isWeekEmpty) {
               shop[item][day] = ['', ''];
             }
           });
-          return;
-        }
-        if (!shop[item] && !this.error) {
-          this.$message({
-            showClose: true,
-            message: `Please enter your ${item}.`,
-            type: 'error'
-          });
-          this.error = true;
-          this.$refs[`${item}`].focus();
-          this.loading = false;
         }
       });
-      if (this.error) {
-        this.error = false;
-        return;
-      }
-      if (this.isWeekEmpty) {
+      if (this.isWeekEmpty && !this.error) {
         this.$message({
           showClose: true,
-          message: `You need at least one day open`,
+          message: `Vous devez avoir au moins un jour ouvré ouvert`,
           type: 'error'
         });
         this.loading = false;
+        this.error = true;
 
+        return;
+      }
+      if (this.error) {
+        this.error = false;
         return;
       }
       if (password !== passwordConfirmation) {
         this.$message({
           showClose: true,
-          message: `Confirmation of your password should be identical to your password`,
+          message: `La confirmation de votre mot de passe doit être identique`,
           type: 'error'
         });
 
@@ -451,7 +451,7 @@ export default {
       if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(user.email)) {
         this.$message({
           showClose: true,
-          message: `Your email has a wrong format (e.g. john@smith.usa)`,
+          message: `Ton email n'a pas un bon format (e.g. john@smith.usa)`,
           type: 'error'
         });
         this.$refs.email.focus();
@@ -470,7 +470,7 @@ export default {
       } catch (error) {
         this.$message({
           showClose: true,
-          message: 'Oops, something went wrong.',
+          message: "Oups, quelque chose s'est mal passé, contactez nous ou réessayez plus tard.",
           type: 'error'
         });
         this.loading = false;
