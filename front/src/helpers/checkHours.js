@@ -8,7 +8,7 @@ export default (shop, item, day) => {
 
 const checkPartDay = (shop, item, day, part) => {
   if (shop[item][day][part] && (shop[item][day][part].opening &&
-      shop[item][day][part].closing)) {
+    shop[item][day][part].closing)) {
     return true;
   }
   return false;

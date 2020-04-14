@@ -341,6 +341,35 @@ export default {
           slotRange: ''
         }
       },
+      hoursFormatted: {
+        monday: {
+          morning: '',
+          afternoon: ''
+        },
+        tuesday: {
+          morning: '',
+          afternoon: ''
+        },
+        wednesday: {
+          morning: '',
+          afternoon: ''
+        },
+        thursday: {
+          morning: '',
+          afternoon: ''
+        },
+        friday: {
+          morning: '',
+          afternoon: ''
+        },
+        saturday: {
+          morning: '',
+          afternoon: ''
+        },
+        sunday: {
+          morning: '',
+          afternoon: ''
+        } },
       loading: false,
       error: false,
       isWeekEmpty: true,
@@ -362,7 +391,7 @@ export default {
         if (!user[item] && !this.error) {
           this.$message({
             showClose: true,
-            message: `Please enter your ${item}.`,
+            message: `Nous avons besoin de votre ${item}.`,
             type: 'error'
           });
           this.error = true;
@@ -378,40 +407,13 @@ export default {
         this.$message({
           showClose: true,
           message:
-            "Oops, seems that your company adress can't be found, let's check your informations !",
+            "Oups, on dirait que nous n'avons pas pu trouver l'adresse de votre compagnie, veuillez vérifier vos informations",
           type: 'error'
         });
         this.loading = false;
         return;
       }
       Object.keys(shop).forEach(item => {
-        if (item === 'openingHours') {
-          Object.keys(shop[item]).forEach(day => {
-            if (checkHours(shop, item, day)) {
-              if (checkPartDay(shop, item, day, 'morning')) {
-                shop[item][day].morning[0] = `${shop[item][day].morning.opening}`;
-                shop[item][day].morning[1] = `${shop[item][day].morning.closing}`;
-                shop[item][day].morning = `${shop[item][day].morning[0]}-${shop[item][day].morning[1]}`;
-              }
-              if (checkPartDay(shop, item, day, 'afternoon')) {
-                shop[item][day].afternoon[0] = `${shop[item][day].afternoon.opening}`;
-                shop[item][day].afternoon[1] = `${shop[item][day].afternoon.closing}`;
-                shop[item][day].afternoon = `${shop[item][day].afternoon[0]}-${this.form.shop[item][day].afternoon[1]}`;
-              }
-              const morning = shop[item][day].morning
-                ? shop[item][day].morning
-                : '';
-              const afternoon = shop[item][day].afternoon
-                ? shop[item][day].afternoon
-                : '';
-              shop[item][day] = [morning, afternoon];
-              this.isWeekEmpty = false;
-            } else {
-              shop[item][day] = ['', ''];
-            }
-          });
-          return;
-        }
         if (!shop[item] && !this.error) {
           this.$message({
             showClose: true,
@@ -422,25 +424,48 @@ export default {
           this.$refs[`${item}`].focus();
           this.loading = false;
         }
+        if (item === 'openingHours' && !this.error) {
+          Object.keys(shop[item]).forEach(day => {
+            if (checkHours(shop, item, day)) {
+              if (checkPartDay(shop, item, day, 'morning')) {
+                this.hoursFormatted[day].morning = `${shop[item][day].morning.opening}-${shop[item][day].morning.closing}`;
+              }
+              if (checkPartDay(shop, item, day, 'afternoon')) {
+                this.hoursFormatted[day].afternoon = `${shop[item][day].afternoon.opening}-${shop[item][day].afternoon.closing}`;
+              }
+              const morning = this.hoursFormatted[day].morning
+                ? this.hoursFormatted[day].morning
+                : '';
+              const afternoon = this.hoursFormatted[day].afternoon
+                ? this.hoursFormatted[day].afternoon
+                : '';
+              this.hoursFormatted[day] = [morning, afternoon];
+              this.isWeekEmpty = false;
+            } else {
+              this.hoursFormatted[day] = ['', ''];
+            }
+          });
+        }
       });
-      if (this.error) {
-        this.error = false;
-        return;
-      }
-      if (this.isWeekEmpty) {
+      if (this.isWeekEmpty && !this.error) {
         this.$message({
           showClose: true,
-          message: `You need at least one day open`,
+          message: `Vous devez avoir au moins un jour ouvré ouvert`,
           type: 'error'
         });
         this.loading = false;
+        this.error = true;
 
+        return;
+      }
+      if (this.error) {
+        this.error = false;
         return;
       }
       if (password !== passwordConfirmation) {
         this.$message({
           showClose: true,
-          message: `Confirmation of your password should be identical to your password`,
+          message: `La confirmation de votre mot de passe doit être identique`,
           type: 'error'
         });
 
@@ -451,7 +476,7 @@ export default {
       if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(user.email)) {
         this.$message({
           showClose: true,
-          message: `Your email has a wrong format (e.g. john@smith.usa)`,
+          message: `Ton email n'a pas un bon format (e.g. john@smith.usa)`,
           type: 'error'
         });
         this.$refs.email.focus();
@@ -461,8 +486,16 @@ export default {
       }
       try {
         shop.slotRange = getSlotToMin(shop.slotRange);
+        const { slotRange, name, description, streetAdress, postalCode, city, category } = shop;
         await userApi.registerUser(user, {
-          ...shop,
+          slotRange,
+          name,
+          description,
+          streetAdress,
+          postalCode,
+          city,
+          category,
+          openingHours: this.hoursFormatted,
           longitude: this.longitude.toString(),
           latitude: this.latitude.toString()
         });
@@ -470,7 +503,7 @@ export default {
       } catch (error) {
         this.$message({
           showClose: true,
-          message: 'Oops, something went wrong.',
+          message: "Oups, quelque chose s'est mal passé, contactez nous ou réessayez plus tard.",
           type: 'error'
         });
         this.loading = false;
